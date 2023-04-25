@@ -1,0 +1,57 @@
+:host {
+	--button-bg-color: transparent;
+	--button-font-color: inherit;
+	--button-padding: 4px 10px;
+	--button-border-color: silver;
+	--button-border-radius: 4px;
+	--button-focus-outline: thin dotted grey;
+}
+
+:host([type="primary"]) {
+	--button-bg-color: deepskyblue;
+	--button-font-color: white;
+	--button-border-color: deepskyblue;
+	--button-focus-outline: thin dotted deepskyblue;
+}
+
+:host([size="large"]) {
+	--button-padding: 8px 15px;
+}
+
+:host {
+	display: inline-block;
+}
+
+:host([disabled]) {
+	pointer-events: none;
+	opacity: 0.5;
+}
+
+#button {
+	display: inline-flex;
+	box-sizing: border-box;
+	border: thin solid;
+	cursor: pointer;
+	max-width: 100%;
+	border-radius: var(--button-border-radius, 4px);
+	padding: var(--button-padding, 4px 10px);
+	background-color: var(--button-bg-color, transparent);
+	border-color: var(--button-border-color, silver);
+	color: var(--button-font-color, inherit);
+}
+
+#button:focus-visible {
+	outline: var(--button-focus-outline, thin dotted grey);
+	outline-offset: 1px;
+}
+
+.no-icon #icon {
+	display: none;
+}
+
+#text {
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	-webkit-line-clamp: 1;
+	overflow: hidden;
+}
