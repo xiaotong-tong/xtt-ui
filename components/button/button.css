@@ -1,30 +1,33 @@
 :host {
-	--button-bg-color: transparent;
+	--button-default-color: transparent;
+	--button-primary-color: deepskyblue;
+
+	--button-bg-color: var(--button-default-color);
 	--button-font-color: inherit;
 	--button-padding: 4px 10px;
 	--button-border-color: silver;
 	--button-border-radius: 4px;
 	--button-focus-outline: thin dotted grey;
+	--button-font-color-hover: deepskyblue;
+	--button-border-color-hover: deepskyblue;
 }
-
 :host([type="primary"]) {
-	--button-bg-color: deepskyblue;
+	--button-bg-color: var(--button-primary-color);
 	--button-font-color: white;
-	--button-border-color: deepskyblue;
-	--button-focus-outline: thin dotted deepskyblue;
+	--button-border-color: var(--button-primary-color);
+	--button-focus-outline: thin dotted var(--button-primary-color);
+	--button-font-color-hover: white;
 }
-
 :host([size="large"]) {
 	--button-padding: 8px 15px;
+}
+:host([text]) {
+	--button-bg-color-hover: lavender;
+	--button-font-color-hover: inherit;
 }
 
 :host {
 	display: inline-block;
-}
-
-:host([disabled]) {
-	pointer-events: none;
-	opacity: 0.5;
 }
 
 #button {
@@ -39,19 +42,55 @@
 	border-color: var(--button-border-color, silver);
 	color: var(--button-font-color, inherit);
 }
-
 #button:focus-visible {
 	outline: var(--button-focus-outline, thin dotted grey);
 	outline-offset: 1px;
 }
-
-.no-icon #icon {
-	display: none;
+#button:hover {
+	border-color: var(--button-border-color-hover, silver);
+	color: var(--button-font-color-hover, inherit);
 }
-
+:host([type="primary"]) #button:hover {
+	filter: brightness(1.05);
+}
 #text {
 	display: -webkit-box;
 	-webkit-box-orient: vertical;
 	-webkit-line-clamp: 1;
 	overflow: hidden;
+}
+.no-icon #icon,
+.no-text #text {
+	display: none;
+}
+
+:host([disabled]) {
+	pointer-events: none;
+	opacity: 0.5;
+}
+
+:host([text]) #button {
+	border: none;
+	background-color: transparent;
+}
+:host([text][type="primary"]) #button {
+	color: var(--button-primary-color);
+}
+:host([text]) #button:hover {
+	background-color: var(--button-bg-color-hover, lavender);
+}
+
+:host([width="full"]) {
+	display: block;
+	margin-block: 8px;
+}
+:host([width="full"]) #button {
+	display: flex;
+	width: 100%;
+	justify-content: center;
+}
+
+::slotted(svg) {
+	width: 1em;
+	height: 1em;
 }
