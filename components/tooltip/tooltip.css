@@ -1,0 +1,7 @@
+#dialog {
+	border: thin solid grey;
+	margin: 0;
+	padding: 4px 8px;
+	outline: none;
+	max-width: 300px;
+}

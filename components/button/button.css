@@ -26,6 +26,7 @@
 	--button-font-color-hover: inherit;
 }
 
+/* button 默认是 inline-block 元素 */
 :host {
 	display: inline-block;
 }
@@ -64,6 +65,7 @@
 	display: none;
 }
 
+/* disabled 状态 */
 :host([disabled]) {
 	pointer-events: none;
 	opacity: 0.5;
@@ -78,6 +80,7 @@
 }
 :host([text]) #button:hover {
 	background-color: var(--button-bg-color-hover, lavender);
+	filter: brightness(1.05);
 }
 
 :host([width="full"]) {
@@ -90,7 +93,12 @@
 	justify-content: center;
 }
 
+/* icon */
+/* 但是 svg 的宽高不应该在这里设置，这里只是为了更方便的展示 */
 ::slotted(svg) {
 	width: 1em;
 	height: 1em;
+}
+#button:hover ::slotted(svg) {
+	fill: var(--button-font-color-hover, inherit);
 }

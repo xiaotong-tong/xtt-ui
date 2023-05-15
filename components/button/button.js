@@ -1,3 +1,10 @@
+/**
+ * @description button component
+ * @slot icon - icon to display
+ * @slot - text to display
+ * @example <xtt-button>Button</xtt-button>
+ */
+
 import style from "./button.css" assert { type: "css" };
 
 export class xttButtonElement extends HTMLElement {
