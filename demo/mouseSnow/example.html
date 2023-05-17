@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<style>
+			.snow {
+				width: 400px;
+				height: 200px;
+				outline: thin solid black;
+				margin-inline: auto;
+			}
+			.snow:not(:last-child) {
+				margin-bottom: 20px;
+			}
+		</style>
+		<script src="./example.js" type="module"></script>
+	</head>
+	<body>
+		<div class="snow red">请将鼠标移到这里 red</div>
+		<div class="snow green">请将鼠标移到这里 green</div>
+		<div class="snow blue">请将鼠标移到这里 blue</div>
+		<div class="snow char">请将鼠标移到这里 + 号</div>
+	</body>
+</html>

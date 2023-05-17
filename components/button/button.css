@@ -1,6 +1,7 @@
 :host {
 	--button-default-color: transparent;
-	--button-primary-color: deepskyblue;
+	--button-primary-color: hsl(195deg 100% 50%);
+	--button-primary-light-color: hsl(195deg, 100%, 65%);
 
 	--button-bg-color: var(--button-default-color);
 	--button-font-color: inherit;
@@ -8,11 +9,12 @@
 	--button-border-color: silver;
 	--button-border-radius: 4px;
 	--button-focus-outline: thin dotted grey;
-	--button-font-color-hover: deepskyblue;
-	--button-border-color-hover: deepskyblue;
+	--button-font-color-hover: hsl(195deg 100% 50%);
+	--button-border-color-hover: hsl(195deg 100% 50%);
 }
 :host([type="primary"]) {
 	--button-bg-color: var(--button-primary-color);
+	--button-bg-color-hover: var(--button-primary-light-color);
 	--button-font-color: white;
 	--button-border-color: var(--button-primary-color);
 	--button-focus-outline: thin dotted var(--button-primary-color);
@@ -22,7 +24,7 @@
 	--button-padding: 8px 15px;
 }
 :host([text]) {
-	--button-bg-color-hover: lavender;
+	--button-bg-color-hover: hsl(240, 67%, 94%);
 	--button-font-color-hover: inherit;
 }
 
@@ -42,6 +44,7 @@
 	background-color: var(--button-bg-color, transparent);
 	border-color: var(--button-border-color, silver);
 	color: var(--button-font-color, inherit);
+	transition: background-color 0.2s;
 }
 #button:focus-visible {
 	outline: var(--button-focus-outline, thin dotted grey);
@@ -52,7 +55,8 @@
 	color: var(--button-font-color-hover, inherit);
 }
 :host([type="primary"]) #button:hover {
-	filter: brightness(1.05);
+	/* filter: brightness(1.05); */
+	background-color: var(--button-bg-color-hover, transparent);
 }
 #text {
 	display: -webkit-box;

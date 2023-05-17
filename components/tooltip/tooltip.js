@@ -41,7 +41,7 @@ export class xttTooltipElement extends HTMLElement {
 	}
 
 	static get observedAttributes() {
-		return ["direction", "for"];
+		return ["for"];
 	}
 
 	#shadowRoot;
@@ -60,9 +60,7 @@ export class xttTooltipElement extends HTMLElement {
 	}
 
 	attributeChangedCallback(name, oldValue, newValue) {
-		if (name === "direction") {
-			this.#dialog.dataset.direction = newValue;
-		} else if (name === "for") {
+		if (name === "for") {
 			this.initTrigger(document.querySelectorAll(newValue));
 		}
 	}
@@ -78,20 +76,18 @@ export class xttTooltipElement extends HTMLElement {
 	}
 
 	#handleEventOfTrigger(el) {
-		const tooltipDirection = el.dataset.xttTooltipDirection;
-
 		const showEvent = (ev) => {
-			this.show(ev.currentTarget ?? ev.target, tooltipDirection);
+			this.show(ev.currentTarget ?? ev.target);
 		};
-		const closeEvent = () => {
-			this.close();
+		const hideEvent = () => {
+			this.hide();
 		};
 
 		el.addEventListener("mouseenter", (ev) => {
 			showEvent(ev);
 		});
 		el.addEventListener("mouseleave", (ev) => {
-			closeEvent();
+			hideEvent();
 		});
 		el.addEventListener("focus", (ev) => {
 			showEvent(ev);
@@ -99,7 +95,7 @@ export class xttTooltipElement extends HTMLElement {
 			el.addEventListener(
 				"blur",
 				(ev) => {
-					closeEvent();
+					hideEvent();
 				},
 				{
 					once: true
@@ -121,7 +117,7 @@ export class xttTooltipElement extends HTMLElement {
 	}
 
 	#showTimer;
-	show(toElement, direction) {
+	show(toElement) {
 		// 向外部暴露 xtt-tooltip-show 事件，如果使用者监听事件并调用了 event.preventDefault()，那么直接返回，阻止之后的 show 方法运行。
 		const isCancel = toElement.dispatchEvent(
 			new CustomEvent("xtt-tooltip-show", {
@@ -147,10 +143,10 @@ export class xttTooltipElement extends HTMLElement {
 
 		this.#showTimer = setTimeout(() => {
 			this.#dialog.style.clipPath = "";
-			this.#changePosition(toElement, direction);
+			this.#changePosition(toElement);
 		}, this.delay ?? 0);
 	}
-	close() {
+	hide() {
 		if (this.#showTimer) {
 			clearTimeout(this.#showTimer);
 			this.#showTimer = null;
@@ -161,23 +157,26 @@ export class xttTooltipElement extends HTMLElement {
 		this.#dialog?.close();
 	}
 
-	#changePosition(toElement, direction) {
+	#changePosition(toElement) {
 		const rect = toElement.getBoundingClientRect();
 		const dialogRect = this.#dialog.getBoundingClientRect();
 
-		let top;
-		let left;
+		let y;
+		let x;
 
-		top = rect.top - dialogRect.height - 8;
-		left = rect.left + rect.width / 2 - dialogRect.width / 2;
+		y = rect.top - dialogRect.height - 8;
+		x = rect.left + rect.width / 2 - dialogRect.width / 2;
 
 		const vp = this.viewPadding;
-		if (left < vp) {
-			left = vp;
-		} else if (left + dialogRect.width + vp > visualViewport.width) {
-			left = visualViewport.width - vp - dialogRect.width;
+		if (x < vp) {
+			x = vp;
+		} else if (x + dialogRect.width + vp > visualViewport.width) {
+			x = 0 - vp;
 		}
-		this.#dialog.style.top = top + "px";
-		this.#dialog.style.left = left + "px";
+		this.#dialog.style.top = y + "px";
+
+		this.#dialog.style.left = "";
+		this.#dialog.style.right = "";
+		this.#dialog.style[x >= 0 ? "left" : "right"] = Math.abs(x) + "px";
 	}
 }
