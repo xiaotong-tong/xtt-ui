@@ -6,29 +6,36 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Document</title>
 		<style>
-			.event {
-				display: flex;
-				flex-wrap: wrap;
-				gap: 8px;
-			}
 			.long-text {
 				max-width: 200px;
 			}
 		</style>
-		<script src="../components/xtt-button.js" type="module"></script>
+		<script src="./example.js" type="module"></script>
 	</head>
 	<body>
 		<h1>Button 按钮</h1>
 
 		<h2>基础用法</h2>
-		<xtt-button id="default">default</xtt-button>
+		<xtt-button>default</xtt-button>
 		<xtt-button class="long-text"
 			>long long long long long long long long text with max width is
 			200px</xtt-button
 		>
 		<xtt-button disabled>disabled</xtt-button>
 
-		<div class="event"></div>
+		<xtt-code>
+			<xtt-button>default</xtt-button>
+			<xtt-button class="long-text"
+				>long long long long long long long long text with max width is
+				200px</xtt-button
+			>
+			<style>
+				.long-text {
+					max-width: 200px;
+				}
+			</style>
+			<xtt-button disabled>disabled</xtt-button>
+		</xtt-code>
 
 		<h2>icon 图标</h2>
 		<xtt-button>
@@ -53,28 +60,5 @@
 		<xtt-button width="full">full</xtt-button>
 		<xtt-button type="primary" width="full">full</xtt-button>
 		<xtt-button type="primary" text width="full">full</xtt-button>
-
-		<script>
-			const defaultBtn = document.getElementById("default");
-			const event = document.querySelector(".event");
-
-			const appendEvent = (text) => {
-				const span = document.createElement("span");
-				span.innerText = text;
-				event.appendChild(span);
-			};
-			defaultBtn.addEventListener("click", () => {
-				appendEvent("click");
-			});
-			defaultBtn.addEventListener("focus", () => {
-				appendEvent("focus");
-			});
-			defaultBtn.addEventListener("blur", () => {
-				appendEvent("blur");
-			});
-			defaultBtn.addEventListener("keydown", () => {
-				appendEvent("keydown");
-			});
-		</script>
 	</body>
 </html>
