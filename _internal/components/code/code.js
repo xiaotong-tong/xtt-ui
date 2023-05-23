@@ -2,6 +2,7 @@ import style from "./code.css" assert { type: "css" };
 import highlight from "../../../oss/highlight/highlight.js";
 import highLightStyle from "../../../oss/highlight/github.min.css" assert { type: "css" };
 import html from "../../../oss/highlight/languages/xml.min.js";
+import { trimLineStart } from "../../../oss/xtt-utils/index.esm.js";
 
 highlight.registerLanguage("html", html);
 
@@ -29,32 +30,19 @@ export class xttCodeElement extends HTMLElement {
 	}
 
 	connectedCallback() {
-		let content;
-
-		content = this.innerHTML
-			.trim()
-			.replaceAll(/\<|\>|script type="none"/g, (char) => {
-				switch (char) {
-					case "<":
-						return "&lt;";
-					case ">":
-						return "&gt;";
-					case 'script type="none"':
-						return "script";
-				}
-			});
-
-		const lineWithStartSpace = content.match(/^\s+/gm);
-
-		if (lineWithStartSpace?.length) {
-			const minSapceNum = lineWithStartSpace.reduce((min, line) => {
-				return Math.min(
-					typeof min === "number" ? min : min.length,
-					line.length
-				);
-			});
-			content = content.replace(new RegExp(`^\\s{${minSapceNum}}`, "gm"), "");
-		}
+		const content = trimLineStart(this.innerHTML, {
+			removeFirstEmptyLine: true,
+			removeLastEmptyLine: true
+		}).replaceAll(/\<|\>|script type="none"/g, (char) => {
+			switch (char) {
+				case "<":
+					return "&lt;";
+				case ">":
+					return "&gt;";
+				case 'script type="none"':
+					return "script";
+			}
+		});
 
 		this.#code.innerHTML = content;
 		this.innerHTML = "";
