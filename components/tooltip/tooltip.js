@@ -1,5 +1,5 @@
 import style from "./tooltip.css" assert { type: "css" };
-import { updateElementStyle } from "../../utils/xtt-ui-utils.js";
+import { updateElementStyle, uniqueId } from "../../utils/xtt-ui-utils.js";
 
 export class xttTooltipElement extends HTMLElement {
 	/**
@@ -13,20 +13,6 @@ export class xttTooltipElement extends HTMLElement {
 	 * @type {number}
 	 */
 	delay = 600;
-
-	// 给 tooltip 添加唯一 ID 值，供无障碍使用
-	// 触发 tooltip 的元素需要添加 aria-describedby 属性，值为 tooltip 的 ID
-	// 不添加的话无障碍设备无法访问到 tooltip 的内容，仅为视觉显示，不符合无障碍要求
-	// TODO 在组件完善之后应该有一个统一管理 id 的代码分配函数，而不是交由各个组件单独管理
-	/** @type {number} */
-	static #uId = 0;
-	/** @param {HTMLElement} element */
-	static #uniqueId(element) {
-		if (!element.id) {
-			element.id = "xttTooltipId" + ++this.#uId;
-		}
-		return element;
-	}
 
 	static templateContent = `<div id="popover" part="popover"></div>`;
 
@@ -53,7 +39,7 @@ export class xttTooltipElement extends HTMLElement {
 
 	connectedCallback() {
 		this.role = "tooltip";
-		xttTooltipElement.#uniqueId(this);
+		uniqueId(this);
 	}
 
 	attributeChangedCallback(name, oldValue, newValue) {
@@ -65,6 +51,9 @@ export class xttTooltipElement extends HTMLElement {
 	get #popover() {
 		return this.#shadowRoot.getElementById("popover");
 	}
+
+	#popoverMouseEventAdded = false;
+	#mouseOnPopoverOrTrigger = false;
 
 	#handleEventOfTrigger(el) {
 		const showEvent = (ev) => {
@@ -90,13 +79,19 @@ export class xttTooltipElement extends HTMLElement {
 			);
 		};
 		const hideEvent = () => {
-			this.hide();
+			setTimeout(() => {
+				if (!this.#mouseOnPopoverOrTrigger) {
+					this.hide();
+				}
+			}, 0);
 		};
 
 		el.addEventListener("mouseenter", (ev) => {
+			this.#mouseOnPopoverOrTrigger = true;
 			showEvent(ev);
 		});
 		el.addEventListener("mouseleave", () => {
+			this.#mouseOnPopoverOrTrigger = false;
 			hideEvent();
 		});
 		el.addEventListener("focus", (ev) => {
@@ -105,17 +100,31 @@ export class xttTooltipElement extends HTMLElement {
 			el.addEventListener(
 				"blur",
 				() => {
-					hideEvent();
+					this.hide();
 				},
 				{
 					once: true
 				}
 			);
 		});
+
+		if (!this.#popoverMouseEventAdded) {
+			this.#popover.addEventListener("mouseenter", () => {
+				this.#mouseOnPopoverOrTrigger = true;
+			});
+			this.#popover.addEventListener("mouseleave", () => {
+				this.#mouseOnPopoverOrTrigger = false;
+				hideEvent();
+			});
+			this.#popoverMouseEventAdded = true;
+		}
 	}
 
 	#refreshTrigger(el) {
-		el.setAttribute("aria-describedby", xttTooltipElement.#uniqueId(this).id);
+		// 给触发 tooltip 的元素添加 aria-describedby 属性，值为 tooltip 的 ID
+		// 供无障碍设备访问 tooltip 的内容
+		// TODO aria-describedby 内容可以包含多个 ID，用空格分隔，但是这里只能包含一个，会删除已有的内容，需要改进
+		el.setAttribute("aria-describedby", uniqueId(this).id);
 		this.#handleEventOfTrigger(el);
 	}
 	initTrigger(elements) {
