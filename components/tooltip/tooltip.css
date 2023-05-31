@@ -1,19 +1,35 @@
 :host {
-	--tooltip-font-size: 14px;
+  --tooltip-max-width: 300px;
+  --tooltip-font-size: 14px;
+  --tooltip-z-index: 99999;
+  --tooltip-bg-color: #fff;
+  --tooltip-border-color: grey;
 }
 
-:host {
+#popover {
+  visibility: hidden;
+  position: absolute;
+  padding: 4px 8px;
+  max-width: var(--tooltip-max-width);
+  font-size: var(--tooltip-font-size);
+  z-index: var(--tooltip-z-index);
+  border: thin solid var(--tooltip-border-color);
+  background-color: var(--tooltip-bg-color);
+  transform-origin: bottom center;
 }
 
-#dialog {
-	border: thin solid grey;
-	margin: 0;
-	padding: 4px 8px;
-	outline: none;
-	max-width: 300px;
+#popover[open] {
+  visibility: visible;
+  animation: show 0.2s ease-out;
 }
 
-#content {
-	/* overflow-wrap: break-word; */
-	font-size: var(--tooltip-font-size);
+@keyframes show {
+  0% {
+    opacity: 0;
+    transform: scale(0.4);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
 }

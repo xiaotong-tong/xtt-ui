@@ -6,30 +6,28 @@ const greenEl = document.querySelector(".green");
 const blueEl = document.querySelector(".blue");
 
 redEl.addEventListener(
-	"mousemove",
-	throttle((ev) => {
-		new mouseSnow(ev.clientX, ev.clientY, "red");
-	}, 30)
+  "mousemove",
+  throttle((ev) => {
+    new mouseSnow(ev.clientX, ev.clientY, { color: "red" });
+  }, 30)
 );
 greenEl.addEventListener(
-	"mousemove",
-	throttle((ev) => {
-		new mouseSnow(ev.clientX, ev.clientY, "green");
-	}, 30)
+  "mousemove",
+  throttle((ev) => {
+    new mouseSnow(ev.clientX, ev.clientY, { color: "green" });
+  }, 30)
 );
 blueEl.addEventListener(
-	"mousemove",
-	throttle((ev) => {
-		new mouseSnow(ev.clientX, ev.clientY, "blue");
-	}, 30)
+  "mousemove",
+  throttle((ev) => {
+    new mouseSnow(ev.clientX, ev.clientY, { color: "blue" });
+  }, 30)
 );
 
 const char = document.querySelector(".char");
 char.addEventListener(
-	"mousemove",
-	throttle((ev) => {
-		mouseSnow.character = "+";
-		new mouseSnow(ev.clientX, ev.clientY);
-		mouseSnow.character = "*";
-	}, 30)
+  "mousemove",
+  throttle((ev) => {
+    new mouseSnow(ev.clientX, ev.clientY, { character: "+" });
+  }, 30)
 );

@@ -1,4 +1,5 @@
 import style from "./tooltip.css" assert { type: "css" };
+import { updateElementStyle } from "../../utils/xtt-ui-utils.js";
 
 export class xttTooltipElement extends HTMLElement {
 	/**
@@ -27,11 +28,7 @@ export class xttTooltipElement extends HTMLElement {
 		return element;
 	}
 
-	static templateContent = `
-        <dialog id="dialog" role="presentation" part="dialog">
-          <div id="content" part="content"></div>
-          <div id="pointer" part="pointer"></div>
-        </dialog>`;
+	static templateContent = `<div id="popover" part="popover"></div>`;
 
 	template() {
 		const template = document.createElement("template");
@@ -55,7 +52,7 @@ export class xttTooltipElement extends HTMLElement {
 	}
 
 	connectedCallback() {
-		this.setAttribute("role", "tooltip");
+		this.role = "tooltip";
 		xttTooltipElement.#uniqueId(this);
 	}
 
@@ -65,19 +62,32 @@ export class xttTooltipElement extends HTMLElement {
 		}
 	}
 
-	get #dialog() {
-		return this.#shadowRoot.getElementById("dialog");
-	}
-	get #content() {
-		return this.#shadowRoot.getElementById("content");
-	}
-	get #pointer() {
-		return this.#shadowRoot.getElementById("pointer");
+	get #popover() {
+		return this.#shadowRoot.getElementById("popover");
 	}
 
 	#handleEventOfTrigger(el) {
 		const showEvent = (ev) => {
 			this.show(ev.currentTarget ?? ev.target);
+
+			el.addEventListener(
+				"pointerdown",
+				() => {
+					this.hide();
+				},
+				{
+					once: true
+				}
+			);
+			el.addEventListener(
+				"keydown",
+				() => {
+					this.hide();
+				},
+				{
+					once: true
+				}
+			);
 		};
 		const hideEvent = () => {
 			this.hide();
@@ -86,7 +96,7 @@ export class xttTooltipElement extends HTMLElement {
 		el.addEventListener("mouseenter", (ev) => {
 			showEvent(ev);
 		});
-		el.addEventListener("mouseleave", (ev) => {
+		el.addEventListener("mouseleave", () => {
 			hideEvent();
 		});
 		el.addEventListener("focus", (ev) => {
@@ -94,7 +104,7 @@ export class xttTooltipElement extends HTMLElement {
 
 			el.addEventListener(
 				"blur",
-				(ev) => {
+				() => {
 					hideEvent();
 				},
 				{
@@ -118,6 +128,10 @@ export class xttTooltipElement extends HTMLElement {
 
 	#showTimer;
 	show(toElement) {
+		if (this.#popover.hasAttribute("open")) {
+			return false;
+		}
+
 		// 向外部暴露 xtt-tooltip-show 事件，如果使用者监听事件并调用了 event.preventDefault()，那么直接返回，阻止之后的 show 方法运行。
 		const isCancel = toElement.dispatchEvent(
 			new CustomEvent("xtt-tooltip-show", {
@@ -133,50 +147,49 @@ export class xttTooltipElement extends HTMLElement {
 			return false;
 		}
 
-		this.#content.textContent =
-			toElement.dataset.xttTooltip ?? this.textContent;
+		this.#popover.textContent = toElement.dataset.xttTooltip ?? this.textContent;
 
-		// 因为 dialog.show() 会改变 focus 焦点的位置，所以这里使用添加 open 属性来切换显示与隐藏
-		// 而不是使用 this.#dialog.show();
-		this.#dialog.toggleAttribute("open", true);
-		this.#dialog.style.clipPath = "inset(50% 50% 50% 50%)";
+		this.#changePosition(toElement);
 
 		this.#showTimer = setTimeout(() => {
-			this.#dialog.style.clipPath = "";
-			this.#changePosition(toElement);
-		}, this.delay ?? 0);
+			this.#popover.setAttribute("open", true);
+		}, this.delay ?? 16);
 	}
 	hide() {
 		if (this.#showTimer) {
 			clearTimeout(this.#showTimer);
 			this.#showTimer = null;
 		}
-		if (!this.#dialog.open) {
-			return false;
-		}
-		this.#dialog?.close();
+
+		this.#popover.removeAttribute("open");
 	}
 
 	#changePosition(toElement) {
 		const rect = toElement.getBoundingClientRect();
-		const dialogRect = this.#dialog.getBoundingClientRect();
+		const popRect = this.#popover.getBoundingClientRect();
 
-		let y;
-		let x;
-
-		y = rect.top - dialogRect.height - 8;
-		x = rect.left + rect.width / 2 - dialogRect.width / 2;
+		let y = rect.top - popRect.height - 8;
+		let x = rect.left + rect.width / 2 - popRect.width / 2;
 
 		const vp = this.viewPadding;
 		if (x < vp) {
 			x = vp;
-		} else if (x + dialogRect.width + vp > visualViewport.width) {
+		} else if (x + popRect.width + vp > visualViewport.width) {
 			x = 0 - vp;
 		}
-		this.#dialog.style.top = y + "px";
 
-		this.#dialog.style.left = "";
-		this.#dialog.style.right = "";
-		this.#dialog.style[x >= 0 ? "left" : "right"] = Math.abs(x) + "px";
+		updateElementStyle(
+			this.#popover,
+			Object.assign(
+				{
+					top: y + "px",
+					left: "",
+					right: ""
+				},
+				{
+					[x >= 0 ? "left" : "right"]: Math.abs(x) + "px"
+				}
+			)
+		);
 	}
 }
