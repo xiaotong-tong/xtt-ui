@@ -9,7 +9,10 @@ highlight.registerLanguage("html", html);
 export class xttCodeElement extends HTMLElement {
 	static templateContent = `
         <figure id="figure" part="figure">
-          <pre id="pre"><code id="code" class="language-html"></code></pre>
+		  <details id="details" part="details">
+			<summary id="summary" part="summary">示例代码</summary>
+            <pre id="pre"><code id="code" class="language-html"></code></pre>
+		  </details>
         </figure>`;
 
 	template() {

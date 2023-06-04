@@ -108,6 +108,10 @@ export class xttTooltipElement extends HTMLElement {
 			);
 		});
 
+		document.addEventListener("scroll", () => {
+			hideEvent();
+		});
+
 		if (!this.#popoverMouseEventAdded) {
 			this.#popover.addEventListener("mouseenter", () => {
 				this.#mouseOnPopoverOrTrigger = true;
@@ -185,6 +189,10 @@ export class xttTooltipElement extends HTMLElement {
 			x = vp;
 		} else if (x + popRect.width + vp > visualViewport.width) {
 			x = 0 - vp;
+		}
+
+		if (y < vp) {
+			y = rect.bottom + 8;
 		}
 
 		updateElementStyle(

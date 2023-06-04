@@ -1,55 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-    <script src="./base.js" type="module"></script>
-  </head>
-  <body>
-    <h1>tooltip 文字提示</h1>
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="./base.js" type="module"></script>
+		<style>
+			body {
+				min-height: 1000px;
+			}
+		</style>
+	</head>
+	<body>
+		<h1>tooltip 文字提示</h1>
 
-    <h2>基础用法</h2>
-    <button id="default">default</button>
-    <xtt-tooltip for="#default">This is tooltip</xtt-tooltip>
+		<h2>基础用法</h2>
+		<button id="default">default</button>
+		<xtt-tooltip for="#default">This is tooltip</xtt-tooltip>
 
-    <button
-      id="defaultWithTooltip"
-      data-xtt-tooltip="This is tooltip With data-xtt-tooltip"
-    >
-      has data-xtt-tooltip
-    </button>
-    <xtt-tooltip for="#defaultWithTooltip"></xtt-tooltip>
+		<button id="defaultWithTooltip" data-xtt-tooltip="This is tooltip With data-xtt-tooltip">
+			has data-xtt-tooltip
+		</button>
+		<xtt-tooltip for="#defaultWithTooltip"></xtt-tooltip>
 
-    <h2>initTrigger</h2>
-    <button
-      class="initTrigger"
-      data-xtt-tooltip="This is tooltip by initTrigger - 1"
-    >
-      initTrigger1
-    </button>
-    <button
-      class="initTrigger"
-      data-xtt-tooltip="This is tooltip by initTrigger - 2"
-    >
-      initTrigger2
-    </button>
-    <button
-      class="initTrigger"
-      data-xtt-tooltip="This is tooltip by initTrigger - 3"
-    >
-      initTrigger3
-    </button>
-    <xtt-tooltip id="initTriggerTooltip"></xtt-tooltip>
+		<h2>initTrigger</h2>
+		<button class="initTrigger" data-xtt-tooltip="This is tooltip by initTrigger - 1">initTrigger1</button>
+		<button class="initTrigger" data-xtt-tooltip="This is tooltip by initTrigger - 2">initTrigger2</button>
+		<button class="initTrigger" data-xtt-tooltip="This is tooltip by initTrigger - 3">initTrigger3</button>
+		<xtt-tooltip id="initTriggerTooltip"></xtt-tooltip>
 
-    <h2>preventDefault</h2>
-    <button
-      id="preventDefaultBtn"
-      data-xtt-tooltip="This is tooltip by preventDefault"
-    >
-      preventDefault
-    </button>
-    <xtt-tooltip for="#preventDefaultBtn"></xtt-tooltip>
-  </body>
+		<h2>preventDefault</h2>
+		<button id="preventDefaultBtn" data-xtt-tooltip="This is tooltip by preventDefault">preventDefault</button>
+		<xtt-tooltip for="#preventDefaultBtn"></xtt-tooltip>
+	</body>
 </html>
