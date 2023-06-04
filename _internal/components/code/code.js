@@ -39,7 +39,7 @@ export class xttCodeElement extends HTMLElement {
 					return "&lt;";
 				case ">":
 					return "&gt;";
-				case 'script type="none"':
+				case 'script type="none"': // remove type="none" from script tag
 					return "script";
 			}
 		});
