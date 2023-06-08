@@ -1,11 +1,11 @@
+import style from "./button.css" assert { type: "css" };
+
 /**
  * @description button component
  * @slot icon - icon to display
  * @slot - text to display
  * @example <xtt-button>Button</xtt-button>
  */
-
-import style from "./button.css" assert { type: "css" };
 
 export class xttButtonElement extends HTMLElement {
 	static templateContent = `
@@ -42,11 +42,7 @@ export class xttButtonElement extends HTMLElement {
 			hasText = false;
 		if (this.hasChildNodes()) {
 			for (const el of this.childNodes) {
-				if (
-					el.slot === "icon" ||
-					el.classList?.has("xtt-icon") ||
-					el.tagName === "XTT-ICON"
-				) {
+				if (el.slot === "icon" || el.classList?.has("xtt-icon") || el.tagName === "XTT-ICON") {
 					hasIcon = true;
 					el.slot = "icon";
 				} else {

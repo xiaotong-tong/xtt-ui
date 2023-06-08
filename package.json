@@ -7,6 +7,7 @@
 	"browser": "dist/xtt-ui.min.js",
 	"type": "module",
 	"scripts": {
+		"start": "serve",
 		"prebuild": "rimraf dist",
 		"build": "rollup -c rollup.config.js"
 	},
@@ -34,9 +35,19 @@
 	},
 	"homepage": "https://github.com/xiaotong-tong/xtt-ui#readme",
 	"devDependencies": {
+		"@rollup/plugin-commonjs": "^25.0.0",
+		"@rollup/plugin-node-resolve": "^15.1.0",
 		"@rollup/plugin-terser": "^0.4.3",
 		"rimraf": "^5.0.1",
 		"rollup": "^3.23.1",
-		"rollup-plugin-import-assertions": "^0.5.0"
+		"rollup-plugin-import-assertions": "^0.5.0",
+		"serve": "^14.2.0"
+	},
+	"dependencies": {
+		"github-markdown-css": "^5.2.0",
+		"highlight.js": "^11.8.0",
+		"marked": "^5.0.5",
+		"marked-highlight": "^2.0.1",
+		"xtt-utils": "^0.1.1"
 	}
 }

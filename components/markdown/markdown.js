@@ -1,12 +1,18 @@
 import style from "./markdown.css" assert { type: "css" };
-import highLightStyle from "../../oss/highlight/github.min.css" assert { type: "css" };
-import githubMarkdownStyle from "../../oss/github-markdown-css/github-markdown.css" assert { type: "css" };
-import * as marked from "../../oss/marked/marked.esm.js";
-import hljs from "../../oss/highlight/highlight.js";
-import { markedHighlight } from "../../oss/marked-highlight/index.esm.js";
-import jsLanguage from "../../oss/highlight/languages/javascript.min.js";
+import highLightStyle from "highlight.js/styles/github.css" assert { type: "css" };
+import githubMarkdownStyle from "github-markdown-css" assert { type: "css" };
 
-hljs.registerLanguage("js", jsLanguage);
+import { marked } from "marked";
+import hljs from "highlight.js/lib/core";
+import { markedHighlight } from "marked-highlight";
+import javascript from "highlight.js/lib/languages/javascript";
+import xml from "highlight.js/lib/languages/xml";
+import plaintext from "highlight.js/lib/languages/plaintext";
+
+hljs.registerLanguage("javascript", javascript);
+hljs.registerLanguage("js", javascript);
+hljs.registerLanguage("html", xml);
+hljs.registerLanguage("plaintext", plaintext);
 
 marked.setOptions({
 	gfm: true,
@@ -24,7 +30,8 @@ marked.use(
 	markedHighlight({
 		langPrefix: "hljs language-",
 		highlight(code, lang) {
-			return hljs.highlightAuto(code).value;
+			const language = hljs.getLanguage(lang) ? lang : "plaintext";
+			return hljs.highlight(code, { language }).value;
 		}
 	})
 );

@@ -9,11 +9,11 @@
 	<body>
 		<xtt-markdown id="code"></xtt-markdown>
 
-		<xtt-code style="display: none">
-			<xtt-markdown id="code"></xtt-markdown>
-			<script type="none">
-				document.getElementById("code").textContent = `
-				# reverse
+    <xtt-code>
+      <xtt-markdown id="code"></xtt-markdown>
+      <script type="none">
+        document.getElementById("code").textContent = `
+        # reverse
 
 				Returns the reverse of a string.
 
@@ -28,21 +28,21 @@
 				## code
 
 
-				\`\`\`js
-				const reverse = (text) => {
-				    if (!text?.length) {
-				        return "";
-				    }
-				    let resText = "";
+        ```js
+        const reverse = (text) => {
+            if (!text?.length) {
+                return "";
+            }
+            let resText = "";
 
-				    for (let i = text.length - 1; i >= 0; i--) {
-				        resText += text[i];
-				    }
-				    return resText;
-				};
-				\`\`\`
-				`;
-			</script>
-		</xtt-code>
-	</body>
+            for (let i = text.length - 1; i >= 0; i--) {
+                resText += text[i];
+            }
+            return resText;
+        };
+        ```
+        `;
+      </script>
+    </xtt-code>
+  </body>
 </html>

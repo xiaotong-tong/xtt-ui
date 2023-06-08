@@ -1,10 +1,11 @@
 import style from "./code.css" assert { type: "css" };
-import highlight from "../../../oss/highlight/highlight.js";
-import highLightStyle from "../../../oss/highlight/github.min.css" assert { type: "css" };
-import html from "../../../oss/highlight/languages/xml.min.js";
-import { trimLineStart } from "../../../oss/xtt-utils/index.esm.js";
+import highLightStyle from "highlight.js/styles/github.css" assert { type: "css" };
 
-highlight.registerLanguage("html", html);
+import hljs from "highlight.js/lib/core";
+import xml from "highlight.js/lib/languages/xml";
+import { trimLineStart } from "xtt-utils";
+
+hljs.registerLanguage("html", xml);
 
 export class xttCodeElement extends HTMLElement {
 	static templateContent = `
@@ -49,8 +50,7 @@ export class xttCodeElement extends HTMLElement {
 
 		this.#code.innerHTML = content;
 		this.innerHTML = "";
-		highlight.highlightElement(this.#code);
-		this.style.display = "block";
+		hljs.highlightElement(this.#code, { language: "html" });
 	}
 
 	get #code() {

@@ -55,89 +55,91 @@ export class xttTooltipElement extends HTMLElement {
 	#popoverMouseEventAdded = false;
 	#mouseOnPopoverOrTrigger = false;
 
-	#handleEventOfTrigger(el) {
-		const showEvent = (ev) => {
-			this.show(ev.currentTarget ?? ev.target);
+  /** @param {HTMLElement} el */
+  #handleEventOfTrigger(el) {
+    const hideEvent = (ev, isRe) => {
+      if (ev?.type === "mouseleave" && !isRe) {
+        // mouseleave 事件需要 setTimeout 延后一下，因为需要确认是否会触发 mouseenter
+        // 主要是为了保证从 target 上移动到 tooltip 上时 tooltip 不会关闭
+        setTimeout(() => {
+          hideEvent(ev, true);
+        }, 0);
+        return;
+      }
 
-			el.addEventListener(
-				"pointerdown",
-				() => {
-					this.hide();
-				},
-				{
-					once: true
-				}
-			);
-			el.addEventListener(
-				"keydown",
-				() => {
-					this.hide();
-				},
-				{
-					once: true
-				}
-			);
-		};
-		const hideEvent = () => {
-			setTimeout(() => {
-				if (!this.#mouseOnPopoverOrTrigger) {
-					this.hide();
-				}
-			}, 0);
-		};
+      if (ev?.type !== "mouseleave" || !this.#mouseOnPopoverOrTrigger) {
+        this.hide();
 
-		el.addEventListener("mouseenter", (ev) => {
-			this.#mouseOnPopoverOrTrigger = true;
-			showEvent(ev);
-		});
-		el.addEventListener("mouseleave", () => {
-			this.#mouseOnPopoverOrTrigger = false;
-			hideEvent();
-		});
-		el.addEventListener("focus", (ev) => {
-			showEvent(ev);
+        // 清除绑定的关闭行为相关的事件，防止多次绑定 以及长期绑定造成多余的绑定浪费
+        el.removeEventListener("pointerdown", hideEvent, {
+          once: true,
+        });
+        el.removeEventListener("keydown", hideEvent, {
+          once: true,
+        });
+        el.removeEventListener("blur", hideEvent, {
+          once: true,
+        });
+        document.removeEventListener("scroll", hideEvent, {
+          once: true,
+        });
+      }
+    };
 
-			el.addEventListener(
-				"blur",
-				() => {
-					this.hide();
-				},
-				{
-					once: true
-				}
-			);
-		});
+    const showEvent = (ev) => {
+      this.show(ev.currentTarget ?? ev.target);
 
-		document.addEventListener("scroll", () => {
-			hideEvent();
-		});
+      el.addEventListener("pointerdown", hideEvent, {
+        once: true,
+      });
+      el.addEventListener("keydown", hideEvent, {
+        once: true,
+      });
+      el.addEventListener("blur", hideEvent, {
+        once: true,
+      });
+      document.addEventListener("scroll", hideEvent, {
+        once: true,
+      });
+    };
 
-		if (!this.#popoverMouseEventAdded) {
-			this.#popover.addEventListener("mouseenter", () => {
-				this.#mouseOnPopoverOrTrigger = true;
-			});
-			this.#popover.addEventListener("mouseleave", () => {
-				this.#mouseOnPopoverOrTrigger = false;
-				hideEvent();
-			});
-			this.#popoverMouseEventAdded = true;
-		}
-	}
+    el.addEventListener("mouseenter", (ev) => {
+      this.#mouseOnPopoverOrTrigger = true;
+      showEvent(ev);
+    });
+    el.addEventListener("mouseleave", (ev) => {
+      this.#mouseOnPopoverOrTrigger = false;
+      hideEvent(ev);
+    });
+    el.addEventListener("focus", showEvent);
 
-	#refreshTrigger(el) {
-		// 给触发 tooltip 的元素添加 aria-describedby 属性，值为 tooltip 的 ID
-		// 供无障碍设备访问 tooltip 的内容
-		// TODO aria-describedby 内容可以包含多个 ID，用空格分隔，但是这里只能包含一个，会删除已有的内容，需要改进
-		el.setAttribute("aria-describedby", uniqueId(this).id);
-		this.#handleEventOfTrigger(el);
-	}
-	initTrigger(elements) {
-		if (elements instanceof NodeList) {
-			elements.forEach(this.#refreshTrigger, this);
-		} else if (elements?.nodeType === 1) {
-			this.#refreshTrigger(elements);
-		}
-	}
+    if (!this.#popoverMouseEventAdded) {
+      this.#popover.addEventListener("mouseenter", () => {
+        this.#mouseOnPopoverOrTrigger = true;
+      });
+      this.#popover.addEventListener("mouseleave", (ev) => {
+        this.#mouseOnPopoverOrTrigger = false;
+        hideEvent(ev);
+      });
+      this.#popoverMouseEventAdded = true;
+    }
+  }
+
+  #refreshTrigger(el) {
+    // 给触发 tooltip 的元素添加 aria-describedby 属性，值为 tooltip 的 ID
+    // 供无障碍设备访问 tooltip 的内容
+    // TODO aria-describedby 内容可以包含多个 ID，用空格分隔，但是这里只能包含一个，会删除已有的内容，需要改进
+    el.setAttribute("aria-describedby", uniqueId(this).id);
+    this.#handleEventOfTrigger(el);
+    el.xttTooltipElement = this;
+  }
+  initTrigger(elements) {
+    if (elements instanceof NodeList) {
+      elements.forEach(this.#refreshTrigger, this);
+    } else if (elements?.nodeType === 1) {
+      this.#refreshTrigger(elements);
+    }
+  }
 
 	#showTimer;
 	show(toElement) {

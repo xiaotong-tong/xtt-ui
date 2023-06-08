@@ -1,2 +1,2 @@
-import "../../components/xtt-markdown.js";
-import "../../_internal/components/xtt-code.js";
+import "../../dist/_xtt-code.js";
+import "../../dist/xtt-markdown.js";

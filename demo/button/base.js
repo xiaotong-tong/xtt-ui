@@ -1,5 +1,4 @@
-import "../../components/xtt-button.js";
-import "../../_internal/components/xtt-code.js";
+import "./load.js";
 
 const defaultBtn = document.getElementById("default");
 const event = document.querySelector(".event");

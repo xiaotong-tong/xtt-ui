@@ -1,5 +1,5 @@
-import { throttle } from "../../oss/xtt-utils/index.esm.js";
-import { mouseSnow } from "../../plugins/xtt-mouseSnow.js";
+import { throttle } from "../xtt-utils/index.esm.js";
+import { mouseSnow } from "../../dist/plugins/xtt-mouseSnow.js";
 
 const init = (ev) => {
 	new mouseSnow(ev.clientX, ev.clientY);
