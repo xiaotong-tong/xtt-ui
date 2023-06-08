@@ -1,4 +1,4 @@
-import { throttle } from "../xtt-utils/index.esm.js";
+import { throttle } from "../utils/xtt-utils.js";
 import { mouseSnow } from "../../dist/plugins/xtt-mouseSnow.js";
 
 const redEl = document.querySelector(".red");

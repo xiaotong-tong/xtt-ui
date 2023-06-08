@@ -242,18 +242,11 @@ function chain(self, initValue) {
  */
 
 const curry = (fn, ...args) => {
-	if (
-		args.filter((arg) => arg === curry.placeholder).length === 0 &&
-		args.length >= fn.length
-	) {
+	if (args.filter((arg) => arg === curry.placeholder).length === 0 && args.length >= fn.length) {
 		return fn(...args);
 	}
 	return (...nextArgs) => {
-		const allArgs = args.map((arg) =>
-			arg === curry.placeholder
-				? nextArgs.shift() ?? curry.placeholder
-				: arg
-		);
+		const allArgs = args.map((arg) => (arg === curry.placeholder ? nextArgs.shift() ?? curry.placeholder : arg));
 		return curry(fn, ...allArgs, ...nextArgs);
 	};
 };
@@ -294,8 +287,7 @@ const conversionBase = (num, base) => {
 		base = 10;
 	}
 	// 根据进制选择前缀
-	const basePrefix =
-		base === 16 ? "0x" : base === 8 ? "0o" : base === 2 ? "0b" : "";
+	const basePrefix = base === 16 ? "0x" : base === 8 ? "0o" : base === 2 ? "0b" : "";
 	return basePrefix + num.toString(base);
 };
 
@@ -377,10 +369,7 @@ const randomList = (min, max, option) => {
 		// 如果 count 大于 (max - min) / 2，那么就直接生成一个随机数组，然后打乱顺序，再截取 count 个数
 		// 否则就生成一个集合，然后不断随机生成一个数，直到集合的长度达到 count
 		if (count > (max - min) / 2) {
-			let randomArr = Array.from(
-				{ length: max - min + 1 },
-				(_, i) => i + min
-			);
+			let randomArr = Array.from({ length: max - min + 1 }, (_, i) => i + min);
 
 			randomArr = shuffle(randomArr);
 			if (count === undefined) {
@@ -510,12 +499,7 @@ const strToNum = (str) => {
 	const pointIndex = str.indexOf(".");
 	if (~pointIndex) {
 		return (
-			sign *
-			parseFloat(
-				`${removeNaNChar(str.slice(0, pointIndex))}.${removeNaNChar(
-					str.slice(pointIndex + 1)
-				)}`
-			)
+			sign * parseFloat(`${removeNaNChar(str.slice(0, pointIndex))}.${removeNaNChar(str.slice(pointIndex + 1))}`)
 		);
 	} else {
 		return sign * parseInt(removeNaNChar(str));
@@ -550,9 +534,7 @@ const charToCodePoint = (str, options) => {
 		options.base = 16;
 	}
 
-	return [...str]
-		.map((char) => conversionBase(char.codePointAt(0), options?.base))
-		.join(options.separator);
+	return [...str].map((char) => conversionBase(char.codePointAt(0), options?.base)).join(options.separator);
 };
 
 /**
@@ -665,12 +647,7 @@ const getTermLeft = (str, searchTerm, beforeWhichTimes) => {
 		}
 	}
 
-	const grep = new RegExp(
-		`.+?(?=${
-			typeof searchTerm === "string" ? searchTerm : searchTerm.source
-		})`,
-		"g"
-	);
+	const grep = new RegExp(`.+?(?=${typeof searchTerm === "string" ? searchTerm : searchTerm.source})`, "g");
 	const result = str.match(grep);
 
 	if (result === null) {
@@ -712,8 +689,7 @@ const getTermRight = (str, searchTerm, afterWhichTimes) => {
 		return str;
 	}
 
-	const searchGrep =
-		typeof searchTerm === "string" ? searchTerm : searchTerm.source;
+	const searchGrep = typeof searchTerm === "string" ? searchTerm : searchTerm.source;
 
 	const grep = new RegExp(`(?<=(^|${searchGrep})).*?(${searchGrep}|$)`, "g");
 	const result = str.match(grep);
@@ -753,16 +729,12 @@ const getRangeByTerm = (str, term) => {
 	const lGrep = typeof l === "string" ? l : l.source;
 	const rGrep = typeof r === "string" ? r : r.source;
 
-	let matchType = str.match(
-		new RegExp(`${lGrep}((?:[\\s\\S](?<!${lGrep}))*?)${rGrep}`)
-	);
+	let matchType = str.match(new RegExp(`${lGrep}((?:[\\s\\S](?<!${lGrep}))*?)${rGrep}`));
 
 	if (matchType) {
 		return matchType[1];
 	} else {
-		matchType = str.match(
-			new RegExp(`${rGrep}((?:[\\s\\S](?<!${rGrep}))*?)${lGrep}`)
-		);
+		matchType = str.match(new RegExp(`${rGrep}((?:[\\s\\S](?<!${rGrep}))*?)${lGrep}`));
 		return matchType ? matchType[1] : "";
 	}
 };
@@ -780,8 +752,7 @@ const getRangeByTerm = (str, term) => {
  * trimLineStart("  123\n    456") // "123\n  456"
  */
 const trimLineStart = (str, options) => {
-	const { removeFirstEmptyLine = false, removeLastEmptyLine = false } =
-		options || {};
+	const { removeFirstEmptyLine = false, removeLastEmptyLine = false } = options || {};
 
 	if (removeFirstEmptyLine) {
 		str = str.replace(/^\s*\n/, "");
@@ -804,12 +775,32 @@ const trimLineStart = (str, options) => {
 
 	// 如果有多行，那么就遍历所有行，获取共同的最小的空格数，然后每行删除最小空格数的空格
 	const minSapceNum = leadingSpacesAtLine.reduce((min, line) => {
-		return Math.min(
-			typeof min === "number" ? min : min.length,
-			line.length
-		);
+		return Math.min(typeof min === "number" ? min : min.length, line.length);
 	});
 	return str.replace(new RegExp(`^[ \\t]{${minSapceNum}}`, "gm"), "");
 };
 
-export { b64ToBlob, chain, charToCodePoint, compose, conversionBase, curry, endsWith, fileToB64, getRangeByTerm, getTermLeft, getTermRight, random, randomHexColor, randomList, reverse, shuffle, startsWith, strToNum, thousandth, throttle, trimLineStart, weightedRandom };
+export {
+	b64ToBlob,
+	chain,
+	charToCodePoint,
+	compose,
+	conversionBase,
+	curry,
+	endsWith,
+	fileToB64,
+	getRangeByTerm,
+	getTermLeft,
+	getTermRight,
+	random,
+	randomHexColor,
+	randomList,
+	reverse,
+	shuffle,
+	startsWith,
+	strToNum,
+	thousandth,
+	throttle,
+	trimLineStart,
+	weightedRandom
+};

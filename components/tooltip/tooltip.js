@@ -55,91 +55,91 @@ export class xttTooltipElement extends HTMLElement {
 	#popoverMouseEventAdded = false;
 	#mouseOnPopoverOrTrigger = false;
 
-  /** @param {HTMLElement} el */
-  #handleEventOfTrigger(el) {
-    const hideEvent = (ev, isRe) => {
-      if (ev?.type === "mouseleave" && !isRe) {
-        // mouseleave 事件需要 setTimeout 延后一下，因为需要确认是否会触发 mouseenter
-        // 主要是为了保证从 target 上移动到 tooltip 上时 tooltip 不会关闭
-        setTimeout(() => {
-          hideEvent(ev, true);
-        }, 0);
-        return;
-      }
+	/** @param {HTMLElement} el */
+	#handleEventOfTrigger(el) {
+		const hideEvent = (ev, isRe) => {
+			if (ev?.type === "mouseleave" && !isRe) {
+				// mouseleave 事件需要 setTimeout 延后一下，因为需要确认是否会触发 mouseenter
+				// 主要是为了保证从 target 上移动到 tooltip 上时 tooltip 不会关闭
+				setTimeout(() => {
+					hideEvent(ev, true);
+				}, 0);
+				return;
+			}
 
-      if (ev?.type !== "mouseleave" || !this.#mouseOnPopoverOrTrigger) {
-        this.hide();
+			if (ev?.type !== "mouseleave" || !this.#mouseOnPopoverOrTrigger) {
+				this.hide();
 
-        // 清除绑定的关闭行为相关的事件，防止多次绑定 以及长期绑定造成多余的绑定浪费
-        el.removeEventListener("pointerdown", hideEvent, {
-          once: true,
-        });
-        el.removeEventListener("keydown", hideEvent, {
-          once: true,
-        });
-        el.removeEventListener("blur", hideEvent, {
-          once: true,
-        });
-        document.removeEventListener("scroll", hideEvent, {
-          once: true,
-        });
-      }
-    };
+				// 清除绑定的关闭行为相关的事件，防止多次绑定 以及长期绑定造成多余的绑定浪费
+				el.removeEventListener("pointerdown", hideEvent, {
+					once: true
+				});
+				el.removeEventListener("keydown", hideEvent, {
+					once: true
+				});
+				el.removeEventListener("blur", hideEvent, {
+					once: true
+				});
+				document.removeEventListener("scroll", hideEvent, {
+					once: true
+				});
+			}
+		};
 
-    const showEvent = (ev) => {
-      this.show(ev.currentTarget ?? ev.target);
+		const showEvent = (ev) => {
+			this.show(ev.currentTarget ?? ev.target);
 
-      el.addEventListener("pointerdown", hideEvent, {
-        once: true,
-      });
-      el.addEventListener("keydown", hideEvent, {
-        once: true,
-      });
-      el.addEventListener("blur", hideEvent, {
-        once: true,
-      });
-      document.addEventListener("scroll", hideEvent, {
-        once: true,
-      });
-    };
+			el.addEventListener("pointerdown", hideEvent, {
+				once: true
+			});
+			el.addEventListener("keydown", hideEvent, {
+				once: true
+			});
+			el.addEventListener("blur", hideEvent, {
+				once: true
+			});
+			document.addEventListener("scroll", hideEvent, {
+				once: true
+			});
+		};
 
-    el.addEventListener("mouseenter", (ev) => {
-      this.#mouseOnPopoverOrTrigger = true;
-      showEvent(ev);
-    });
-    el.addEventListener("mouseleave", (ev) => {
-      this.#mouseOnPopoverOrTrigger = false;
-      hideEvent(ev);
-    });
-    el.addEventListener("focus", showEvent);
+		el.addEventListener("mouseenter", (ev) => {
+			this.#mouseOnPopoverOrTrigger = true;
+			showEvent(ev);
+		});
+		el.addEventListener("mouseleave", (ev) => {
+			this.#mouseOnPopoverOrTrigger = false;
+			hideEvent(ev);
+		});
+		el.addEventListener("focus", showEvent);
 
-    if (!this.#popoverMouseEventAdded) {
-      this.#popover.addEventListener("mouseenter", () => {
-        this.#mouseOnPopoverOrTrigger = true;
-      });
-      this.#popover.addEventListener("mouseleave", (ev) => {
-        this.#mouseOnPopoverOrTrigger = false;
-        hideEvent(ev);
-      });
-      this.#popoverMouseEventAdded = true;
-    }
-  }
+		if (!this.#popoverMouseEventAdded) {
+			this.#popover.addEventListener("mouseenter", () => {
+				this.#mouseOnPopoverOrTrigger = true;
+			});
+			this.#popover.addEventListener("mouseleave", (ev) => {
+				this.#mouseOnPopoverOrTrigger = false;
+				hideEvent(ev);
+			});
+			this.#popoverMouseEventAdded = true;
+		}
+	}
 
-  #refreshTrigger(el) {
-    // 给触发 tooltip 的元素添加 aria-describedby 属性，值为 tooltip 的 ID
-    // 供无障碍设备访问 tooltip 的内容
-    // TODO aria-describedby 内容可以包含多个 ID，用空格分隔，但是这里只能包含一个，会删除已有的内容，需要改进
-    el.setAttribute("aria-describedby", uniqueId(this).id);
-    this.#handleEventOfTrigger(el);
-    el.xttTooltipElement = this;
-  }
-  initTrigger(elements) {
-    if (elements instanceof NodeList) {
-      elements.forEach(this.#refreshTrigger, this);
-    } else if (elements?.nodeType === 1) {
-      this.#refreshTrigger(elements);
-    }
-  }
+	#refreshTrigger(el) {
+		// 给触发 tooltip 的元素添加 aria-describedby 属性，值为 tooltip 的 ID
+		// 供无障碍设备访问 tooltip 的内容
+		// TODO aria-describedby 内容可以包含多个 ID，用空格分隔，但是这里只能包含一个，会删除已有的内容，需要改进
+		el.setAttribute("aria-describedby", uniqueId(this).id);
+		this.#handleEventOfTrigger(el);
+		el.xttTooltipElement = this;
+	}
+	initTrigger(elements) {
+		if (elements instanceof NodeList) {
+			elements.forEach(this.#refreshTrigger, this);
+		} else if (elements?.nodeType === 1) {
+			this.#refreshTrigger(elements);
+		}
+	}
 
 	#showTimer;
 	show(toElement) {
