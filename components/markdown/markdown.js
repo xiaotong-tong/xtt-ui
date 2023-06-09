@@ -4,6 +4,7 @@ import githubMarkdownStyle from "github-markdown-css" assert { type: "css" };
 
 import { marked } from "marked";
 import hljs from "highlight.js/lib/core";
+import { gfmHeadingId } from "marked-gfm-heading-id";
 import { markedHighlight } from "marked-highlight";
 import javascript from "highlight.js/lib/languages/javascript";
 import xml from "highlight.js/lib/languages/xml";
@@ -22,8 +23,7 @@ marked.setOptions({
 	sanitize: false,
 	smartLists: true,
 	smartypants: false,
-	mangle: false,
-	headerIds: false
+	mangle: false
 });
 
 marked.use(
@@ -33,6 +33,12 @@ marked.use(
 			const language = hljs.getLanguage(lang) ? lang : "plaintext";
 			return hljs.highlight(code, { language }).value;
 		}
+	})
+);
+
+marked.use(
+	gfmHeadingId({
+		prefix: "xtt-md-"
 	})
 );
 
