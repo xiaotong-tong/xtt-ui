@@ -1,6 +1,8 @@
 import "./load.js";
 
-document.getElementById("code").textContent = `
+const code = document.getElementById("code");
+
+code.textContent = `
 # reverse
 
 Returns the reverse of a string.
@@ -34,3 +36,7 @@ const reverse = (text) => {
 };
 \`\`\`
 `;
+
+setTimeout(() => {
+	console.log(code.headers);
+}, 0);

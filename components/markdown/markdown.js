@@ -82,6 +82,15 @@ export class xttMarkdownElement extends HTMLElement {
 			childList: true
 		});
 		this.#parseMarkdown(this.textContent);
+
+		window.addEventListener("hashchange", this.#hashchangeEventBindThis);
+	}
+
+	disconnectedCallback() {
+		this.#observer.disconnect();
+
+		// 因为这个事件是绑定在 window 上的，所以在组件销毁时需要手动移除
+		window.removeEventListener("hashchange", this.#hashchangeEventBindThis);
 	}
 
 	#parseMarkdown(content) {
@@ -90,5 +99,28 @@ export class xttMarkdownElement extends HTMLElement {
 
 	get #body() {
 		return this.#shadowRoot.getElementById("body");
+	}
+
+	#hashchangeEventBindThis = this.#hashchangeEvent.bind(this);
+	#hashchangeEvent() {
+		// 因为标题元素是在 shadowRoot 中，在改变 hash 时，页面不会自动滚动到对应的标题元素
+		// 所以需要手动滚动到对应的标题元素
+		// 这里的实现方式是，监听 hashchange 事件， 获取 hash 值，然后在 shadowRoot 中查找对应的元素，获取元素的位置，然后滚动到对应的位置
+		const hash = window.location.hash;
+		if (hash) {
+			const target = this.#body.querySelector(hash);
+			if (target) {
+				const rect = target.getBoundingClientRect();
+				window.scrollTo({
+					top: rect.top + window.scrollY - 8,
+					behavior: "smooth"
+				});
+			}
+		}
+	}
+
+	// 向外部暴露一个 headers 属性，用于获取所有的标题元素
+	get headers() {
+		return this.#body.querySelectorAll("h1, h2, h3, h4, h5, h6");
 	}
 }
