@@ -1,4 +1,5 @@
 import style from "./button.css" assert { type: "css" };
+import { updateElementStyle } from "../../utils/xtt-ui-utils.js";
 
 /**
  * @description button component
@@ -24,10 +25,11 @@ export class xttButtonElement extends HTMLElement {
 	}
 
 	static get observedAttributes() {
-		return ["disabled"];
+		return ["disabled", "data-xtt-tooltip"];
 	}
 
 	#shadowRoot;
+	#tooltipElement;
 
 	constructor() {
 		super();
@@ -35,6 +37,46 @@ export class xttButtonElement extends HTMLElement {
 		this.#shadowRoot = this.attachShadow({ mode: "open" });
 		this.#shadowRoot.adoptedStyleSheets = [style];
 		this.#shadowRoot.appendChild(this.template());
+
+		this.#tooltipElement = document.createElement("xtt-tooltip");
+		this.#tooltipElement.textContent = this.textContent;
+
+		this.#shadowRoot.appendChild(this.#tooltipElement);
+		this.#tooltipElement.initTrigger(this.#button);
+
+		// 如果 button 内部的文本内容超出了 button 的宽度，就显示 tooltip
+		// 否则就阻止 tooltip 的显示
+		// 如果 button 上显示设置了 data-xtt-tooltip 属性，就不进行判断
+		this.#button.addEventListener("xtt-tooltip-show", (ev) => {
+			if (this.#button.dataset.xttTooltip) {
+				return;
+			}
+
+			const span = document.createElement("span");
+
+			this.#text
+				.querySelector("slot")
+				.assignedNodes()
+				.forEach((node) => {
+					span.appendChild(node.cloneNode(true));
+				});
+
+			updateElementStyle(span, {
+				position: "absolute",
+				top: "-9999px",
+				left: "-9999px",
+				"white-space": "nowrap",
+				"font-size": window.getComputedStyle(this.#text).fontSize
+			});
+
+			this.#button.appendChild(span);
+
+			if (span.offsetWidth <= this.#text.offsetWidth) {
+				ev.preventDefault();
+			}
+
+			span.remove();
+		});
 	}
 
 	connectedCallback() {
@@ -65,6 +107,8 @@ export class xttButtonElement extends HTMLElement {
 	attributeChangedCallback(name, oldValue, newValue) {
 		if (name === "disabled") {
 			this.#button.disabled = newValue !== null;
+		} else if (name === "data-xtt-tooltip") {
+			this.#button.dataset.xttTooltip = newValue;
 		}
 	}
 
