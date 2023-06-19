@@ -1,0 +1,9 @@
+:host {
+	position: fixed;
+	inset: 0;
+	opacity: 0.6;
+	background-image: var(--bg-url);
+	background-size: cover;
+	background-position: center;
+	z-index: -9;
+}

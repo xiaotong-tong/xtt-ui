@@ -27,7 +27,8 @@ export default [
 			"xtt-tooltip": "components/xtt-tooltip.js",
 			"xtt-markdown": "components/xtt-markdown.js",
 			"plugins/xtt-mouseSnow": "plugins/xtt-mouseSnow.js",
-			"_xtt-code": "_internal/components/xtt-code.js"
+			"_xtt-code": "_internal/components/xtt-code.js",
+			"nami/xtt-web-bg": "nami/components/xtt-web-bg.js"
 		},
 		output: {
 			dir: "dist",

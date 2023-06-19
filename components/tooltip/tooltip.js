@@ -125,11 +125,13 @@ export class xttTooltipElement extends HTMLElement {
 		}
 	}
 
+	/** @param {HTMLElement} el */
 	#refreshTrigger(el) {
 		// 给触发 tooltip 的元素添加 aria-describedby 属性，值为 tooltip 的 ID
 		// 供无障碍设备访问 tooltip 的内容
 		// TODO aria-describedby 内容可以包含多个 ID，用空格分隔，但是这里只能包含一个，会删除已有的内容，需要改进
-		el.setAttribute("aria-describedby", uniqueId(this).id);
+		el.ariaDescribedby = uniqueId(this).id;
+
 		this.#handleEventOfTrigger(el);
 		el.xttTooltipElement = this;
 	}
