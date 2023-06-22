@@ -25,6 +25,11 @@ export class xttWebBgElement extends HTMLElement {
 	}
 	disconnectedCallback() {
 		this.#removeDropEvent();
+
+		// 在元素移除时移除 URL 内存，防止内存泄漏
+		if (this.#bgUrl) {
+			URL.revokeObjectURL(this.#bgUrl);
+		}
 	}
 
 	attributeChangedCallback(name, oldValue, newValue) {
@@ -33,15 +38,38 @@ export class xttWebBgElement extends HTMLElement {
 		}
 	}
 
-	#updateBgUrl(url) {
+	#bgUrl;
+	#updateBgUrl(url, byCreateObjectURL = false) {
+		if (byCreateObjectURL) {
+			this.#bgUrl = url;
+		}
+
 		this.style.setProperty("--bg-url", `url(${url})`);
 	}
 
 	async #initBg() {
-		const localBg = localStorage.getItem(this.#saveKey);
-		if (localBg) {
-			const blob = await b64ToBlob(localBg);
-			this.#updateBgUrl(URL.createObjectURL(blob));
+		if (indexedDB) {
+			let db;
+			const request = indexedDB.open("xtt-web-bg-table");
+			request.onsuccess = (event) => {
+				db = event.target.result;
+				const tx = db.transaction("bg", "readonly");
+				const store = tx.objectStore("bg");
+				const request = store.get(this.#saveKey);
+				request.onsuccess = (event) => {
+					const file = event.target.result;
+					if (file) {
+						this.#updateBgUrl(URL.createObjectURL(file), true);
+					}
+					db.close();
+				};
+			};
+		} else {
+			const localBg = localStorage.getItem(this.#saveKey);
+			if (localBg) {
+				const blob = await b64ToBlob(localBg);
+				this.#updateBgUrl(URL.createObjectURL(blob), true);
+			}
 		}
 	}
 
@@ -52,14 +80,44 @@ export class xttWebBgElement extends HTMLElement {
 	#dropHandler(ev) {
 		const file = ev.dataTransfer.files[0];
 
-		this.#updateBgUrl(URL.createObjectURL(file));
-
 		if (file?.type.includes("image")) {
-			fileToB64(file).then((b64) => {
-				localStorage.setItem(this.#saveKey, b64);
-			});
+			const oldBg = this.#bgUrl;
+
+			this.#updateBgUrl(URL.createObjectURL(file), true);
+
+			// 如果支持 indexedDB，就将数据保存到 indexedDB 中，否则保存到 localStorage 中
+			// 因为 indexedDB 支持保存 file 对象和 blob 对象，而 localStorage 只能保存字符串
+			// 所以 indexedDB 中直接保存 file 对象，而 localStorage 中保存 base64 字符串
+			if (indexedDB) {
+				let db;
+				const request = indexedDB.open("xtt-web-bg-table");
+				request.onsuccess = (event) => {
+					db = event.target.result;
+					const tx = db.transaction("bg", "readwrite");
+					const store = tx.objectStore("bg");
+					store.put(file, this.#saveKey);
+					tx.oncomplete = () => {
+						db.close();
+					};
+				};
+
+				request.onupgradeneeded = (event) => {
+					db = event.target.result;
+					db.createObjectStore("bg");
+				};
+			} else {
+				fileToB64(file).then((b64) => {
+					localStorage.setItem(this.#saveKey, b64);
+				});
+			}
+
+			ev.preventDefault();
+
+			// 在更新 URL 之后，释放旧的 URL 内存，防止内存泄漏
+			if (oldBg) {
+				URL.revokeObjectURL(oldBg);
+			}
 		}
-		ev.preventDefault();
 	}
 
 	#dropEvent() {

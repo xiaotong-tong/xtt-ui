@@ -8,7 +8,7 @@
 	"type": "module",
 	"scripts": {
 		"prestart": "npm run build",
-		"start": "serve",
+		"start": "serve -n",
 		"prebuild": "rimraf dist",
 		"build": "rollup -c rollup.config.js"
 	},
