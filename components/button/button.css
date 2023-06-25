@@ -2,6 +2,7 @@
 	--button-default-color: transparent;
 	--button-primary-color: hsl(195deg 100% 50%);
 	--button-primary-light-color: hsl(195deg, 100%, 65%);
+	--button-primary-dark-color: hsl(195deg, 100%, 40%);
 
 	--button-bg-color: var(--button-default-color);
 	--button-font-color: inherit;
@@ -9,6 +10,8 @@
 	--button-border-color: silver;
 	--button-border-radius: 4px;
 	--button-focus-outline: thin dotted grey;
+
+	--button-bg-color-hover: transparent;
 	--button-font-color-hover: hsl(195deg 100% 50%);
 	--button-border-color-hover: hsl(195deg 100% 50%);
 }
@@ -19,13 +22,24 @@
 	--button-border-color: var(--button-primary-color);
 	--button-focus-outline: thin dotted var(--button-primary-color);
 	--button-font-color-hover: white;
+
+	--button-bg-color-active: var(--button-primary-dark-color);
+}
+:host([text]) {
+	--button-bg-color: var(--button-default-color);
+	--button-font-color: inherit;
+
+	--button-bg-color-hover: hsl(216 33% 95%);
+	--button-font-color-hover: inherit;
+
+	--button-bg-color-active: hsl(216 33% 90%);
+}
+:host([text][type="primary"]) {
+	--button-font-color: var(--button-primary-color);
+	--button-font-color-hover: var(--button-primary-color);
 }
 :host([size="large"]) {
 	--button-padding: 8px 15px;
-}
-:host([text]) {
-	--button-bg-color-hover: hsl(240, 67%, 94%);
-	--button-font-color-hover: inherit;
 }
 
 /* button 默认是 inline-block 元素 */
@@ -50,24 +64,6 @@
 	outline: var(--button-focus-outline, thin dotted grey);
 	outline-offset: 1px;
 }
-#button:hover {
-	border-color: var(--button-border-color-hover, silver);
-	color: var(--button-font-color-hover, inherit);
-}
-:host([type="primary"]) #button:hover {
-	/* filter: brightness(1.05); */
-	background-color: var(--button-bg-color-hover, transparent);
-}
-#text {
-	display: -webkit-box;
-	-webkit-box-orient: vertical;
-	-webkit-line-clamp: 1;
-	overflow: hidden;
-}
-.no-icon #icon,
-.no-text #text {
-	display: none;
-}
 
 /* disabled 状态 */
 :host([disabled]) {
@@ -77,14 +73,6 @@
 
 :host([text]) #button {
 	border: none;
-	background-color: transparent;
-}
-:host([text][type="primary"]) #button {
-	color: var(--button-primary-color);
-}
-:host([text]) #button:hover {
-	background-color: var(--button-bg-color-hover, lavender);
-	filter: brightness(1.05);
 }
 
 :host([width="full"]) {
@@ -95,6 +83,31 @@
 	display: flex;
 	width: 100%;
 	justify-content: center;
+}
+
+/* 检测设备是否支持 hover */
+/* 将 hover 样式统一放到该区域进行管理 */
+@media (hover: hover) {
+	#button:hover {
+		background-color: var(--button-bg-color-hover);
+		border-color: var(--button-border-color-hover, silver);
+		color: var(--button-font-color-hover, inherit);
+	}
+}
+
+#button:active {
+	background-color: var(--button-bg-color-active, transparent);
+}
+
+#text {
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	-webkit-line-clamp: 1;
+	overflow: hidden;
+}
+.no-icon #icon,
+.no-text #text {
+	display: none;
 }
 
 /* icon */
