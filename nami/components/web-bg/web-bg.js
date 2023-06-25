@@ -41,7 +41,21 @@ export class xttWebBgElement extends HTMLElement {
 	#bgUrl;
 	#updateBgUrl(url, byCreateObjectURL = false) {
 		if (byCreateObjectURL) {
+			const oldBg = this.#bgUrl;
+
 			this.#bgUrl = url;
+
+			setTimeout(() => {
+				// 在更新 URL 之后，释放旧的 URL 内存，防止内存泄漏
+				if (oldBg) {
+					URL.revokeObjectURL(oldBg);
+				}
+			}, 16);
+		}
+
+		if (!url) {
+			this.style.removeProperty("--bg-url");
+			return;
 		}
 
 		this.style.setProperty("--bg-url", `url(${url})`);
@@ -81,8 +95,6 @@ export class xttWebBgElement extends HTMLElement {
 		const file = ev.dataTransfer.files[0];
 
 		if (file?.type.includes("image")) {
-			const oldBg = this.#bgUrl;
-
 			this.#updateBgUrl(URL.createObjectURL(file), true);
 
 			// 如果支持 indexedDB，就将数据保存到 indexedDB 中，否则保存到 localStorage 中
@@ -112,11 +124,6 @@ export class xttWebBgElement extends HTMLElement {
 			}
 
 			ev.preventDefault();
-
-			// 在更新 URL 之后，释放旧的 URL 内存，防止内存泄漏
-			if (oldBg) {
-				URL.revokeObjectURL(oldBg);
-			}
 		}
 	}
 
@@ -130,5 +137,31 @@ export class xttWebBgElement extends HTMLElement {
 		// 在元素移除时移除事件监听
 		document.removeEventListener("dragover", this.#dragoverHandler, false);
 		document.removeEventListener("drop", this.#dropHandlerByThis);
+	}
+
+	clean() {
+		// 清除背景图片
+		this.#updateBgUrl("", true);
+
+		if (this.getAttribute("src")) {
+			this.#updateBgUrl(this.getAttribute("src"));
+		}
+
+		// 清除 indexedDB 中的数据
+		if (indexedDB) {
+			let db;
+			const request = indexedDB.open("xtt-web-bg-table");
+			request.onsuccess = (event) => {
+				db = event.target.result;
+				const tx = db.transaction("bg", "readwrite");
+				const store = tx.objectStore("bg");
+				store.delete(this.#saveKey);
+				tx.oncomplete = () => {
+					db.close();
+				};
+			};
+		}
+		// 清除 localStorage 中的数据
+		localStorage.removeItem(this.#saveKey);
 	}
 }
