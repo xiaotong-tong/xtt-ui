@@ -6,6 +6,8 @@
 	--link-font-color: inherit;
 	--link-font-color-hover: inherit;
 	--link-font-color-active: inherit;
+
+	--link-focus-outline: thin dotted #000000;
 }
 
 :host(:is([block], [inline-block])) {
@@ -45,6 +47,11 @@
 
 #link:active {
 	color: var(--link-font-color-active, inherit);
+}
+
+#link:focus-visible {
+	outline: var(--link-focus-outline);
+	outline-offset: 1px;
 }
 
 /* link 默认是 inline 元素 */
