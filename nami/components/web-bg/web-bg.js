@@ -67,6 +67,10 @@ export class xttWebBgElement extends HTMLElement {
 			const request = indexedDB.open("xtt-web-bg-table");
 			request.onsuccess = (event) => {
 				db = event.target.result;
+				if (!db.objectStoreNames.contains("bg")) {
+					db.close();
+					return;
+				}
 				const tx = db.transaction("bg", "readonly");
 				const store = tx.objectStore("bg");
 				const request = store.get(this.#saveKey);
@@ -77,6 +81,11 @@ export class xttWebBgElement extends HTMLElement {
 					}
 					db.close();
 				};
+			};
+
+			request.onupgradeneeded = (event) => {
+				db = event.target.result;
+				db.createObjectStore("bg");
 			};
 		} else {
 			const localBg = localStorage.getItem(this.#saveKey);
@@ -105,17 +114,16 @@ export class xttWebBgElement extends HTMLElement {
 				const request = indexedDB.open("xtt-web-bg-table");
 				request.onsuccess = (event) => {
 					db = event.target.result;
+					if (!db.objectStoreNames.contains("bg")) {
+						db.close();
+						return;
+					}
 					const tx = db.transaction("bg", "readwrite");
 					const store = tx.objectStore("bg");
 					store.put(file, this.#saveKey);
 					tx.oncomplete = () => {
 						db.close();
 					};
-				};
-
-				request.onupgradeneeded = (event) => {
-					db = event.target.result;
-					db.createObjectStore("bg");
 				};
 			} else {
 				fileToB64(file).then((b64) => {
@@ -153,6 +161,10 @@ export class xttWebBgElement extends HTMLElement {
 			const request = indexedDB.open("xtt-web-bg-table");
 			request.onsuccess = (event) => {
 				db = event.target.result;
+				if (!db.objectStoreNames.contains("bg")) {
+					db.close();
+					return;
+				}
 				const tx = db.transaction("bg", "readwrite");
 				const store = tx.objectStore("bg");
 				store.delete(this.#saveKey);
