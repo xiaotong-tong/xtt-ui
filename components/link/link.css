@@ -1,0 +1,60 @@
+:host {
+	--link-primary-color: hsl(195deg 100% 50%);
+	--link-primary-light-color: hsl(195deg, 100%, 65%);
+	--link-primary-dark-color: hsl(195deg, 100%, 40%);
+
+	--link-font-color: inherit;
+	--link-font-color-hover: inherit;
+	--link-font-color-active: inherit;
+}
+
+:host(:is([block], [inline-block])) {
+	--link-padding: 4px 10px;
+}
+
+:host([type="primary"]) {
+	--link-font-color: var(--link-primary-color);
+	--link-font-color-hover: var(--link-primary-light-color);
+	--link-font-color-active: var(--link-primary-dark-color);
+}
+
+#link {
+	cursor: pointer;
+	color: var(--link-font-color, inherit);
+	text-decoration: none;
+}
+
+:host(:is([inline-block], [block])) #link {
+	display: inline-flex;
+	max-width: 100%;
+	justify-content: center;
+	box-sizing: border-box;
+
+	padding: var(--link-padding, 4px 10px);
+}
+:host([block]) #link {
+	display: flex;
+	width: 100%;
+}
+
+@media (hover: hover) {
+	#link:hover {
+		color: var(--link-font-color-hover, inherit);
+	}
+}
+
+#link:active {
+	color: var(--link-font-color-active, inherit);
+}
+
+/* link 默认是 inline 元素 */
+:host {
+	display: inline;
+}
+:host([inline-block]) {
+	display: inline-block;
+}
+:host([block]) {
+	display: block;
+	margin-block: 8px;
+}

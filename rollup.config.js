@@ -24,6 +24,7 @@ export default [
 	{
 		input: {
 			"xtt-button": "components/xtt-button.js",
+			"xtt-link": "components/xtt-link.js",
 			"xtt-tooltip": "components/xtt-tooltip.js",
 			"xtt-markdown": "components/xtt-markdown.js",
 			"plugins/xtt-mouseSnow": "plugins/xtt-mouseSnow.js",
