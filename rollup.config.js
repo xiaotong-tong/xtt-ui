@@ -38,5 +38,14 @@ export default [
 			format: "esm"
 		},
 		plugins: [importAssertions(), nodeResolve(), commonjs()]
+	},
+
+	{
+		input: "./nami/nami.js",
+		output: {
+			file: "dist/nami-ui.min.js",
+			format: "iife"
+		},
+		plugins: [importAssertions(), terser(), nodeResolve(), commonjs()]
 	}
 ];

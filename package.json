@@ -20,6 +20,9 @@
 		"./plugins/*": {
 			"import": "./plugins/*.js"
 		},
+		"./nami": {
+			"import": "./nami/nami.js"
+		},
 		"./*": {
 			"import": "./components/*.js"
 		}
