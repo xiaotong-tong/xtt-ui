@@ -1,5 +1,5 @@
 import style from "./tooltip.css" assert { type: "css" };
-import { updateElementStyle, uniqueId } from "../../utils/xtt-ui-utils.js";
+import { updateElementStyle, uniqueId, attrValueAppendIds } from "../../utils/xtt-ui-utils.js";
 
 export class xttTooltipElement extends HTMLElement {
 	/**
@@ -39,6 +39,7 @@ export class xttTooltipElement extends HTMLElement {
 
 	connectedCallback() {
 		this.role = "tooltip";
+		this.ariaLabel = this.textContent.trim() || "tooltip label";
 		uniqueId(this);
 	}
 
@@ -127,10 +128,10 @@ export class xttTooltipElement extends HTMLElement {
 
 	/** @param {HTMLElement} el */
 	#refreshTrigger(el) {
-		// 给触发 tooltip 的元素添加 aria-describedby 属性，值为 tooltip 的 ID
-		// 供无障碍设备访问 tooltip 的内容
-		// TODO aria-describedby 内容可以包含多个 ID，用空格分隔，但是这里只能包含一个，会删除已有的内容，需要改进
-		el.ariaDescribedby = uniqueId(this).id;
+		// 给触发 tooltip 的元素添加 aria 属性，值为 tooltip 的 ID, 供无障碍设备访问 tooltip 的内容
+		// 如果元素上有 data-aria-type 属性，且值为 labelledby，那么使用 aria-labelledby 属性，否则使用 aria-describedby 属性
+		const referenceType = el.dataset.ariaType === "labelledby" ? "aria-labelledby" : "aria-describedby";
+		attrValueAppendIds(el, referenceType, this);
 
 		this.#handleEventOfTrigger(el);
 		el.xttTooltipElement = this;
@@ -165,6 +166,7 @@ export class xttTooltipElement extends HTMLElement {
 		}
 
 		this.#popover.textContent = toElement.dataset.xttTooltip ?? this.textContent;
+		this.ariaLabel = toElement.dataset.xttTooltip ?? this.textContent;
 
 		this.#changePosition(toElement);
 

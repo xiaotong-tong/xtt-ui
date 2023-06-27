@@ -22,7 +22,13 @@
 		<button id="defaultWithTooltip" data-xtt-tooltip="This is tooltip With data-xtt-tooltip">
 			has data-xtt-tooltip
 		</button>
-		<xtt-tooltip for="#defaultWithTooltip"></xtt-tooltip>
+		<xtt-tooltip for="#defaultWithTooltip">default value</xtt-tooltip>
+		<p>
+			添加 data-xtt-tooltip (下文缩写为 data) 属性后, tooltip 显示的内容为 data 内的文字，<br />
+			但是仍希望在 xtt-tooltip 元素内添加一个默认值, 这个默认值不会影响显示，也不会影响屏幕阅读器读取的内容,
+			它会使你的无障碍功能更健壮 <br />因为 data 的内容是在 tooltip 显示前才会添加到 xtt-tooltip
+			元素内的，在静态检查时 tooltip 的内容为空，这会略微影响无障碍检查
+		</p>
 
 		<xtt-code>
 			<button id="default">default</button>
@@ -31,20 +37,20 @@
 			<button id="defaultWithTooltip" data-xtt-tooltip="This is tooltip With data-xtt-tooltip">
 				has data-xtt-tooltip
 			</button>
-			<xtt-tooltip for="#defaultWithTooltip"></xtt-tooltip>
+			<xtt-tooltip for="#defaultWithTooltip">default value</xtt-tooltip>
 		</xtt-code>
 
 		<h2>initTrigger</h2>
 		<button class="initTrigger" data-xtt-tooltip="This is tooltip by initTrigger - 1">initTrigger1</button>
 		<button class="initTrigger" data-xtt-tooltip="This is tooltip by initTrigger - 2">initTrigger2</button>
 		<button class="initTrigger" data-xtt-tooltip="This is tooltip by initTrigger - 3">initTrigger3</button>
-		<xtt-tooltip id="initTriggerTooltip"></xtt-tooltip>
+		<xtt-tooltip id="initTriggerTooltip">default value</xtt-tooltip>
 
 		<xtt-code>
 			<button class="initTrigger" data-xtt-tooltip="This is tooltip by initTrigger - 1">initTrigger1</button>
 			<button class="initTrigger" data-xtt-tooltip="This is tooltip by initTrigger - 2">initTrigger2</button>
 			<button class="initTrigger" data-xtt-tooltip="This is tooltip by initTrigger - 3">initTrigger3</button>
-			<xtt-tooltip id="initTriggerTooltip"></xtt-tooltip>
+			<xtt-tooltip id="initTriggerTooltip">default value</xtt-tooltip>
 			<script type="none">
 				document
 				    .getElementById("initTriggerTooltip")
@@ -54,10 +60,10 @@
 
 		<h2>preventDefault</h2>
 		<button id="preventDefaultBtn" data-xtt-tooltip="This is tooltip by preventDefault">preventDefault</button>
-		<xtt-tooltip for="#preventDefaultBtn"></xtt-tooltip>
+		<xtt-tooltip for="#preventDefaultBtn">default value</xtt-tooltip>
 		<xtt-code>
 			<button id="preventDefaultBtn" data-xtt-tooltip="This is tooltip by preventDefault">preventDefault</button>
-			<xtt-tooltip for="#preventDefaultBtn"></xtt-tooltip>
+			<xtt-tooltip for="#preventDefaultBtn">default value</xtt-tooltip>
 			<script type="none">
 				document.querySelector("#preventDefaultBtn")
 				    .addEventListener("xtt-tooltip-show", (ev) => {
@@ -65,5 +71,17 @@
 				    });
 			</script>
 		</xtt-code>
+
+		<h2>aria-labelledby</h2>
+		<button id="null" data-aria-type="labelledby"></button>
+		<xtt-tooltip for="#null">This is null button, label by aria-labelledby</xtt-tooltip>
+		<xtt-code>
+			<button id="null" data-aria-type="labelledby"></button>
+			<xtt-tooltip for="#null">This is null button, label by aria-labelledby</xtt-tooltip>
+		</xtt-code>
+		<p>
+			默认添加的属性为 aria-describedby, 如果设置了 data-aria-type="labelledby" 后，则会添加 aria-labelledby
+			属性。
+		</p>
 	</body>
 </html>

@@ -25,7 +25,7 @@ export class xttButtonElement extends HTMLElement {
 	}
 
 	static get observedAttributes() {
-		return ["disabled", "data-xtt-tooltip", "clamp"];
+		return ["disabled", "clamp", "data-xtt-tooltip", "data-aria-type"];
 	}
 
 	#shadowRoot;
@@ -42,7 +42,6 @@ export class xttButtonElement extends HTMLElement {
 		this.#tooltipElement.textContent = this.textContent;
 
 		this.#shadowRoot.appendChild(this.#tooltipElement);
-		this.#tooltipElement.initTrigger(this.#button);
 
 		// 如果 button 内部的文本内容超出了 button 的宽度，就显示 tooltip
 		// 否则就阻止 tooltip 的显示
@@ -102,13 +101,15 @@ export class xttButtonElement extends HTMLElement {
 		if (!hasText) {
 			this.#button.classList.add("no-text");
 		}
+
+		this.#tooltipElement.initTrigger(this.#button);
 	}
 
 	attributeChangedCallback(name, oldValue, newValue) {
 		if (name === "disabled") {
 			this.#button.disabled = newValue !== null;
-		} else if (name === "data-xtt-tooltip") {
-			this.#button.dataset.xttTooltip = newValue;
+		} else if (name === "data-xtt-tooltip" || name === "data-aria-type") {
+			this.#button.setAttribute(name, newValue);
 		} else if (name === "clamp") {
 			this.style.setProperty("--button-line-clamp", Number(newValue));
 		}
