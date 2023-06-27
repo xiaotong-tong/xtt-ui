@@ -25,7 +25,7 @@ export class xttButtonElement extends HTMLElement {
 	}
 
 	static get observedAttributes() {
-		return ["disabled", "clamp", "data-xtt-tooltip", "data-aria-type"];
+		return ["disabled", "line", "data-xtt-tooltip", "data-aria-type"];
 	}
 
 	#shadowRoot;
@@ -103,6 +103,10 @@ export class xttButtonElement extends HTMLElement {
 		}
 
 		this.#tooltipElement.initTrigger(this.#button);
+
+		this.#text.querySelector("slot").addEventListener("slotchange", () => {
+			this.#tooltipElement.textContent = this.textContent;
+		});
 	}
 
 	attributeChangedCallback(name, oldValue, newValue) {
@@ -110,7 +114,7 @@ export class xttButtonElement extends HTMLElement {
 			this.#button.disabled = newValue !== null;
 		} else if (name === "data-xtt-tooltip" || name === "data-aria-type") {
 			this.#button.setAttribute(name, newValue);
-		} else if (name === "clamp") {
+		} else if (name === "line") {
 			this.style.setProperty("--button-line-clamp", Number(newValue));
 		}
 	}

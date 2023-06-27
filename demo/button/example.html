@@ -82,32 +82,31 @@
 			<xtt-button type="primary" text block>block</xtt-button>
 		</xtt-code>
 
-		<h2>clamp</h2>
-		<xtt-button class="long-text" clamp="1">text with clamp="1"</xtt-button>
-		<xtt-button class="long-text" clamp="1">long long long long long long long long text with clamp="1"</xtt-button>
+		<h2>line</h2>
+		<div>
+			<xtt-button id="lineBtn" style="max-width: 200px" line="2"
+				>long long long long long long long long text</xtt-button
+			>
+		</div>
 
-		<xtt-button class="long-text" clamp="2">long long long long long long text with clamp="2"</xtt-button>
-		<xtt-button class="long-text" clamp="2"
-			>long long long long long long long long long long long long long text with clamp="2"</xtt-button
-		>
-
-		<xtt-button class="long-text" clamp="3"
-			>long long long long long long long long long long long long text with clamp="3"</xtt-button
-		>
-		<xtt-button class="long-text" clamp="3"
-			>long long long long long long long long long long long long long long long long text with
-			clamp="3"</xtt-button
-		>
+		<div>
+			<label for="maxWidthValue">max-width:</label>
+			<input id="maxWidthValue" type="number" value="200" min="0" />
+			<xtt-button id="setMaxWidth">set</xtt-button>
+		</div>
+		<div>
+			<label for="lineValue">line:</label>
+			<input id="lineValue" type="number" value="2" min="1" />
+			<xtt-button id="setline">set</xtt-button>
+		</div>
+		<div>
+			<label for="lineContent">text:</label>
+			<textarea id="lineContent" rows="5" cols="100">long long long long long long long long text</textarea>
+			<xtt-button id="setLineContent">set</xtt-button>
+		</div>
 
 		<xtt-code>
-			<xtt-button clamp="1">long long long long long long long long text with clamp="1"</xtt-button>
-			<xtt-button clamp="2"
-				>long long long long long long long long text with long long long long long clamp="2"</xtt-button
-			>
-			<xtt-button clamp="3"
-				>long long long long long long long long text long long long long long long long long with
-				clamp="3"</xtt-button
-			>
+			<xtt-button style="max-width: 200px" line="2">long long long long long long long long text</xtt-button>
 		</xtt-code>
 	</body>
 </html>
