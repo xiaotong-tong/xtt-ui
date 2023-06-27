@@ -25,7 +25,7 @@ export class xttButtonElement extends HTMLElement {
 	}
 
 	static get observedAttributes() {
-		return ["disabled", "data-xtt-tooltip"];
+		return ["disabled", "data-xtt-tooltip", "clamp"];
 	}
 
 	#shadowRoot;
@@ -46,7 +46,7 @@ export class xttButtonElement extends HTMLElement {
 
 		// 如果 button 内部的文本内容超出了 button 的宽度，就显示 tooltip
 		// 否则就阻止 tooltip 的显示
-		// 如果 button 上显示设置了 data-xtt-tooltip 属性，就不进行判断
+		// 如果 button 上显示设置了 data-xtt-tooltip 属性，就不进行阻止判断行为
 		this.#button.addEventListener("xtt-tooltip-show", (ev) => {
 			if (this.#button.dataset.xttTooltip) {
 				return;
@@ -65,13 +65,13 @@ export class xttButtonElement extends HTMLElement {
 				position: "absolute",
 				top: "-9999px",
 				left: "-9999px",
-				"white-space": "nowrap",
-				"font-size": window.getComputedStyle(this.#text).fontSize
+				"font-size": window.getComputedStyle(this.#text).fontSize,
+				"max-width": this.#text.offsetWidth + "px"
 			});
 
 			this.#button.appendChild(span);
 
-			if (span.offsetWidth <= this.#text.offsetWidth) {
+			if (span.offsetHeight <= this.#text.offsetHeight) {
 				ev.preventDefault();
 			}
 
@@ -109,6 +109,8 @@ export class xttButtonElement extends HTMLElement {
 			this.#button.disabled = newValue !== null;
 		} else if (name === "data-xtt-tooltip") {
 			this.#button.dataset.xttTooltip = newValue;
+		} else if (name === "clamp") {
+			this.style.setProperty("--button-line-clamp", Number(newValue));
 		}
 	}
 

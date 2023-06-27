@@ -42,19 +42,72 @@
 			</svg>
 		</xtt-button>
 
+		<xtt-code>
+			<xtt-button data-xtt-tooltip="only icon">
+				<svg viewBox="0 0 1024 1024" slot="icon">...</svg>
+			</xtt-button>
+		</xtt-code>
+
 		<h2>type 样式</h2>
 		<xtt-button type="primary">primary</xtt-button>
+
+		<xtt-code>
+			<xtt-button type="primary">primary</xtt-button>
+		</xtt-code>
 
 		<h2>text 样式</h2>
 		<xtt-button text>default</xtt-button>
 		<xtt-button type="primary" text>primary</xtt-button>
 
+		<xtt-code>
+			<xtt-button text>default</xtt-button>
+			<xtt-button type="primary" text>primary</xtt-button>
+		</xtt-code>
+
 		<h2>size 尺寸</h2>
 		<xtt-button size="large">large</xtt-button>
 
+		<xtt-code>
+			<xtt-button size="large">large</xtt-button>
+		</xtt-code>
+
 		<h2>block</h2>
-		<xtt-button block>full</xtt-button>
-		<xtt-button type="primary" block>full</xtt-button>
-		<xtt-button type="primary" text block>full</xtt-button>
+		<xtt-button block>block</xtt-button>
+		<xtt-button type="primary" block>block</xtt-button>
+		<xtt-button type="primary" text block>block</xtt-button>
+
+		<xtt-code>
+			<xtt-button block>block</xtt-button>
+			<xtt-button type="primary" block>block</xtt-button>
+			<xtt-button type="primary" text block>block</xtt-button>
+		</xtt-code>
+
+		<h2>clamp</h2>
+		<xtt-button class="long-text" clamp="1">text with clamp="1"</xtt-button>
+		<xtt-button class="long-text" clamp="1">long long long long long long long long text with clamp="1"</xtt-button>
+
+		<xtt-button class="long-text" clamp="2">long long long long long long text with clamp="2"</xtt-button>
+		<xtt-button class="long-text" clamp="2"
+			>long long long long long long long long long long long long long text with clamp="2"</xtt-button
+		>
+
+		<xtt-button class="long-text" clamp="3"
+			>long long long long long long long long long long long long text with clamp="3"</xtt-button
+		>
+		<xtt-button class="long-text" clamp="3"
+			>long long long long long long long long long long long long long long long long text with
+			clamp="3"</xtt-button
+		>
+
+		<xtt-code>
+			<xtt-button clamp="1">long long long long long long long long text with clamp="1"</xtt-button>
+			<xtt-button clamp="2"
+				>long long long long long long long long text with long long long long long clamp="2"</xtt-button
+			>
+			<xtt-button clamp="3"
+				>long long long long long long long long text long long long long long long long long with
+				clamp="3"</xtt-button
+			>
+		</xtt-code>
 	</body>
 </html>

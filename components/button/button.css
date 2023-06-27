@@ -11,6 +11,8 @@
 	--button-border-radius: 4px;
 	--button-focus-outline: thin dotted #000000;
 
+	--button-line-clamp: 1;
+
 	--button-bg-color-hover: transparent;
 	--button-font-color-hover: hsl(195deg 100% 50%);
 	--button-border-color-hover: hsl(195deg 100% 50%);
@@ -102,8 +104,9 @@
 #text {
 	display: -webkit-box;
 	-webkit-box-orient: vertical;
-	-webkit-line-clamp: 1;
+	-webkit-line-clamp: var(--button-line-clamp, 1);
 	overflow: hidden;
+	text-align: start;
 }
 .no-icon #icon,
 .no-text #text {
