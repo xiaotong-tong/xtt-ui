@@ -1,0 +1,17 @@
+:host {
+	--icon-size: 24px;
+}
+
+:host {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: var(--icon-size);
+	height: var(--icon-size);
+	aspect-ratio: 1;
+	vertical-align: middle;
+}
+
+::slotted(svg) {
+	fill: currentColor;
+}

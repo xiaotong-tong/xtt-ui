@@ -40,6 +40,7 @@ export default [
 
 	{
 		input: {
+			"xtt-icon": "components/xtt-icon.js",
 			"xtt-button": "components/xtt-button.js",
 			"xtt-link": "components/xtt-link.js",
 			"xtt-tooltip": "components/xtt-tooltip.js",

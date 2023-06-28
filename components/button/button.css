@@ -112,13 +112,3 @@
 .no-text #text {
 	display: none;
 }
-
-/* icon */
-/* 但是 svg 的宽高不应该在这里设置，这里只是为了更方便的展示 */
-::slotted(svg) {
-	width: 1em;
-	height: 1em;
-}
-#button:hover ::slotted(svg) {
-	fill: var(--button-font-color-hover, inherit);
-}

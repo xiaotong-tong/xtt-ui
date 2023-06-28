@@ -83,7 +83,7 @@ export class xttButtonElement extends HTMLElement {
 			hasText = false;
 		if (this.hasChildNodes()) {
 			for (const el of this.childNodes) {
-				if (el.slot === "icon" || el.classList?.has("xtt-icon") || el.tagName === "XTT-ICON") {
+				if (el.slot === "icon" || el?.tagName === "XTT-ICON" || el.classList?.has?.("xtt-icon")) {
 					hasIcon = true;
 					el.slot = "icon";
 				} else {
