@@ -2,6 +2,23 @@ import terser from "@rollup/plugin-terser";
 import importAssertions from "rollup-plugin-import-assertions";
 import { nodeResolve } from "@rollup/plugin-node-resolve";
 import commonjs from "@rollup/plugin-commonjs";
+import styles from "rollup-plugin-styles";
+import discardComments from "postcss-discard-comments";
+
+const minPluginOptions = [
+	commonjs(),
+	styles({
+		mode: "emit",
+		plugins: [
+			discardComments({
+				removeAll: true
+			})
+		]
+	}),
+	importAssertions(),
+	terser(),
+	nodeResolve()
+];
 
 export default [
 	{
@@ -10,7 +27,7 @@ export default [
 			file: "dist/xtt-ui.js",
 			format: "iife"
 		},
-		plugins: [importAssertions(), nodeResolve(), commonjs()]
+		plugins: [commonjs(), importAssertions(), nodeResolve()]
 	},
 	{
 		input: "index.js",
@@ -18,7 +35,7 @@ export default [
 			file: "dist/xtt-ui.min.js",
 			format: "iife"
 		},
-		plugins: [importAssertions(), terser(), nodeResolve(), commonjs()]
+		plugins: minPluginOptions
 	},
 
 	{
@@ -37,7 +54,7 @@ export default [
 			preserveModules: true,
 			format: "esm"
 		},
-		plugins: [importAssertions(), nodeResolve(), commonjs()]
+		plugins: [importAssertions(), commonjs(), nodeResolve()]
 	},
 
 	{
@@ -46,6 +63,6 @@ export default [
 			file: "dist/nami-ui.min.js",
 			format: "iife"
 		},
-		plugins: [importAssertions(), terser(), nodeResolve(), commonjs()]
+		plugins: minPluginOptions
 	}
 ];
