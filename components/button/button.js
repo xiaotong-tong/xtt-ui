@@ -79,34 +79,12 @@ export class xttButtonElement extends HTMLElement {
 	}
 
 	connectedCallback() {
-		let hasIcon = false,
-			hasText = false;
-		if (this.hasChildNodes()) {
-			for (const el of this.childNodes) {
-				if (el.slot === "icon" || el?.tagName === "XTT-ICON" || el.classList?.has?.("xtt-icon")) {
-					hasIcon = true;
-					el.slot = "icon";
-				} else {
-					hasText = true;
-				}
-
-				if (hasIcon && hasText) {
-					break;
-				}
-			}
-		}
-		if (!hasIcon) {
-			this.#button.classList.add("no-icon");
-		}
-		if (!hasText) {
-			this.#button.classList.add("no-text");
-		}
+		this.#contentChanged();
 
 		this.#tooltipElement.initTrigger(this.#button);
 
-		this.#text.querySelector("slot").addEventListener("slotchange", () => {
-			this.#tooltipElement.textContent = this.textContent;
-		});
+		this.#text.querySelector("slot").addEventListener("slotchange", this.#contentChanged.bind(this));
+		this.#icon.querySelector("slot").addEventListener("slotchange", this.#contentChanged.bind(this));
 	}
 
 	attributeChangedCallback(name, oldValue, newValue) {
@@ -116,6 +94,47 @@ export class xttButtonElement extends HTMLElement {
 			this.#button.setAttribute(name, newValue);
 		} else if (name === "line") {
 			this.style.setProperty("--button-line-clamp", Number(newValue));
+		}
+	}
+
+	#contentChanged() {
+		let hasIcon = false,
+			hasText = false;
+
+		if (this.hasChildNodes()) {
+			this.#button.classList.remove("no-icon", "no-text");
+			const childNodes = this.childNodes;
+
+			if (this.querySelector(':scope > [slot="icon"]')) {
+				hasIcon = true;
+			} else {
+				// 如果元素内部没有 slot="icon" 元素，那就判断第一个元素是否是 xtt-icon 自定义元素或者 具有 xtt-icon 类名的元素
+				// 如果是，就将其设置为 slot="icon"
+				let el = childNodes[0];
+
+				// 如果第一个元素是空文本节点，就判断第二个元素，因为换行符等空白符也会被解析为文本节点，而这些文本是没有任何意义的
+				if (el?.nodeType === Node.TEXT_NODE && !el?.textContent.trim()) {
+					el = childNodes[1];
+				}
+
+				if (el?.tagName === "XTT-ICON" || el?.classList?.has?.("xtt-icon")) {
+					hasIcon = true;
+					el.slot = "icon";
+				}
+			}
+
+			for (const el of childNodes) {
+				if (el.slot !== "icon" && el.textContent.trim()) {
+					hasText = true;
+					break;
+				}
+			}
+		}
+		if (!hasIcon) {
+			this.#button.classList.add("no-icon");
+		}
+		if (!hasText) {
+			this.#button.classList.add("no-text");
 		}
 	}
 

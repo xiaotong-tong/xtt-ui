@@ -24,3 +24,18 @@ setLineContent.addEventListener("click", () => {
 	const value = lineContent.value;
 	line.textContent = value;
 });
+
+const setIcon = document.getElementById("setIcon");
+const removeIcon = document.getElementById("removeIcon");
+
+setIcon.addEventListener("click", () => {
+	const icon = document.createElement("xtt-icon");
+	icon.setAttribute("icon", "power");
+	icon.slot = "icon";
+	line.appendChild(icon);
+});
+
+removeIcon.addEventListener("click", () => {
+	const icon = line.querySelector("xtt-icon");
+	icon.remove();
+});
