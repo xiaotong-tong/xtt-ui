@@ -1,16 +1,9 @@
 import style from "./select.css" assert { type: "css" };
 import { updateElementStyle } from "../../utils/xtt-ui-utils.js";
+import html from "./select.html";
 
 export class xttSelectElement extends HTMLElement {
-	static templateContent = `
-    <xtt-button id="select" type="base" part="select">
-        <xtt-icon id="icon" icon="chevronDown" part="icon"></xtt-icon>
-        <span id="text" part="text"></span>
-    </xtt-button>
-    <div id="popover">
-        <div id="popoverContent"></div>
-    </div>
-    `;
+	static templateContent = html;
 
 	template() {
 		const template = document.createElement("template");

@@ -38,8 +38,9 @@
 		"postcss-discard-comments": "^6.0.0",
 		"rimraf": "^5.0.1",
 		"rollup": "^3.23.1",
+		"rollup-plugin-html": "^0.2.1",
 		"rollup-plugin-import-assertions": "^0.5.0",
-		"rollup-plugin-styles": "^4.0.0",
+		"rollup-plugin-lib-styles": "^1.2.3",
 		"serve": "^14.2.0"
 	},
 	"dependencies": {

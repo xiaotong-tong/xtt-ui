@@ -2,10 +2,12 @@ import terser from "@rollup/plugin-terser";
 import importAssertions from "rollup-plugin-import-assertions";
 import { nodeResolve } from "@rollup/plugin-node-resolve";
 import commonjs from "@rollup/plugin-commonjs";
-import styles from "rollup-plugin-styles";
+import styles from "rollup-plugin-lib-styles";
 import discardComments from "postcss-discard-comments";
+import html from "rollup-plugin-html";
 
 const minPluginOptions = [
+	html(),
 	commonjs(),
 	styles({
 		mode: "emit",
@@ -27,7 +29,7 @@ export default [
 			file: "dist/xtt-ui.js",
 			format: "iife"
 		},
-		plugins: [commonjs(), importAssertions(), nodeResolve()]
+		plugins: [html(), commonjs(), importAssertions(), nodeResolve()]
 	},
 	{
 		input: "index.js",
@@ -56,7 +58,7 @@ export default [
 			preserveModules: true,
 			format: "esm"
 		},
-		plugins: [importAssertions(), commonjs(), nodeResolve()]
+		plugins: [html(), importAssertions(), commonjs(), nodeResolve()]
 	},
 
 	{
