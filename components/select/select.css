@@ -1,0 +1,58 @@
+:host {
+	--select-option-line-clamp: 1;
+
+	--select-option-selected-bg-color: hsl(195deg 100% 50%);
+	--select-option-selected-font-color: white;
+
+	--select-option-hover-bg-color: hsl(216 33% 90%);
+}
+
+:host {
+	max-width: 100%;
+}
+
+#select::part(button) {
+	flex-direction: row-reverse;
+	align-items: center;
+}
+
+#icon {
+	font-size: 24px;
+}
+
+#popover {
+	display: none;
+	position: fixed;
+	inset: 0;
+}
+#popover[open] {
+	display: block;
+}
+
+#popover #popoverContent {
+	position: fixed;
+	border: thin solid silver;
+	background-color: #fff;
+}
+
+xtt-option {
+	padding: 4px 8px;
+	cursor: pointer;
+	max-width: 100%;
+	min-height: 1em;
+
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	-webkit-line-clamp: var(--select-option-line-clamp, 1);
+	overflow: hidden;
+}
+xtt-option[selected] {
+	background-color: var(--select-option-selected-bg-color);
+	color: var(--select-option-selected-font-color);
+}
+
+@media (hover: hover) {
+	xtt-option:not([selected]):hover {
+		background-color: var(--select-option-hover-bg-color);
+	}
+}

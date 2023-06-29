@@ -29,6 +29,7 @@ export class xttButtonElement extends HTMLElement {
 	}
 
 	#shadowRoot;
+	#observer;
 	#tooltipElement;
 
 	constructor() {
@@ -76,15 +77,38 @@ export class xttButtonElement extends HTMLElement {
 
 			span.remove();
 		});
+
+		this.#observer = new MutationObserver((mutations) => {
+			mutations.forEach((mutation) => {
+				if (mutation.type === "childList") {
+					mutation.addedNodes.forEach((node) => {
+						if (node.nodeType === Node.TEXT_NODE || node.nodeType === Node.ELEMENT_NODE) {
+							this.#contentChanged();
+						}
+					});
+					mutation.removedNodes.forEach((node) => {
+						if (node.nodeType === Node.TEXT_NODE || node.nodeType === Node.ELEMENT_NODE) {
+							this.#contentChanged();
+						}
+					});
+				}
+			});
+		});
 	}
 
 	connectedCallback() {
+		this.#observer.observe(this, {
+			childList: true,
+			subtree: true
+		});
+
 		this.#contentChanged();
 
 		this.#tooltipElement.initTrigger(this.#button);
+	}
 
-		this.#text.querySelector("slot").addEventListener("slotchange", this.#contentChanged.bind(this));
-		this.#icon.querySelector("slot").addEventListener("slotchange", this.#contentChanged.bind(this));
+	disconnectedCallback() {
+		this.#observer.disconnect();
 	}
 
 	attributeChangedCallback(name, oldValue, newValue) {

@@ -66,10 +66,8 @@ export class xttMarkdownElement extends HTMLElement {
 			mutations.forEach((mutation) => {
 				if (mutation.type === "childList") {
 					mutation.addedNodes.forEach((node) => {
-						if (node.nodeType === Node.TEXT_NODE) {
+						if (node.nodeType === Node.TEXT_NODE || node.nodeType === Node.ELEMENT_NODE) {
 							this.#parseMarkdown(node.textContent);
-						} else if (node.nodeType === Node.ELEMENT_NODE) {
-							this.#parseMarkdown(node.innerHTML);
 						}
 					});
 				}

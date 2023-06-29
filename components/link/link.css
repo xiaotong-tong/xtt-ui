@@ -1,6 +1,6 @@
 :host {
 	--link-primary-color: hsl(195deg 100% 50%);
-	--link-primary-light-color: hsl(195deg, 100%, 65%);
+	--link-primary-light-color: hsl(195deg, 100%, 70%);
 	--link-primary-dark-color: hsl(195deg, 100%, 40%);
 
 	--link-font-color: inherit;

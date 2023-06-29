@@ -1,10 +1,9 @@
 :host {
-	--button-default-color: transparent;
 	--button-primary-color: hsl(195deg 100% 50%);
 	--button-primary-light-color: hsl(195deg, 100%, 65%);
 	--button-primary-dark-color: hsl(195deg, 100%, 40%);
 
-	--button-bg-color: var(--button-default-color);
+	--button-bg-color: transparent;
 	--button-font-color: inherit;
 	--button-padding: 4px 10px;
 	--button-border-color: silver;
@@ -28,8 +27,14 @@
 
 	--button-bg-color-active: var(--button-primary-dark-color);
 }
+:host([type="base"]) {
+	--button-bg-color: transparent;
+	--button-bg-color-hover: transparent;
+	--button-font-color-hover: inherit;
+	--button-border-color-hover: silver;
+}
 :host([text]) {
-	--button-bg-color: var(--button-default-color);
+	--button-bg-color: transparent;
 	--button-font-color: inherit;
 
 	--button-bg-color-hover: hsl(216 33% 95%);

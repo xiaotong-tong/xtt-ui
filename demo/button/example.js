@@ -37,5 +37,5 @@ setIcon.addEventListener("click", () => {
 
 removeIcon.addEventListener("click", () => {
 	const icon = line.querySelector("xtt-icon");
-	icon.remove();
+	icon?.remove();
 });

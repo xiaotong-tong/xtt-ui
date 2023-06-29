@@ -1,5 +1,6 @@
 import style from "./icon.css" assert { type: "css" };
 import { powerIcon } from "./icons/power.js";
+import { chevronDownIcon } from "./icons/chevronDown.js";
 
 export class xttIconElement extends HTMLElement {
 	static templateContent = `<slot></slot>`;
@@ -31,9 +32,18 @@ export class xttIconElement extends HTMLElement {
 
 	attributeChangedCallback(name, oldValue, newValue) {
 		if (name === "icon") {
-			if (newValue === "power") {
+			this.#setIcon(newValue);
+		}
+	}
+
+	#setIcon(iconName) {
+		switch (iconName) {
+			case "power":
 				this.innerHTML = powerIcon;
-			}
+				break;
+			case "chevronDown":
+				this.innerHTML = chevronDownIcon;
+				break;
 		}
 	}
 }
