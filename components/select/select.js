@@ -11,7 +11,7 @@ export class xttSelectElement extends HTMLElement {
 	}
 
 	static get observedAttributes() {
-		return ["icon"];
+		return ["disabled"];
 	}
 
 	#shadowRoot;
@@ -25,12 +25,17 @@ export class xttSelectElement extends HTMLElement {
 	}
 
 	connectedCallback() {
+		this.#selectMinWidth();
 		this.#refreshSelectTrigger();
 
 		this.#handleEventOfSelect();
 	}
 
-	attributeChangedCallback(name, oldValue, newValue) {}
+	attributeChangedCallback(name, oldValue, newValue) {
+		if (name === "disabled") {
+			this.#select.disabled = newValue !== null;
+		}
+	}
 
 	#refreshSelectTrigger() {
 		let selectedOption = this.querySelector("option[selected]");
@@ -42,6 +47,25 @@ export class xttSelectElement extends HTMLElement {
 		}
 
 		this.#text.textContent = selectedOption.getAttribute("label") || selectedOption.textContent;
+	}
+
+	#selectMinWidth() {
+		const options = this.querySelectorAll("option");
+		let maxContentOption = options[0];
+
+		options.forEach((option) => {
+			const text = option.getAttribute("label") || option.textContent;
+			const maxContent = maxContentOption.getAttribute("label") || maxContentOption.textContent;
+
+			if (text.length > maxContent.length) {
+				maxContentOption = option;
+			}
+		});
+
+		this.#text.textContent = maxContentOption.getAttribute("label") || maxContentOption.textContent;
+
+		const w = this.#select.getBoundingClientRect().width;
+		this.#select.style.minWidth = `min(${w}px, 100%)`;
 	}
 
 	get #select() {
@@ -106,6 +130,7 @@ export class xttSelectElement extends HTMLElement {
 			optionElement.tabIndex = 0;
 			optionElement.role = "option";
 			optionElement.toggleAttribute("selected", option.hasAttribute("selected"));
+			optionElement.toggleAttribute("disabled", option.hasAttribute("disabled"));
 			optionElement.setAttribute("value", option.value);
 
 			optionElement.textContent = option.getAttribute("label") || option.textContent;
@@ -123,6 +148,10 @@ export class xttSelectElement extends HTMLElement {
 		this.#handleEventListOfPopover.click = (ev) => {
 			const target = ev.target;
 			if (target.tagName === "XTT-OPTION") {
+				if (target.hasAttribute("disabled")) {
+					return;
+				}
+
 				this.#changeEventOfSelect(target._originalOption);
 			}
 
@@ -132,6 +161,11 @@ export class xttSelectElement extends HTMLElement {
 			const target = ev.target;
 
 			if (target.tagName === "XTT-OPTION") {
+				const options = this.#shadowRoot.querySelectorAll("xtt-option");
+				const focusedOption =
+					this.#shadowRoot.querySelector("xtt-option:focus") ||
+					this.#shadowRoot.querySelector("xtt-option[selected]");
+
 				switch (ev.key) {
 					case "Enter":
 					case " ":
@@ -140,10 +174,10 @@ export class xttSelectElement extends HTMLElement {
 						ev.preventDefault();
 						break;
 					case "ArrowDown":
-						this.#moveFocusToNextOption("next");
+						this.#getNextCanFocusOption("next", options, focusedOption).focus();
 						break;
 					case "ArrowUp":
-						this.#moveFocusToNextOption("prev");
+						this.#getNextCanFocusOption("prev", options, focusedOption).focus();
 						break;
 					case "Escape":
 					case "Tab":
@@ -162,27 +196,26 @@ export class xttSelectElement extends HTMLElement {
 		wrapperElement.removeEventListener("keydown", this.#handleEventListOfPopover.keydown);
 	}
 
-	#moveFocusToNextOption(direction) {
-		const options = this.#shadowRoot.querySelectorAll("xtt-option");
-		const focusedOption =
-			this.#shadowRoot.querySelector("xtt-option:focus") ||
-			this.#shadowRoot.querySelector("xtt-option[selected]");
+	#getNextCanFocusOption(direction, allOptions, activeOption) {
+		let nextEl;
 
 		if (direction === "next") {
-			const nextElement = focusedOption.nextElementSibling;
-			if (nextElement) {
-				nextElement.focus();
-			} else {
-				options[0].focus();
+			nextEl = activeOption.nextElementSibling;
+			if (!nextEl) {
+				nextEl = allOptions[0];
 			}
 		} else if (direction === "prev") {
-			const prevElement = focusedOption.previousElementSibling;
-			if (prevElement) {
-				prevElement.focus();
-			} else {
-				options[options.length - 1].focus();
+			nextEl = activeOption.previousElementSibling;
+			if (!nextEl) {
+				nextEl = allOptions[allOptions.length - 1];
 			}
 		}
+
+		if (nextEl.hasAttribute("disabled")) {
+			return this.#getNextCanFocusOption(direction, allOptions, nextEl);
+		}
+
+		return nextEl;
 	}
 
 	#changeEventOfSelect(option) {

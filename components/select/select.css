@@ -12,8 +12,15 @@
 }
 
 #select::part(button) {
-	flex-direction: row-reverse;
 	align-items: center;
+	width: 100%;
+}
+#select::part(text) {
+	display: -webkit-box;
+	flex: 1;
+}
+#select::part(icon) {
+	order: 2;
 }
 
 #icon {
@@ -57,8 +64,17 @@ xtt-option:not([selected]):focus {
 	background-color: var(--select-option-active-bg-color);
 }
 
+/* disabled 状态 */
+xtt-option[disabled] {
+	opacity: 0.5;
+}
+
 @media (hover: hover) {
 	xtt-option:not([selected]):hover {
 		background-color: var(--select-option-active-bg-color);
 	}
+}
+
+::slotted(option) {
+	display: none;
 }
