@@ -50,6 +50,22 @@
 	--button-padding: 8px 15px;
 }
 
+:host(:focus) {
+	outline: var(--button-focus-outline, thin dotted grey);
+	outline-offset: 1px;
+}
+
+:host {
+	/* button 默认是 inline-block 元素 */
+	display: inline-block;
+	/* 使 focus 的 outline 也带有圆角 */
+	border-radius: var(--button-border-radius, 4px);
+}
+:host([block]) {
+	display: block;
+	margin-block: 8px;
+}
+
 #button {
 	display: inline-flex;
 	box-sizing: border-box;
@@ -64,10 +80,6 @@
 	border-color: var(--button-border-color, silver);
 	color: var(--button-font-color, inherit);
 	transition: background-color 0.2s;
-}
-#button:focus-visible {
-	outline: var(--button-focus-outline, thin dotted grey);
-	outline-offset: 1px;
 }
 
 /* disabled 状态 */
@@ -94,15 +106,6 @@
 	background-color: var(--button-bg-color-active, transparent);
 }
 
-/* button 默认是 inline-block 元素 */
-:host {
-	display: inline-block;
-}
-
-:host([block]) {
-	display: block;
-	margin-block: 8px;
-}
 :host([block]) #button {
 	display: flex;
 	width: 100%;
@@ -119,4 +122,8 @@
 .no-icon #icon,
 .no-text #text {
 	display: none;
+}
+
+#button:focus {
+	outline: none;
 }

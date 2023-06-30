@@ -1,5 +1,6 @@
 import style from "./button.css" assert { type: "css" };
 import { updateElementStyle } from "../../utils/xtt-ui-utils.js";
+import html from "./button.html";
 
 /**
  * @description button component
@@ -9,17 +10,9 @@ import { updateElementStyle } from "../../utils/xtt-ui-utils.js";
  */
 
 export class xttButtonElement extends HTMLElement {
-	static templateContent = `
-        <button id="button" part="button">
-          <span part="icon" id="icon" aria-hidden="true"><slot name="icon"></slot></span>
-          <span part="text" id="text">
-            <slot></slot>
-          </span>
-        </button>`;
-
 	template() {
 		const template = document.createElement("template");
-		template.innerHTML = xttButtonElement.templateContent;
+		template.innerHTML = html;
 
 		return template.content.cloneNode(true);
 	}
@@ -102,6 +95,10 @@ export class xttButtonElement extends HTMLElement {
 			subtree: true
 		});
 
+		if (!this.hasAttribute("tabindex")) {
+			this.tabIndex = 0;
+		}
+
 		this.#contentChanged();
 
 		this.#tooltipElement.initTrigger(this.#button);
@@ -173,13 +170,9 @@ export class xttButtonElement extends HTMLElement {
 	}
 
 	get disabled() {
-		return this.#button.disabled;
+		return this.hasAttribute("disabled");
 	}
 	set disabled(value) {
-		if (value) {
-			this.setAttribute("disabled", "");
-		} else {
-			this.removeAttribute("disabled");
-		}
+		this.toggleAttribute("disabled", value);
 	}
 }

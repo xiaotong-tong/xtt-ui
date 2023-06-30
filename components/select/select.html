@@ -1,7 +1,15 @@
-<xtt-button id="select" type="base" part="select">
+<xtt-button
+	id="select"
+	type="base"
+	part="select"
+	role="combobox"
+	aria-haspopup="listbox"
+	aria-expanded="false"
+	aria-controls="popoverContent"
+>
 	<xtt-icon id="icon" icon="chevronDown" part="icon"></xtt-icon>
 	<span id="text" part="text"></span>
 </xtt-button>
 <div id="popover">
-	<div id="popoverContent"></div>
+	<div id="popoverContent" role="listbox"></div>
 </div>

@@ -4,7 +4,7 @@
 	--select-option-selected-bg-color: hsl(195deg 100% 50%);
 	--select-option-selected-font-color: white;
 
-	--select-option-hover-bg-color: hsl(216 33% 90%);
+	--select-option-active-bg-color: hsl(216 33% 90%);
 }
 
 :host {
@@ -50,9 +50,15 @@ xtt-option[selected] {
 	background-color: var(--select-option-selected-bg-color);
 	color: var(--select-option-selected-font-color);
 }
+xtt-option:focus {
+	outline: 1px dotted silver;
+}
+xtt-option:not([selected]):focus {
+	background-color: var(--select-option-active-bg-color);
+}
 
 @media (hover: hover) {
 	xtt-option:not([selected]):hover {
-		background-color: var(--select-option-hover-bg-color);
+		background-color: var(--select-option-active-bg-color);
 	}
 }

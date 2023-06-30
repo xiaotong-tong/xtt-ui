@@ -39,7 +39,7 @@ export class xttTooltipElement extends HTMLElement {
 
 	connectedCallback() {
 		this.role = "tooltip";
-		this.ariaLabel = this.textContent.trim() || "tooltip label";
+		this.ariaLabel = this.textContent.trim();
 		uniqueId(this);
 	}
 
