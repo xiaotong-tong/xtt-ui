@@ -157,6 +157,7 @@ export class xttButtonElement extends HTMLElement {
 		if (!hasText) {
 			this.#button.classList.add("no-text");
 		}
+		this.#tooltipElement.textContent = this.textContent;
 	}
 
 	get #button() {

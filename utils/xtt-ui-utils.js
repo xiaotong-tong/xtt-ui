@@ -31,7 +31,7 @@ export const attrValueAppendIds = (el, attrName, presetList) => {
 
 	if (presetList.length) {
 		for (let i = 0; i < presetList.length; i++) {
-			const id = presetList[i];
+			const id = uniqueId(presetList[i]).id;
 			if (attrValueList.includes(id)) {
 				continue;
 			}

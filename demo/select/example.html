@@ -16,24 +16,33 @@
 		<h1>select 选择框</h1>
 
 		<h2>基础用法</h2>
-		<xtt-select id="xttSelect">
+		<xtt-select>
 			<option>option1</option>
 			<option selected>option2</option>
 			<option>option3</option>
 		</xtt-select>
 
-		<xtt-select id="xttSelect">
+		<xtt-select>
 			<option>option1</option>
 			<option disabled>option2</option>
 			<option>option3</option>
 			<option disabled>option4</option>
 		</xtt-select>
 
-		<xtt-select id="xttSelect" disabled>
+		<xtt-select disabled>
 			<option>option1</option>
 			<option disabled>option2</option>
 			<option>option3</option>
 			<option disabled>option4</option>
 		</xtt-select>
+
+		<br />
+		<label for="select">label 1</label>
+		<xtt-select id="select">
+			<option>option1</option>
+			<option selected>option2</option>
+			<option>option3</option>
+		</xtt-select>
+		<label for="select">label 2</label>
 	</body>
 </html>

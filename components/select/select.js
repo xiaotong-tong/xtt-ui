@@ -1,5 +1,5 @@
 import style from "./select.css" assert { type: "css" };
-import { updateElementStyle } from "../../utils/xtt-ui-utils.js";
+import { updateElementStyle, attrValueAppendIds } from "../../utils/xtt-ui-utils.js";
 import html from "./select.html";
 
 export class xttSelectElement extends HTMLElement {
@@ -29,11 +29,28 @@ export class xttSelectElement extends HTMLElement {
 		this.#refreshSelectTrigger();
 
 		this.#handleEventOfSelect();
+
+		this.#addA11yWithLabel();
 	}
 
 	attributeChangedCallback(name, oldValue, newValue) {
 		if (name === "disabled") {
 			this.#select.disabled = newValue !== null;
+		}
+	}
+
+	#addA11yWithLabel() {
+		let labels = Array.from(this.labels);
+
+		if (labels.length) {
+			labels = labels.map((label) => {
+				const copy = label.cloneNode(true);
+				copy.hidden = true;
+				this.#shadowRoot.appendChild(copy);
+				return copy;
+			});
+
+			attrValueAppendIds(this.#select, "aria-labelledby", labels);
 		}
 	}
 
@@ -282,5 +299,14 @@ export class xttSelectElement extends HTMLElement {
 				return true;
 			}
 		});
+	}
+
+	get labels() {
+		if (this.id) {
+			return document.querySelectorAll(`label[for="${this.id}"]`);
+		} else {
+			// 返回一个空的 NodeList
+			return document.createElement(null).childNodes;
+		}
 	}
 }

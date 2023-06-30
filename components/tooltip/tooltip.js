@@ -165,8 +165,9 @@ export class xttTooltipElement extends HTMLElement {
 			return false;
 		}
 
-		this.#popover.textContent = toElement.dataset.xttTooltip ?? this.textContent;
-		this.ariaLabel = toElement.dataset.xttTooltip ?? this.textContent;
+		if (toElement.dataset.xttTooltip) {
+			this.textContent = toElement.dataset.xttTooltip;
+		}
 
 		this.#changePosition(toElement);
 
@@ -214,5 +215,13 @@ export class xttTooltipElement extends HTMLElement {
 				}
 			)
 		);
+	}
+
+	get textContent() {
+		return this.#popover.textContent;
+	}
+	set textContent(value) {
+		this.#popover.textContent = value;
+		this.ariaLabel = value.trim();
 	}
 }
