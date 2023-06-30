@@ -15,6 +15,7 @@ export class xttSelectElement extends HTMLElement {
 	}
 
 	#shadowRoot;
+	#observer;
 
 	constructor() {
 		super();
@@ -22,15 +23,40 @@ export class xttSelectElement extends HTMLElement {
 		this.#shadowRoot = this.attachShadow({ mode: "open" });
 		this.#shadowRoot.adoptedStyleSheets = [style];
 		this.#shadowRoot.appendChild(this.template());
+
+		this.#observer = new MutationObserver((mutations) => {
+			mutations.forEach((mutation) => {
+				if (mutation.type === "childList") {
+					mutation.addedNodes.forEach((node) => {
+						if (node.nodeType === Node.ELEMENT_NODE) {
+							this.#elementContentChanged(node);
+						}
+					});
+					mutation.removedNodes.forEach((node) => {
+						if (node.nodeType === Node.ELEMENT_NODE) {
+							this.#elementContentChanged(node);
+						}
+					});
+				}
+			});
+		});
 	}
 
 	connectedCallback() {
+		this.#observer.observe(this, {
+			childList: true
+		});
+
 		this.#selectMinWidth();
 		this.#refreshSelectTrigger();
 
 		this.#handleEventOfSelect();
 
 		this.#addA11yWithLabel();
+	}
+
+	disconnectedCallback() {
+		this.#observer.disconnect();
 	}
 
 	attributeChangedCallback(name, oldValue, newValue) {
@@ -60,14 +86,19 @@ export class xttSelectElement extends HTMLElement {
 		// 如果没有设置selected属性，则默认选中第一个
 		if (!selectedOption) {
 			selectedOption = this.querySelector("option");
-			selectedOption.setAttribute("selected", "");
+			selectedOption?.setAttribute("selected", "");
 		}
 
-		this.#text.textContent = selectedOption.getAttribute("label") || selectedOption.textContent;
+		this.#text.textContent = selectedOption?.getAttribute("label") || selectedOption?.textContent;
 	}
 
 	#selectMinWidth() {
 		const options = this.querySelectorAll("option");
+
+		if (options.length === 0) {
+			return;
+		}
+
 		let maxContentOption = options[0];
 
 		options.forEach((option) => {
@@ -83,6 +114,16 @@ export class xttSelectElement extends HTMLElement {
 
 		const w = this.#select.getBoundingClientRect().width;
 		this.#select.style.minWidth = `min(${w}px, 100%)`;
+	}
+
+	#elementContentChanged(el) {
+		if (el.tagName === "OPTION") {
+			this.#selectMinWidth();
+
+			if (el.selected) {
+				this.#refreshSelectTrigger();
+			}
+		}
 	}
 
 	get #select() {
@@ -116,6 +157,10 @@ export class xttSelectElement extends HTMLElement {
 	}
 
 	#showPopover() {
+		if (!this.querySelector("option")) {
+			return;
+		}
+
 		this.#initPopoverElement();
 
 		this.#popover.setAttribute("open", "");
@@ -146,7 +191,12 @@ export class xttSelectElement extends HTMLElement {
 
 			optionElement.tabIndex = 0;
 			optionElement.role = "option";
-			optionElement.toggleAttribute("selected", option.hasAttribute("selected"));
+			if (option.hasAttribute("selected")) {
+				optionElement.toggleAttribute("selected", true);
+				optionElement.ariaSelected = true;
+			} else if (!option.hasAttribute("disabled")) {
+				optionElement.ariaSelected = false;
+			}
 			optionElement.toggleAttribute("disabled", option.hasAttribute("disabled"));
 			optionElement.setAttribute("value", option.value);
 

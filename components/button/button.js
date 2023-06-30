@@ -111,6 +111,7 @@ export class xttButtonElement extends HTMLElement {
 	attributeChangedCallback(name, oldValue, newValue) {
 		if (name === "disabled") {
 			this.#button.disabled = newValue !== null;
+			this.tabIndex = newValue !== null ? -1 : 0;
 		} else if (name === "data-xtt-tooltip" || name === "data-aria-type") {
 			this.#button.setAttribute(name, newValue);
 		} else if (name === "line") {
