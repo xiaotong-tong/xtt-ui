@@ -1,0 +1,29 @@
+:host {
+	--list-col-count: 4;
+	--list-column-gap: 8px;
+	--list-row-gap: 8px;
+	--list-padding: 8px;
+
+	--list-border-color: silver;
+}
+
+:host {
+	display: block;
+	overflow: hidden;
+}
+
+#list {
+	width: 100%;
+	display: grid;
+	border: thin solid;
+	padding: var(--list-padding, 8px);
+	border-color: var(--list-border-color, silver);
+	grid-template-columns: repeat(var(--list-col-count), 1fr);
+	grid-column-gap: var(--list-column-gap);
+	grid-row-gap: var(--list-row-gap);
+}
+
+ul {
+	margin: 0;
+	padding: 0;
+}

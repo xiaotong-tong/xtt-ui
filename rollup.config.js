@@ -23,6 +23,7 @@ const minPluginOptions = [
 ];
 
 export default [
+	// IIFE bundle for browser
 	{
 		input: "index.js",
 		output: {
@@ -40,6 +41,7 @@ export default [
 		plugins: minPluginOptions
 	},
 
+	// ES Module bundle
 	{
 		input: {
 			"xtt-icon": "components/xtt-icon.js",
@@ -48,6 +50,8 @@ export default [
 			"xtt-tooltip": "components/xtt-tooltip.js",
 			"xtt-select": "components/xtt-select.js",
 			"xtt-markdown": "components/xtt-markdown.js",
+			"xtt-list": "components/xtt-list.js",
+			// "xtt-page-nav": "components/xtt-page-nav.js",
 			"plugins/xtt-mouseSnow": "plugins/xtt-mouseSnow.js",
 			"_xtt-code": "_internal/components/xtt-code.js",
 			"nami/xtt-web-bg": "nami/components/xtt-web-bg.js"
@@ -61,10 +65,19 @@ export default [
 		plugins: [html(), importAssertions(), commonjs(), nodeResolve()]
 	},
 
+	// IIFE bundles for Nami
 	{
 		input: "./nami/nami.js",
 		output: {
 			file: "dist/nami-ui.min.js",
+			format: "iife"
+		},
+		plugins: minPluginOptions
+	},
+	{
+		input: "./nami/xtt-utils-page.js",
+		output: {
+			file: "dist/xtt-utils-page.min.js",
 			format: "iife"
 		},
 		plugins: minPluginOptions
