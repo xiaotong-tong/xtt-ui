@@ -1,5 +1,6 @@
 import style from "./select.css" assert { type: "css" };
-import { updateElementStyle, attrValueAppendIds } from "../../utils/xtt-ui-utils.js";
+import { attrValueAppendIds } from "../../utils/xtt-ui-utils.js";
+import { displayPopover } from "../../utils/displayPopover.js";
 import html from "./select.html";
 
 export class xttSelectElement extends HTMLElement {
@@ -302,37 +303,7 @@ export class xttSelectElement extends HTMLElement {
 	}
 
 	#changePopoverPosition() {
-		const rect = this.#select.getBoundingClientRect();
-		const popRect = this.#popoverContent.getBoundingClientRect();
-
-		let y = rect.bottom + 8;
-		let x = rect.left + rect.width / 2 - popRect.width / 2;
-
-		const vp = 8;
-		if (x < vp) {
-			x = vp;
-		} else if (x + popRect.width + vp > visualViewport.width) {
-			x = 0 - vp;
-		}
-
-		if (y + popRect.height > visualViewport.height - vp * 2) {
-			y = rect.top - visualViewport.height - 8;
-		}
-
-		updateElementStyle(
-			this.#popoverContent,
-			Object.assign(
-				{
-					top: y + "px",
-					left: "",
-					right: ""
-				},
-				{
-					[x >= 0 ? "left" : "right"]: Math.abs(x) + "px",
-					[y >= 0 ? "top" : "bottom"]: Math.abs(y) + "px"
-				}
-			)
-		);
+		displayPopover(this.#select, this.#popoverContent, ["block-end", "block-start"]);
 	}
 
 	get value() {

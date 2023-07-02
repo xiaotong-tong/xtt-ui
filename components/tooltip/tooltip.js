@@ -1,5 +1,6 @@
 import style from "./tooltip.css" assert { type: "css" };
-import { updateElementStyle, uniqueId, attrValueAppendIds } from "../../utils/xtt-ui-utils.js";
+import { uniqueId, attrValueAppendIds } from "../../utils/xtt-ui-utils.js";
+import { displayPopover } from "../../utils/displayPopover.js";
 
 export class xttTooltipElement extends HTMLElement {
 	/**
@@ -39,7 +40,7 @@ export class xttTooltipElement extends HTMLElement {
 
 	connectedCallback() {
 		this.role = "tooltip";
-		this.ariaLabel = this.textContent.trim();
+		this.textContent = this.textContent.trim();
 		uniqueId(this);
 	}
 
@@ -185,40 +186,11 @@ export class xttTooltipElement extends HTMLElement {
 	}
 
 	#changePosition(toElement) {
-		const rect = toElement.getBoundingClientRect();
-		const popRect = this.#popover.getBoundingClientRect();
-
-		let y = rect.top - popRect.height - 8;
-		let x = rect.left + rect.width / 2 - popRect.width / 2;
-
-		const vp = this.viewPadding;
-		if (x < vp) {
-			x = vp;
-		} else if (x + popRect.width + vp > visualViewport.width) {
-			x = 0 - vp;
-		}
-
-		if (y < vp) {
-			y = rect.bottom + 8;
-		}
-
-		updateElementStyle(
-			this.#popover,
-			Object.assign(
-				{
-					top: y + "px",
-					left: "",
-					right: ""
-				},
-				{
-					[x >= 0 ? "left" : "right"]: Math.abs(x) + "px"
-				}
-			)
-		);
+		displayPopover(toElement, this.#popover, ["block-start", "block-end"]);
 	}
 
 	get textContent() {
-		return this.#popover.textContent;
+		return this.#popover.textContent || super.textContent;
 	}
 	set textContent(value) {
 		this.#popover.textContent = value;
