@@ -103,17 +103,14 @@ export class xttMarkdownElement extends HTMLElement {
 	#hashchangeEvent() {
 		// 因为标题元素是在 shadowRoot 中，在改变 hash 时，页面不会自动滚动到对应的标题元素
 		// 所以需要手动滚动到对应的标题元素
-		// 这里的实现方式是，监听 hashchange 事件， 获取 hash 值，然后在 shadowRoot 中查找对应的元素，获取元素的位置，然后滚动到对应的位置
+		// 这里的实现方式是，监听 hashchange 事件， 获取 hash 值，然后在 shadowRoot 中查找对应的元素，然后滚动到对应的位置
 		const hash = window.location.hash;
 		if (hash) {
 			const target = this.#body.querySelector(hash);
-			if (target) {
-				const rect = target.getBoundingClientRect();
-				window.scrollTo({
-					top: rect.top + window.scrollY - 8,
-					behavior: "smooth"
-				});
-			}
+
+			target?.scrollIntoView({
+				behavior: "smooth"
+			});
 		}
 	}
 
