@@ -1,28 +1,18 @@
+import { xttBaseElement } from "../com/base.js";
 import style from "./list.css" assert { type: "css" };
 
-export class xttListElement extends HTMLElement {
+export class xttListElement extends xttBaseElement {
 	static templateContent = `<ul id="list" part="list"><slot></slot></ul>`;
-
-	template() {
-		const template = document.createElement("template");
-		template.innerHTML = xttListElement.templateContent;
-
-		return template.content.cloneNode(true);
-	}
+	static stylesContent = [style];
 
 	static get observedAttributes() {
 		return ["col-count"];
 	}
 
-	#shadowRoot;
 	#resizeObserver;
 
 	constructor() {
 		super();
-
-		this.#shadowRoot = this.attachShadow({ mode: "open" });
-		this.#shadowRoot.adoptedStyleSheets = [style];
-		this.#shadowRoot.appendChild(this.template());
 
 		this.#resizeObserver = new ResizeObserver((entries) => {
 			for (let entry of entries) {
@@ -43,7 +33,6 @@ export class xttListElement extends HTMLElement {
 
 	attributeChangedCallback(name, oldValue, newValue) {
 		if (name === "col-count") {
-			console.log(newValue);
 			if (newValue === null) {
 				this.#startResizeObserver();
 			} else {
@@ -68,7 +57,7 @@ export class xttListElement extends HTMLElement {
 	}
 
 	get #list() {
-		return this.#shadowRoot.getElementById("list");
+		return this.shadowRoot.getElementById("list");
 	}
 
 	#activeColCount = 0;

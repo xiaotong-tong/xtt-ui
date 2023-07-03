@@ -1,34 +1,35 @@
+import { xttRelectElement } from "../com/reflect.js";
 import style from "./page-nav.css" assert { type: "css" };
 
-export class xttPageNavElement extends HTMLElement {
+export class xttPageNavElement extends xttRelectElement {
 	static templateContent = `<nav id="nav" part="nav"><slot></slot></nav>`;
-
-	template() {
-		const template = document.createElement("template");
-		template.innerHTML = xttPageNavElement.templateContent;
-
-		return template.content.cloneNode(true);
-	}
+	static stylesContent = [style];
 
 	static get observedAttributes() {
 		return [];
 	}
 
-	#shadowRoot;
+	connectedCallback() {
+		super.connectedCallback();
 
-	constructor() {
-		super();
-
-		this.#shadowRoot = this.attachShadow({ mode: "open" });
-		this.#shadowRoot.adoptedStyleSheets = [style];
-		this.#shadowRoot.appendChild(this.template());
+		if (this.querySelector("xtt-list") !== null) {
+			this.#contentChange(this.querySelector("xtt-list"));
+		}
 	}
-
-	connectedCallback() {}
 
 	attributeChangedCallback(name, oldValue, newValue) {}
 
+	_reflectElementNodeAdded(node) {
+		this.#contentChange(node);
+	}
+
 	get #nav() {
-		return this.#shadowRoot.getElementById("nav");
+		return this.shadowRoot.getElementById("nav");
+	}
+
+	#contentChange(el) {
+		if (el.tagName === "XTT-LIST") {
+			el.setAttribute("col-count", "1");
+		}
 	}
 }

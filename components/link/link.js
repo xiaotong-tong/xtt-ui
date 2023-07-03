@@ -1,30 +1,13 @@
+import { xttBaseElement } from "../com/base.js";
 import style from "./link.css" assert { type: "css" };
 
-export class xttLinkElement extends HTMLElement {
+export class xttLinkElement extends xttBaseElement {
 	static templateContent = `<a id="link" part="button"><slot></slot></a>`;
-
-	template() {
-		const template = document.createElement("template");
-		template.innerHTML = xttLinkElement.templateContent;
-
-		return template.content.cloneNode(true);
-	}
+	static stylesContent = [style];
 
 	static get observedAttributes() {
 		return ["href", "target", "download"];
 	}
-
-	#shadowRoot;
-
-	constructor() {
-		super();
-
-		this.#shadowRoot = this.attachShadow({ mode: "open" });
-		this.#shadowRoot.adoptedStyleSheets = [style];
-		this.#shadowRoot.appendChild(this.template());
-	}
-
-	connectedCallback() {}
 
 	attributeChangedCallback(name, oldValue, newValue) {
 		if (name === "href") {
@@ -33,6 +16,6 @@ export class xttLinkElement extends HTMLElement {
 	}
 
 	get #link() {
-		return this.#shadowRoot.getElementById("link");
+		return this.shadowRoot.getElementById("link");
 	}
 }

@@ -1,3 +1,4 @@
+import { xttRelectElement } from "../com/reflect.js";
 import style from "./button.css" assert { type: "css" };
 import { updateElementStyle } from "../../utils/xtt-ui-utils.js";
 import html from "./button.html";
@@ -9,33 +10,28 @@ import html from "./button.html";
  * @example <xtt-button>Button</xtt-button>
  */
 
-export class xttButtonElement extends HTMLElement {
-	template() {
-		const template = document.createElement("template");
-		template.innerHTML = html;
-
-		return template.content.cloneNode(true);
-	}
+export class xttButtonElement extends xttRelectElement {
+	static templateContent = html;
+	static stylesContent = [style];
 
 	static get observedAttributes() {
 		return ["disabled", "line", "data-xtt-tooltip", "data-aria-type"];
 	}
 
-	#shadowRoot;
-	#observer;
+	observeOptions = {
+		childList: true,
+		subtree: true
+	};
+
 	#tooltipElement;
 
 	constructor() {
 		super();
 
-		this.#shadowRoot = this.attachShadow({ mode: "open" });
-		this.#shadowRoot.adoptedStyleSheets = [style];
-		this.#shadowRoot.appendChild(this.template());
-
 		this.#tooltipElement = document.createElement("xtt-tooltip");
 		this.#tooltipElement.textContent = this.textContent;
 
-		this.#shadowRoot.appendChild(this.#tooltipElement);
+		this.shadowRoot.appendChild(this.#tooltipElement);
 
 		// 如果 button 内部的文本内容超出了 button 的宽度，就显示 tooltip
 		// 否则就阻止 tooltip 的显示
@@ -70,30 +66,10 @@ export class xttButtonElement extends HTMLElement {
 
 			span.remove();
 		});
-
-		this.#observer = new MutationObserver((mutations) => {
-			mutations.forEach((mutation) => {
-				if (mutation.type === "childList") {
-					mutation.addedNodes.forEach((node) => {
-						if (node.nodeType === Node.TEXT_NODE || node.nodeType === Node.ELEMENT_NODE) {
-							this.#contentChanged();
-						}
-					});
-					mutation.removedNodes.forEach((node) => {
-						if (node.nodeType === Node.TEXT_NODE || node.nodeType === Node.ELEMENT_NODE) {
-							this.#contentChanged();
-						}
-					});
-				}
-			});
-		});
 	}
 
 	connectedCallback() {
-		this.#observer.observe(this, {
-			childList: true,
-			subtree: true
-		});
+		super.connectedCallback();
 
 		if (!this.hasAttribute("tabindex")) {
 			this.tabIndex = 0;
@@ -102,10 +78,6 @@ export class xttButtonElement extends HTMLElement {
 		this.#contentChanged();
 
 		this.#tooltipElement.initTrigger(this.#button);
-	}
-
-	disconnectedCallback() {
-		this.#observer.disconnect();
 	}
 
 	attributeChangedCallback(name, oldValue, newValue) {
@@ -117,6 +89,13 @@ export class xttButtonElement extends HTMLElement {
 		} else if (name === "line") {
 			this.style.setProperty("--button-line-clamp", Number(newValue));
 		}
+	}
+
+	_reflectElementAdded() {
+		this.#contentChanged();
+	}
+	_reflectElementRemoved() {
+		this.#contentChanged();
 	}
 
 	#contentChanged() {
@@ -162,13 +141,13 @@ export class xttButtonElement extends HTMLElement {
 	}
 
 	get #button() {
-		return this.#shadowRoot.getElementById("button");
+		return this.shadowRoot.getElementById("button");
 	}
 	get #icon() {
-		return this.#shadowRoot.getElementById("icon");
+		return this.shadowRoot.getElementById("icon");
 	}
 	get #text() {
-		return this.#shadowRoot.getElementById("text");
+		return this.shadowRoot.getElementById("text");
 	}
 
 	get disabled() {

@@ -1,52 +1,19 @@
+import { xttRelectElement } from "../com/reflect.js";
 import style from "./select.css" assert { type: "css" };
 import { attrValueAppendIds } from "../../utils/xtt-ui-utils.js";
 import { displayPopover } from "../../utils/displayPopover.js";
 import html from "./select.html";
 
-export class xttSelectElement extends HTMLElement {
-	template() {
-		const template = document.createElement("template");
-		template.innerHTML = html;
-
-		return template.content.cloneNode(true);
-	}
+export class xttSelectElement extends xttRelectElement {
+	static templateContent = html;
+	static stylesContent = [style];
 
 	static get observedAttributes() {
 		return ["disabled"];
 	}
 
-	#shadowRoot;
-	#observer;
-
-	constructor() {
-		super();
-
-		this.#shadowRoot = this.attachShadow({ mode: "open" });
-		this.#shadowRoot.adoptedStyleSheets = [style];
-		this.#shadowRoot.appendChild(this.template());
-
-		this.#observer = new MutationObserver((mutations) => {
-			mutations.forEach((mutation) => {
-				if (mutation.type === "childList") {
-					mutation.addedNodes.forEach((node) => {
-						if (node.nodeType === Node.ELEMENT_NODE) {
-							this.#elementContentChanged(node);
-						}
-					});
-					mutation.removedNodes.forEach((node) => {
-						if (node.nodeType === Node.ELEMENT_NODE) {
-							this.#elementContentChanged(node);
-						}
-					});
-				}
-			});
-		});
-	}
-
 	connectedCallback() {
-		this.#observer.observe(this, {
-			childList: true
-		});
+		super.connectedCallback();
 
 		this.#selectMinWidth();
 		this.#refreshSelectTrigger();
@@ -56,14 +23,17 @@ export class xttSelectElement extends HTMLElement {
 		this.#addA11yWithLabel();
 	}
 
-	disconnectedCallback() {
-		this.#observer.disconnect();
-	}
-
 	attributeChangedCallback(name, oldValue, newValue) {
 		if (name === "disabled") {
 			this.#select.disabled = newValue !== null;
 		}
+	}
+
+	_reflectElementNodeAdded(node) {
+		this.#elementContentChanged(node);
+	}
+	_reflectElementNodeRemoved(node) {
+		this.#elementContentChanged(node);
 	}
 
 	#addA11yWithLabel() {
@@ -73,7 +43,7 @@ export class xttSelectElement extends HTMLElement {
 			labels = labels.map((label) => {
 				const copy = label.cloneNode(true);
 				copy.hidden = true;
-				this.#shadowRoot.appendChild(copy);
+				this.shadowRoot.appendChild(copy);
 				return copy;
 			});
 
@@ -128,16 +98,16 @@ export class xttSelectElement extends HTMLElement {
 	}
 
 	get #select() {
-		return this.#shadowRoot.getElementById("select");
+		return this.shadowRoot.getElementById("select");
 	}
 	get #text() {
-		return this.#shadowRoot.getElementById("text");
+		return this.shadowRoot.getElementById("text");
 	}
 	get #popover() {
-		return this.#shadowRoot.getElementById("popover");
+		return this.shadowRoot.getElementById("popover");
 	}
 	get #popoverContent() {
-		return this.#shadowRoot.getElementById("popoverContent");
+		return this.shadowRoot.getElementById("popoverContent");
 	}
 
 	#handleEventOfSelect() {
@@ -168,7 +138,7 @@ export class xttSelectElement extends HTMLElement {
 		this.#select.ariaExpanded = true;
 
 		// 将焦点设置到选中的xtt-option上
-		this.#shadowRoot.querySelector("xtt-option[selected]").focus();
+		this.shadowRoot.querySelector("xtt-option[selected]").focus();
 
 		this.#changePopoverPosition();
 	}
@@ -229,10 +199,10 @@ export class xttSelectElement extends HTMLElement {
 			const target = ev.target;
 
 			if (target.tagName === "XTT-OPTION") {
-				const options = this.#shadowRoot.querySelectorAll("xtt-option");
+				const options = this.shadowRoot.querySelectorAll("xtt-option");
 				const focusedOption =
-					this.#shadowRoot.querySelector("xtt-option:focus") ||
-					this.#shadowRoot.querySelector("xtt-option[selected]");
+					this.shadowRoot.querySelector("xtt-option:focus") ||
+					this.shadowRoot.querySelector("xtt-option[selected]");
 
 				switch (ev.key) {
 					case "Enter":

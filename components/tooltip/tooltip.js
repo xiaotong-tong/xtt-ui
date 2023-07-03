@@ -1,8 +1,12 @@
+import { xttBaseElement } from "../com/base.js";
 import style from "./tooltip.css" assert { type: "css" };
 import { uniqueId, attrValueAppendIds } from "../../utils/xtt-ui-utils.js";
 import { displayPopover } from "../../utils/displayPopover.js";
 
-export class xttTooltipElement extends HTMLElement {
+export class xttTooltipElement extends xttBaseElement {
+	static templateContent = `<div id="popover" part="popover"></div>`;
+	static stylesContent = [style];
+
 	/**
 	 * 页面的留白边距，tooltip 框不会超出这个距离
 	 * @type {number}
@@ -15,27 +19,8 @@ export class xttTooltipElement extends HTMLElement {
 	 */
 	delay = 600;
 
-	static templateContent = `<div id="popover" part="popover"></div>`;
-
-	template() {
-		const template = document.createElement("template");
-		template.innerHTML = xttTooltipElement.templateContent;
-
-		return template.content.cloneNode(true);
-	}
-
 	static get observedAttributes() {
 		return ["for"];
-	}
-
-	#shadowRoot;
-
-	constructor() {
-		super();
-
-		this.#shadowRoot = this.attachShadow({ mode: "open" });
-		this.#shadowRoot.adoptedStyleSheets = [style];
-		this.#shadowRoot.appendChild(this.template());
 	}
 
 	connectedCallback() {
@@ -51,7 +36,7 @@ export class xttTooltipElement extends HTMLElement {
 	}
 
 	get #popover() {
-		return this.#shadowRoot.getElementById("popover");
+		return this.shadowRoot.getElementById("popover");
 	}
 
 	#popoverMouseEventAdded = false;
@@ -170,7 +155,7 @@ export class xttTooltipElement extends HTMLElement {
 			this.textContent = toElement.dataset.xttTooltip;
 		}
 
-		this.#changePosition(toElement);
+		displayPopover(toElement, this.#popover, ["block-start", "block-end"]);
 
 		this.#showTimer = setTimeout(() => {
 			this.#popover.setAttribute("open", true);
@@ -183,10 +168,6 @@ export class xttTooltipElement extends HTMLElement {
 		}
 
 		this.#popover.removeAttribute("open");
-	}
-
-	#changePosition(toElement) {
-		displayPopover(toElement, this.#popover, ["block-start", "block-end"]);
 	}
 
 	get textContent() {

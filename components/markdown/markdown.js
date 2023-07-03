@@ -1,3 +1,4 @@
+import { xttRelectElement } from "../com/reflect.js";
 import style from "./markdown.css" assert { type: "css" };
 import highLightStyle from "highlight.js/styles/github.css" assert { type: "css" };
 import githubMarkdownStyle from "github-markdown-css" assert { type: "css" };
@@ -42,53 +43,27 @@ marked.use(
 	})
 );
 
-export class xttMarkdownElement extends HTMLElement {
+export class xttMarkdownElement extends xttRelectElement {
 	static templateContent = `<div id="body" part="body" class="markdown-body"></div>`;
-
-	template() {
-		const template = document.createElement("template");
-		template.innerHTML = xttMarkdownElement.templateContent;
-
-		return template.content.cloneNode(true);
-	}
-
-	#shadowRoot;
-	#observer;
-
-	constructor() {
-		super();
-
-		this.#shadowRoot = this.attachShadow({ mode: "open" });
-		this.#shadowRoot.adoptedStyleSheets = [style, highLightStyle, githubMarkdownStyle];
-		this.#shadowRoot.appendChild(this.template());
-
-		this.#observer = new MutationObserver((mutations) => {
-			mutations.forEach((mutation) => {
-				if (mutation.type === "childList") {
-					mutation.addedNodes.forEach((node) => {
-						if (node.nodeType === Node.TEXT_NODE || node.nodeType === Node.ELEMENT_NODE) {
-							this.#parseMarkdown(node.textContent);
-						}
-					});
-				}
-			});
-		});
-	}
+	static stylesContent = [style, highLightStyle, githubMarkdownStyle];
 
 	connectedCallback() {
-		this.#observer.observe(this, {
-			childList: true
-		});
+		super.connectedCallback();
+
 		this.#parseMarkdown(this.textContent);
 
 		window.addEventListener("hashchange", this.#hashchangeEventBindThis);
 	}
 
 	disconnectedCallback() {
-		this.#observer.disconnect();
+		super.disconnectedCallback();
 
 		// 因为这个事件是绑定在 window 上的，所以在组件销毁时需要手动移除
 		window.removeEventListener("hashchange", this.#hashchangeEventBindThis);
+	}
+
+	_reflectElementAdded(el) {
+		this.#parseMarkdown(el.textContent);
 	}
 
 	#parseMarkdown(content) {
@@ -96,7 +71,7 @@ export class xttMarkdownElement extends HTMLElement {
 	}
 
 	get #body() {
-		return this.#shadowRoot.getElementById("body");
+		return this.shadowRoot.getElementById("body");
 	}
 
 	#hashchangeEventBindThis = this.#hashchangeEvent.bind(this);

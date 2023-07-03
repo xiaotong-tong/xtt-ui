@@ -1,0 +1,12 @@
+:host {
+	--nav-width: 200px;
+}
+
+:host {
+	display: block;
+	width: var(--nav-width);
+}
+
+#nav {
+	width: 100%;
+}

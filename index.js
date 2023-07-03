@@ -4,3 +4,5 @@ import "./components/xtt-button.js";
 import "./components/xtt-link.js";
 import "./components/xtt-select.js";
 import "./components/xtt-markdown.js";
+import "./components/xtt-list.js";
+import "./components/xtt-page-nav.js";

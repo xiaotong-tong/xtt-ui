@@ -51,7 +51,7 @@ export default [
 			"xtt-select": "components/xtt-select.js",
 			"xtt-markdown": "components/xtt-markdown.js",
 			"xtt-list": "components/xtt-list.js",
-			// "xtt-page-nav": "components/xtt-page-nav.js",
+			"xtt-page-nav": "components/xtt-page-nav.js",
 			"plugins/xtt-mouseSnow": "plugins/xtt-mouseSnow.js",
 			"_xtt-code": "_internal/components/xtt-code.js",
 			"nami/xtt-web-bg": "nami/components/xtt-web-bg.js"

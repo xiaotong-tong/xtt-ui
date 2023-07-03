@@ -1,29 +1,14 @@
+import { xttBaseElement } from "../com/base.js";
 import style from "./icon.css" assert { type: "css" };
 import { powerIcon } from "./icons/power.js";
 import { chevronDownIcon } from "./icons/chevronDown.js";
 
-export class xttIconElement extends HTMLElement {
+export class xttIconElement extends xttBaseElement {
 	static templateContent = `<slot></slot>`;
-
-	template() {
-		const template = document.createElement("template");
-		template.innerHTML = xttIconElement.templateContent;
-
-		return template.content.cloneNode(true);
-	}
+	static stylesContent = [style];
 
 	static get observedAttributes() {
 		return ["icon"];
-	}
-
-	#shadowRoot;
-
-	constructor() {
-		super();
-
-		this.#shadowRoot = this.attachShadow({ mode: "open" });
-		this.#shadowRoot.adoptedStyleSheets = [style];
-		this.#shadowRoot.appendChild(this.template());
 	}
 
 	connectedCallback() {
