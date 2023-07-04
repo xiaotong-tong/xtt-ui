@@ -14,6 +14,10 @@
 	--link-padding: 4px 10px;
 }
 
+:host([block]) {
+	--link-hover-bg-color: hsl(215, 33%, 95%);
+}
+
 :host([type="primary"]) {
 	--link-font-color: var(--link-primary-color);
 	--link-font-color-hover: var(--link-primary-light-color);
@@ -37,6 +41,10 @@
 :host([block]) #link {
 	display: flex;
 	width: 100%;
+}
+
+:host([block]) #link:hover {
+	background-color: var(--link-hover-bg-color);
 }
 
 @media (hover: hover) {
@@ -63,5 +71,4 @@
 }
 :host([block]) {
 	display: block;
-	margin-block: 8px;
 }

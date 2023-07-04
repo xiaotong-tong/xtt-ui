@@ -5,6 +5,7 @@
 	--list-padding: 8px;
 
 	--list-border-color: silver;
+	--list-border: thin solid var(--list-border-color);
 }
 
 :host {
@@ -16,9 +17,8 @@
 	width: 100%;
 	box-sizing: border-box;
 	display: grid;
-	border: thin solid;
+	border: var(--list-border);
 	padding: var(--list-padding, 8px);
-	border-color: var(--list-border-color, silver);
 	grid-template-columns: repeat(var(--list-col-count), 1fr);
 	grid-column-gap: var(--list-column-gap);
 	grid-row-gap: var(--list-row-gap);

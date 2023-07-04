@@ -1,5 +1,10 @@
 :host {
 	--nav-width: 200px;
+
+	--nav-border-color: silver;
+	--nav-border: thin solid var(--nav-border-color);
+
+	--nav-list-ltem-bg-color-hover: hsl(215, 33%, 95%);
 }
 
 :host {
@@ -9,4 +14,18 @@
 
 #nav {
 	width: 100%;
+	border: var(--nav-border);
+}
+
+::slotted(:is(h1, h2, h3, h4, h5, h6)) {
+	display: block;
+	padding: 4px 8px;
+	margin: 0;
+	font-size: 1.2em;
+}
+
+::slotted(xtt-list) {
+	--list-padding: 0;
+	--list-row-gap: 0;
+	--list-border: none;
 }

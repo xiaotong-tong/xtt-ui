@@ -63,7 +63,6 @@
 }
 :host([block]) {
 	display: block;
-	margin-block: 8px;
 }
 
 #button {

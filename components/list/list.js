@@ -1,9 +1,10 @@
-import { xttBaseElement } from "../com/base.js";
+import { xttRelectElement } from "../com/reflect.js";
 import style from "./list.css" assert { type: "css" };
 
-export class xttListElement extends xttBaseElement {
+export class xttListElement extends xttRelectElement {
 	static templateContent = `<ul id="list" part="list"><slot></slot></ul>`;
 	static stylesContent = [style];
+	static observeOptions = { childList: true, subtree: true };
 
 	static get observedAttributes() {
 		return ["col-count"];
@@ -22,12 +23,14 @@ export class xttListElement extends xttBaseElement {
 	}
 
 	connectedCallback() {
+		super.connectedCallback();
 		if (this.getAttribute("col-count") === null) {
 			this.#startResizeObserver();
 		}
 	}
 
 	disconnectedCallback() {
+		super.disconnectedCallback();
 		this.#stopResizeObserver();
 	}
 
@@ -40,6 +43,10 @@ export class xttListElement extends xttBaseElement {
 				this.#stopResizeObserver();
 			}
 		}
+	}
+
+	_reflectElementAdded(node) {
+		this.onChildrenAddedCallback(node);
 	}
 
 	#resizeObserverStarted = false;
@@ -110,4 +117,6 @@ export class xttListElement extends xttBaseElement {
 		this.#activeColCount = newColCount;
 		this.style.setProperty("--list-col-count", newColCount);
 	}
+
+	onChildrenAddedCallback = Function.prototype;
 }
