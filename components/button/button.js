@@ -2,6 +2,7 @@ import { xttRelectElement } from "../com/reflect.js";
 import style from "./button.css" assert { type: "css" };
 import { css } from "xtt-utils";
 import html from "./button.html";
+import { attrValueAppendIds } from "../../utils/xtt-ui-utils.js";
 
 /**
  * @description button component
@@ -78,6 +79,7 @@ export class xttButtonElement extends xttRelectElement {
 		this.#contentChanged();
 
 		this.#tooltipElement.initTrigger(this.#button);
+		this.#addA11yWithLabel();
 	}
 
 	attributeChangedCallback(name, oldValue, newValue) {
@@ -88,6 +90,21 @@ export class xttButtonElement extends xttRelectElement {
 			this.#button.setAttribute(name, newValue);
 		} else if (name === "line") {
 			this.style.setProperty("--button-line-clamp", Number(newValue));
+		}
+	}
+
+	#addA11yWithLabel() {
+		let labels = Array.from(this.labels);
+
+		if (labels.length) {
+			labels = labels.map((label) => {
+				const copy = label.cloneNode(true);
+				copy.hidden = true;
+				this.shadowRoot.appendChild(copy);
+				return copy;
+			});
+
+			attrValueAppendIds(this.#button, "aria-labelledby", labels);
 		}
 	}
 
@@ -155,5 +172,14 @@ export class xttButtonElement extends xttRelectElement {
 	}
 	set disabled(value) {
 		this.toggleAttribute("disabled", value);
+	}
+	get labels() {
+		if (this.id) {
+			// 为了防止误查找，这里只查找和 xtt-button 处于同一个 shadowRoot 下的 label
+			return this.getRootNode().querySelectorAll(`label[for="${this.id}"]`);
+		} else {
+			// 返回一个空的 NodeList
+			return document.createElement(null).childNodes;
+		}
 	}
 }

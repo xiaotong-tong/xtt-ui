@@ -10,12 +10,36 @@ export class xttLinkElement extends xttBaseElement {
 	}
 
 	attributeChangedCallback(name, oldValue, newValue) {
-		if (name === "href") {
-			this.#link.href = newValue;
-		}
+		this.#link[name] = newValue;
 	}
 
 	get #link() {
 		return this.shadowRoot.getElementById("link");
+	}
+
+	get href() {
+		return this.#link.href;
+	}
+	set href(value) {
+		this.#link.href = value;
+		this.setAttribute("href", value);
+	}
+	get origin() {
+		return this.#link.origin;
+	}
+	get pathname() {
+		return this.#link.pathname;
+	}
+	set pathname(value) {
+		this.#link.pathname = value;
+	}
+	get search() {
+		return this.#link.search;
+	}
+	set search(value) {
+		this.#link.search = value;
+	}
+	toString() {
+		return this.#link.toString();
 	}
 }

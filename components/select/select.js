@@ -310,7 +310,7 @@ export class xttSelectElement extends xttRelectElement {
 
 	get labels() {
 		if (this.id) {
-			return document.querySelectorAll(`label[for="${this.id}"]`);
+			return this.getRootNode().querySelectorAll(`label[for="${this.id}"]`);
 		} else {
 			// 返回一个空的 NodeList
 			return document.createElement(null).childNodes;
