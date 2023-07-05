@@ -1,12 +1,4 @@
 /**
- * @param {HTMLElement} el
- * @param {object} style
- */
-export const updateElementStyle = (el, style) => {
-	Object.assign(el.style, style);
-};
-
-/**
  * 给元素添加唯一 ID 值
  * @param {HTMLElement} element
  * @returns {HTMLElement}

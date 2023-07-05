@@ -3,6 +3,8 @@
 	--link-primary-light-color: hsl(195deg, 100%, 70%);
 	--link-primary-dark-color: hsl(195deg, 100%, 40%);
 
+	--link-inline-align: center;
+
 	--link-font-color: inherit;
 	--link-font-color-hover: inherit;
 	--link-font-color-active: inherit;
@@ -33,7 +35,7 @@
 :host(:is([inline-block], [block])) #link {
 	display: inline-flex;
 	max-width: 100%;
-	justify-content: center;
+	justify-content: var(--link-inline-align);
 	box-sizing: border-box;
 
 	padding: var(--link-padding, 4px 10px);

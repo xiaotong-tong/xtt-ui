@@ -184,6 +184,8 @@ export class xttSelectElement extends xttRelectElement {
 		const wrapperElement = this.#popoverContent;
 
 		this.#handleEventListOfPopover.click = (ev) => {
+			ev.stopPropagation();
+
 			const target = ev.target;
 			if (target.tagName === "XTT-OPTION") {
 				if (target.hasAttribute("disabled")) {
@@ -201,8 +203,7 @@ export class xttSelectElement extends xttRelectElement {
 			if (target.tagName === "XTT-OPTION") {
 				const options = this.shadowRoot.querySelectorAll("xtt-option");
 				const focusedOption =
-					this.shadowRoot.querySelector("xtt-option:focus") ||
-					this.shadowRoot.querySelector("xtt-option[selected]");
+					this.shadowRoot.querySelector("xtt-option:focus") || this.shadowRoot.querySelector("xtt-option[selected]");
 
 				switch (ev.key) {
 					case "Enter":
@@ -223,15 +224,30 @@ export class xttSelectElement extends xttRelectElement {
 				}
 			}
 		};
+		this.#handleEventListOfPopover.docClick = () => {
+			this.#closePopover();
+		};
+		this.#handleEventListOfPopover.docScroll = () => {
+			this.#closePopover();
+		};
 
 		wrapperElement.addEventListener("click", this.#handleEventListOfPopover.click);
 		wrapperElement.addEventListener("keydown", this.#handleEventListOfPopover.keydown);
+
+		document.addEventListener("scroll", this.#handleEventListOfPopover.docScroll);
+		// click 的事件需要延迟绑定，否则会导致点击的时候立即触发关闭，因为此时还在冒泡阶段
+		setTimeout(() => {
+			document.addEventListener("click", this.#handleEventListOfPopover.docClick);
+		}, 0);
 	}
 	#removeEventOfPopover() {
 		const wrapperElement = this.#popoverContent;
 
 		wrapperElement.removeEventListener("click", this.#handleEventListOfPopover.click);
 		wrapperElement.removeEventListener("keydown", this.#handleEventListOfPopover.keydown);
+
+		document.removeEventListener("click", this.#handleEventListOfPopover.docClick);
+		document.removeEventListener("scroll", this.#handleEventListOfPopover.docScroll);
 	}
 
 	#getNextCanFocusOption(direction, allOptions, activeOption) {

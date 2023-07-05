@@ -1,6 +1,6 @@
 import { xttRelectElement } from "../com/reflect.js";
 import style from "./button.css" assert { type: "css" };
-import { updateElementStyle } from "../../utils/xtt-ui-utils.js";
+import { css } from "xtt-utils";
 import html from "./button.html";
 
 /**
@@ -50,7 +50,7 @@ export class xttButtonElement extends xttRelectElement {
 					span.appendChild(node.cloneNode(true));
 				});
 
-			updateElementStyle(span, {
+			css(span, {
 				position: "absolute",
 				top: "-9999px",
 				left: "-9999px",

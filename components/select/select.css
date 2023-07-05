@@ -29,6 +29,7 @@
 
 #popover {
 	display: none;
+	pointer-events: none;
 	position: fixed;
 	inset: 0;
 }
@@ -37,6 +38,7 @@
 }
 
 #popover #popoverContent {
+	pointer-events: auto;
 	position: fixed;
 	border: thin solid silver;
 	background-color: #fff;

@@ -1,5 +1,6 @@
 import { xttRelectElement } from "../com/reflect.js";
 import style from "./page-nav.css" assert { type: "css" };
+import { css } from "xtt-utils";
 
 export class xttPageNavElement extends xttRelectElement {
 	static templateContent = `<nav id="nav" part="nav"><slot></slot></nav>`;
@@ -54,25 +55,22 @@ export class xttPageNavElement extends xttRelectElement {
 			// `;
 			// el.shadowRoot.appendChild(style);
 
+			const updateLink = (link) => {
+				css(link, {
+					"--link-padding": `4px 8px 4px ${parseInt(el.dataset.xttLevel) * 16}px`,
+					"--link-inline-align": "flex-start"
+				});
+			};
+
 			el.onChildrenAddedCallback = (node) => {
 				if (node.tagName === "XTT-LIST-ITEM") {
-					el.querySelectorAll("xtt-link").forEach((node) => {
-						node.style.paddingInlineStart = `${
-							parseInt(el.dataset.xttLevel) * 16
-						}px`;
-					});
+					el.querySelectorAll("xtt-link").forEach(updateLink);
 				} else if (node.tagName === "XTT-LINK") {
-					node.style.paddingInlineStart = `${
-						parseInt(el.dataset.xttLevel) * 16
-					}px`;
+					updateLink(node);
 				}
 			};
 
-			el.querySelectorAll("xtt-link").forEach((node) => {
-				node.style.paddingInlineStart = `${
-					parseInt(el.dataset.xttLevel) * 16
-				}px`;
-			});
+			el.querySelectorAll("xtt-link").forEach(updateLink);
 		}
 	}
 }

@@ -1,5 +1,4 @@
-import { randomHexColor } from "xtt-utils";
-import { updateElementStyle } from "../utils/xtt-ui-utils.js";
+import { randomHexColor, css } from "xtt-utils";
 
 /**
  * 鼠标雪花
@@ -44,7 +43,7 @@ export class mouseSnow {
 
 		this.#element = document.createElement("span");
 		this.#element.innerHTML = options?.character ?? "*";
-		updateElementStyle(this.#element, {
+		css(this.#element, {
 			position: "fixed",
 			top: "0",
 			pointerEvents: "none",

@@ -1,4 +1,4 @@
-import { updateElementStyle } from "./xtt-ui-utils.js";
+import { css } from "xtt-utils";
 
 const getPositionWithBlock = (rect, popRect, dir, margin, vp) => {
 	let y = dir === "block-start" ? rect.top - popRect.height - margin : rect.bottom + margin;
@@ -47,7 +47,7 @@ export const displayPopover = (target, popover, dirList, options) => {
 		}
 	}
 
-	updateElementStyle(
+	css(
 		popover,
 		Object.assign({
 			top: position.top ? position.top + "px" : "",
