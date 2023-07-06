@@ -42,13 +42,15 @@ export class mouseSnow {
 		this.#lifeSpan = this.#originLifeSpan = options?.lifeSpan ?? 120;
 
 		this.#element = document.createElement("span");
+		this.#element.inert = true;
+		this.#element.setAttribute("aria-hidden", "true");
 		this.#element.innerHTML = options?.character ?? "*";
 		css(this.#element, {
 			position: "fixed",
 			top: "0",
-			pointerEvents: "none",
+			"pointer-events": "none",
 			"z-index": "10000000",
-			fontSize: "20px",
+			"font-size": "20px",
 			"will-change": "transform",
 			color: options?.color ?? randomHexColor()
 		});
