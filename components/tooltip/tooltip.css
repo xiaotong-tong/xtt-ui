@@ -6,6 +6,13 @@
 	--tooltip-border-color: grey;
 }
 
+:host {
+	display: contents;
+	position: absolute;
+	top: -9999px;
+	left: -9999px;
+}
+
 #popover {
 	visibility: hidden;
 	position: fixed;

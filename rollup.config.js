@@ -54,6 +54,7 @@ export default [
 			"xtt-page-nav": "components/xtt-page-nav.js",
 			"plugins/xtt-mouseSnow": "plugins/xtt-mouseSnow.js",
 			"_xtt-code": "_internal/components/xtt-code.js",
+			"_xtt-body": "_internal/components/xtt-body.js",
 			"nami/xtt-web-bg": "nami/components/xtt-web-bg.js"
 		},
 		output: {

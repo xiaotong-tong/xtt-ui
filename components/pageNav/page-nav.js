@@ -56,6 +56,10 @@ export class xttPageNavElement extends xttRelectElement {
 			// el.shadowRoot.appendChild(style);
 
 			const updateLink = (link) => {
+				link.toggleAttribute("block", true);
+				if (link.parentElement.tagName === "XTT-LIST-ITEM" && link.parentElement.hasAttribute("active")) {
+					link.setAttribute("type", "primary");
+				}
 				css(link, {
 					"--link-padding": `4px 8px 4px ${parseInt(el.dataset.xttLevel) * 16}px`,
 					"--link-inline-align": "flex-start"

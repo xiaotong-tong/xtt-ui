@@ -27,6 +27,7 @@ export class xttListElement extends xttRelectElement {
 		if (this.getAttribute("col-count") === null) {
 			this.#startResizeObserver();
 		}
+		this.querySelectorAll("xtt-list-item").forEach(this.#listItemAdded);
 	}
 
 	disconnectedCallback() {
@@ -46,8 +47,15 @@ export class xttListElement extends xttRelectElement {
 	}
 
 	_reflectElementAdded(node) {
+		if (node?.tagName === "XTT-LIST-ITEM") {
+			this.#listItemAdded(node);
+		}
 		this.onChildrenAddedCallback(node);
 	}
+
+	#listItemAdded = (item) => {
+		item.role = "listitem";
+	};
 
 	#resizeObserverStarted = false;
 	#startResizeObserver() {

@@ -1,0 +1,15 @@
+body {
+	margin: 0;
+}
+:host {
+	min-height: 100vh;
+	display: flex;
+	justify-content: center;
+	column-gap: 16px;
+}
+::slotted(xtt-page-nav) {
+	background-color: #ffffff88;
+}
+::slotted(main) {
+	max-width: min(800px, 100vw);
+}

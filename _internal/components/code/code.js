@@ -12,7 +12,7 @@ export class xttCodeElement extends HTMLElement {
         <figure id="figure" part="figure">
 		  <details id="details" part="details">
 			<summary id="summary" part="summary">示例代码</summary>
-            <pre id="pre"><code id="code" class="language-html"></code></pre>
+            <pre id="pre"><code id="code" class="language-html" tabindex="0"></code></pre>
 		  </details>
         </figure>`;
 
@@ -21,6 +21,10 @@ export class xttCodeElement extends HTMLElement {
 		template.innerHTML = xttCodeElement.templateContent;
 
 		return template.content.cloneNode(true);
+	}
+
+	static get observedAttributes() {
+		return ["open"];
 	}
 
 	#shadowRoot;
@@ -37,12 +41,14 @@ export class xttCodeElement extends HTMLElement {
 		const content = trimLineStart(this.innerHTML, {
 			removeFirstEmptyLine: true,
 			removeLastEmptyLine: true
-		}).replaceAll(/\<|\>|script type="none"/g, (char) => {
+		}).replaceAll(/\<|\>|=""|script type="none"/g, (char) => {
 			switch (char) {
 				case "<":
 					return "&lt;";
 				case ">":
 					return "&gt;";
+				case '=""': // remove ="" from tag
+					return "";
 				case 'script type="none"': // remove type="none" from script tag
 					return "script";
 			}
@@ -53,7 +59,16 @@ export class xttCodeElement extends HTMLElement {
 		hljs.highlightElement(this.#code, { language: "html" });
 	}
 
+	attributeChangedCallback(name, oldValue, newValue) {
+		if (name === "open") {
+			this.#details.open = newValue !== null;
+		}
+	}
+
 	get #code() {
 		return this.#shadowRoot.getElementById("code");
+	}
+	get #details() {
+		return this.#shadowRoot.getElementById("details");
 	}
 }

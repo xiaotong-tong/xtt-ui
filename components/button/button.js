@@ -32,13 +32,13 @@ export class xttButtonElement extends xttRelectElement {
 		this.#tooltipElement = document.createElement("xtt-tooltip");
 		this.#tooltipElement.textContent = this.textContent;
 
-		this.shadowRoot.appendChild(this.#tooltipElement);
+		(this.closest("body") || this.getRootNode()).appendChild(this.#tooltipElement);
 
 		// 如果 button 内部的文本内容超出了 button 的宽度，就显示 tooltip
 		// 否则就阻止 tooltip 的显示
 		// 如果 button 上显示设置了 data-xtt-tooltip 属性，就不进行阻止判断行为
-		this.#button.addEventListener("xtt-tooltip-show", (ev) => {
-			if (this.#button.dataset.xttTooltip) {
+		this.addEventListener("xtt-tooltip-show", (ev) => {
+			if (this.dataset.xttTooltip) {
 				return;
 			}
 
@@ -59,7 +59,7 @@ export class xttButtonElement extends xttRelectElement {
 				"max-width": this.#text.offsetWidth + "px"
 			});
 
-			this.#button.appendChild(span);
+			this.appendChild(span);
 
 			if (span.offsetHeight <= this.#text.offsetHeight) {
 				ev.preventDefault();
@@ -72,22 +72,27 @@ export class xttButtonElement extends xttRelectElement {
 	connectedCallback() {
 		super.connectedCallback();
 
+		this.role = "button";
+
 		if (!this.hasAttribute("tabindex")) {
 			this.tabIndex = 0;
 		}
 
 		this.#contentChanged();
 
-		this.#tooltipElement.initTrigger(this.#button);
+		this.#tooltipElement.initTrigger(this);
 		this.#addA11yWithLabel();
+
+		if (this.hasAttribute("autofocus")) {
+			this.focus();
+		}
 	}
 
 	attributeChangedCallback(name, oldValue, newValue) {
 		if (name === "disabled") {
-			this.#button.disabled = newValue !== null;
 			this.tabIndex = newValue !== null ? -1 : 0;
-		} else if (name === "data-xtt-tooltip" || name === "data-aria-type") {
-			this.#button.setAttribute(name, newValue);
+		} else if (name === "data-xtt-tooltip") {
+			this.#tooltipElement.refreshTooltipContent(this);
 		} else if (name === "line") {
 			this.style.setProperty("--button-line-clamp", Number(newValue));
 		}
@@ -97,14 +102,7 @@ export class xttButtonElement extends xttRelectElement {
 		let labels = Array.from(this.labels);
 
 		if (labels.length) {
-			labels = labels.map((label) => {
-				const copy = label.cloneNode(true);
-				copy.hidden = true;
-				this.shadowRoot.appendChild(copy);
-				return copy;
-			});
-
-			attrValueAppendIds(this.#button, "aria-labelledby", labels);
+			attrValueAppendIds(this, "aria-labelledby", labels);
 		}
 	}
 
@@ -120,7 +118,7 @@ export class xttButtonElement extends xttRelectElement {
 			hasText = false;
 
 		if (this.hasChildNodes()) {
-			this.#button.classList.remove("no-icon", "no-text");
+			this.classList.remove("no-icon", "no-text");
 			const childNodes = this.childNodes;
 
 			if (this.querySelector(':scope > [slot="icon"]')) {
@@ -149,17 +147,16 @@ export class xttButtonElement extends xttRelectElement {
 			}
 		}
 		if (!hasIcon) {
-			this.#button.classList.add("no-icon");
+			this.classList.add("no-icon");
 		}
 		if (!hasText) {
-			this.#button.classList.add("no-text");
+			this.classList.add("no-text");
 		}
-		this.#tooltipElement.textContent = this.textContent;
+		if (!this.dataset.xttTooltip) {
+			this.#tooltipElement.textContent = this.textContent;
+		}
 	}
 
-	get #button() {
-		return this.shadowRoot.getElementById("button");
-	}
 	get #icon() {
 		return this.shadowRoot.getElementById("icon");
 	}

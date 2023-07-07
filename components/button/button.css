@@ -56,16 +56,6 @@
 }
 
 :host {
-	/* button 默认是 inline-block 元素 */
-	display: inline-block;
-	/* 使 focus 的 outline 也带有圆角 */
-	border-radius: var(--button-border-radius, 4px);
-}
-:host([block]) {
-	display: block;
-}
-
-#button {
 	display: inline-flex;
 	box-sizing: border-box;
 	border: thin solid;
@@ -87,25 +77,25 @@
 	opacity: 0.5;
 }
 
-:host([text]) #button {
+:host([text]) {
 	border: none;
 }
 
 /* 检测设备是否支持 hover */
 /* 将 hover 样式统一放到该区域进行管理 */
 @media (hover: hover) {
-	#button:hover {
+	:host(:hover) {
 		background-color: var(--button-bg-color-hover);
 		border-color: var(--button-border-color-hover, silver);
 		color: var(--button-font-color-hover, inherit);
 	}
 }
 
-#button:active {
+:host(:active) {
 	background-color: var(--button-bg-color-active, transparent);
 }
 
-:host([block]) #button {
+:host([block]) {
 	display: flex;
 	width: 100%;
 	justify-content: center;
@@ -118,11 +108,7 @@
 	overflow: hidden;
 	text-align: start;
 }
-.no-icon #icon,
-.no-text #text {
+:host(.no-icon) #icon,
+:host(.no-text) #text {
 	display: none;
-}
-
-#button:focus {
-	outline: none;
 }

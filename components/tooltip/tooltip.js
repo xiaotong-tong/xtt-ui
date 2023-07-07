@@ -130,6 +130,12 @@ export class xttTooltipElement extends xttBaseElement {
 		}
 	}
 
+	refreshTooltipContent(el) {
+		if (el.dataset.xttTooltip) {
+			this.textContent = el.dataset.xttTooltip;
+		}
+	}
+
 	#showTimer;
 	show(toElement) {
 		if (this.#popover.hasAttribute("open")) {
@@ -151,9 +157,7 @@ export class xttTooltipElement extends xttBaseElement {
 			return false;
 		}
 
-		if (toElement.dataset.xttTooltip) {
-			this.textContent = toElement.dataset.xttTooltip;
-		}
+		this.refreshTooltipContent(toElement);
 
 		displayPopover(toElement, this.#popover, ["block-start", "block-end"]);
 
