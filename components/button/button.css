@@ -60,6 +60,7 @@
 	box-sizing: border-box;
 	border: thin solid;
 	cursor: pointer;
+	overflow-wrap: break-word;
 	max-width: 100%;
 	font-size: inherit;
 	border-radius: var(--button-border-radius, 4px);

@@ -1,0 +1,15 @@
+.label-layout {
+	display: flex;
+	align-items: start;
+	column-gap: 8px;
+}
+
+.label-layout > label:first-child {
+	flex: 0 0 100px;
+	padding-inline-end: 8px;
+	text-align: end;
+}
+
+.label-layout + .label-layout {
+	margin-block-start: 8px;
+}
