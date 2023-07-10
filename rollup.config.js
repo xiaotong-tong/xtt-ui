@@ -49,6 +49,7 @@ export default [
 			"xtt-link": "components/xtt-link.js",
 			"xtt-tooltip": "components/xtt-tooltip.js",
 			"xtt-select": "components/xtt-select.js",
+			"xtt-textarea": "components/xtt-textarea.js",
 			"xtt-markdown": "components/xtt-markdown.js",
 			"xtt-list": "components/xtt-list.js",
 			"xtt-list-next": "components/xtt-list-next.js",

@@ -1,0 +1,25 @@
+:host {
+	--textarea-padding: 5px 8px;
+	--textarea-border-color: silver;
+	--textarea-focus-outline: thin solid hsl(195deg 100% 50%);
+}
+
+:host {
+	display: block;
+}
+
+#textarea {
+	display: block;
+	box-sizing: border-box;
+	width: 100%;
+	height: auto;
+	resize: none;
+	border: thin solid;
+	line-height: 1.5;
+	border-color: var(--textarea-border-color, silver);
+	padding: var(--textarea-padding);
+}
+
+#textarea:focus {
+	outline: var(--textarea-focus-outline);
+}

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<style>
+			.long-text {
+				max-width: 200px;
+			}
+		</style>
+		<script src="./example.js" type="module"></script>
+	</head>
+	<body>
+		<h1>Textarea 文本框</h1>
+
+		<h2>基本使用</h2>
+
+		<xtt-textarea>This is textarea</xtt-textarea>
+
+		<xtt-textarea readonly>This is readonly textarea</xtt-textarea>
+
+		<xtt-code>
+			<xtt-textarea>This is textarea</xtt-textarea>
+			<xtt-textarea readonly>This is readonly textarea</xtt-textarea>
+		</xtt-code>
+
+		<h2>rows</h2>
+
+		<xtt-textarea rows="2"></xtt-textarea>
+
+		<xtt-code>
+			<xtt-textarea rows="2"></xtt-textarea>
+		</xtt-code>
+
+		<h2>autosize</h2>
+		<xtt-textarea autosize></xtt-textarea>
+
+		<xtt-code>
+			<xtt-textarea autosize></xtt-textarea>
+		</xtt-code>
+	</body>
+</html>
