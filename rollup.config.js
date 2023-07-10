@@ -53,6 +53,7 @@ export default [
 			"xtt-list": "components/xtt-list.js",
 			"xtt-list-next": "components/xtt-list-next.js",
 			"xtt-page-nav": "components/xtt-page-nav.js",
+			"xtt-editor": "components/xtt-editor.js",
 			"plugins/xtt-mouseSnow": "plugins/xtt-mouseSnow.js",
 			"_xtt-code": "_internal/components/xtt-code.js",
 			"_xtt-body": "_internal/components/xtt-body.js",

@@ -45,6 +45,8 @@
 	},
 	"dependencies": {
 		"@mdi/js": "^7.2.96",
+		"@wangeditor/editor": "^5.1.23",
+		"@wangeditor/plugin-md": "^1.0.0",
 		"github-markdown-css": "^5.2.0",
 		"highlight.js": "^11.8.0",
 		"marked": "^5.0.5",
