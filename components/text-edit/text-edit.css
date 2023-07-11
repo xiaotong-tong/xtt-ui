@@ -1,0 +1,24 @@
+:host {
+	--text-edit-padding: 5px 8px;
+	--text-edit-border-color: silver;
+	--text-edit-focus-outline: thin solid hsl(195deg 100% 50%);
+	--text-edit-font-size: 14px;
+}
+
+:host {
+	display: block;
+	box-sizing: border-box;
+	width: 100%;
+	height: auto;
+	border: thin solid;
+	line-height: 1.5;
+	white-space: pre-wrap;
+	overflow: auto;
+	font-size: var(--text-edit-font-size, 14px);
+	border-color: var(--text-edit-border-color, silver);
+	padding: var(--text-edit-padding);
+}
+
+:host(:focus) {
+	outline: var(--text-edit-focus-outline);
+}

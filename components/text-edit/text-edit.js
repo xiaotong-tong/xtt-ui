@@ -1,10 +1,10 @@
 import { xttBaseElement } from "../com/base.js";
-import style from "./textarea.css" assert { type: "css" };
-import html from "./textarea.html";
+import style from "./text-edit.css" assert { type: "css" };
 import { css } from "xtt-utils";
+import spanHtml from "./text-edit-span.html";
 
-export class xttTextareaElement extends xttBaseElement {
-	static templateContent = html;
+export class xttTextEditElement extends xttBaseElement {
+	static templateContent = "<slot></slot>";
 	static stylesContent = [style];
 	static observeOptions = { childList: true };
 
@@ -17,39 +17,21 @@ export class xttTextareaElement extends xttBaseElement {
 	}
 
 	connectedCallback() {
-		this.value = this.textContent;
+		this.toggleAttribute("contenteditable", "plaintext-only");
+		this.tabIndex = 1;
 	}
 
 	attributeChangedCallback(name, oldValue, newValue) {
-		if (name === "rows") {
-			this.#textarea.rows = newValue;
-		} else if (name === "autosize") {
-			this.#textarea.removeAttribute("rows");
-			this.#autoResize(newValue !== null);
-		} else if (name === "readonly") {
-			this.#textarea.readOnly = newValue !== null;
+		if (name === "readonly") {
+			this.removeAttribute("contenteditable");
+		} else if (name === "rows") {
+			this.#contentHeight(newValue);
 		}
 	}
 
-	get #textarea() {
-		return this.shadowRoot.querySelector("textarea");
-	}
-
-	#autoResize = (added) => {
-		const autoResizeHandler = () => {
-			css(this.#textarea, "height", this.#textAreaHeight() + "px");
-		};
-		if (added) {
-			this.#textarea.addEventListener("input", autoResizeHandler);
-			autoResizeHandler();
-		} else {
-			this.#textarea.removeEventListener("input", autoResizeHandler);
-		}
-	};
-
-	#textAreaHeight = () => {
-		const textarea = this.#textarea;
-		const hiddenTextarea = document.createElement("textarea");
+	#contentHeight = (newValue) => {
+		const textarea = this;
+		const hiddenTextarea = document.createElement("div");
 		this.shadowRoot.appendChild(hiddenTextarea);
 
 		css(hiddenTextarea, {
@@ -64,34 +46,37 @@ export class xttTextareaElement extends xttBaseElement {
 			"padding-inline-end": css(textarea, "padding-inline-end"),
 			"border-block-start-width": css(textarea, "border-block-start-width"),
 			"border-block-end-width": css(textarea, "border-block-end-width"),
-			width: css(textarea, "width"),
+			"white-space": "pre-wrap",
+
 			"box-sizing": css(textarea, "box-sizing"),
 
 			position: "absolute",
 			top: "-9999px",
 			left: "-9999px",
 			visibility: "hidden",
-			height: 0
+			width: "100px",
+			display: "-webkit-box",
+			"-webkit-box-orient": "vertical",
+			"-webkit-line-clamp": newValue,
+			overflow: "hidden"
 		});
 
-		hiddenTextarea.value = textarea.value;
+		hiddenTextarea.innerHTML = spanHtml;
 
 		const borderSize =
 			parseInt(css(textarea, "border-block-start-width")) + parseInt(css(textarea, "border-block-end-width"));
 
-		const height = hiddenTextarea.scrollHeight + borderSize;
+		const height = hiddenTextarea.offsetHeight + borderSize;
 
 		hiddenTextarea.remove();
 
-		return height;
+		this.style.height = height + "px";
 	};
 
 	get value() {
-		return this.#textarea.value;
+		return this.textContent;
 	}
 	set value(value) {
-		this.#textarea.value = value;
-		this.#textarea.textContent = value;
 		this.textContent = value;
 	}
 }

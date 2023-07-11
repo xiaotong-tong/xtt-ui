@@ -1,0 +1,52 @@
+:host {
+	display: flex;
+	font-size: 14px;
+}
+:host([heightSize="large"]) {
+	height: 224px;
+}
+
+#left {
+	width: calc((100% - 100px) / 5 * 3);
+}
+
+#right {
+	width: calc((100% - 100px) / 5 * 2);
+	border: thin solid silver;
+	padding: 4px 8px;
+}
+
+#right .heimu {
+	background-color: currentColor;
+}
+#right .heimu:hover {
+	background-color: transparent;
+}
+
+#center {
+	width: 100px;
+	display: flex;
+	align-content: center;
+	justify-content: center;
+	flex-wrap: wrap;
+	color: #4fc1ff;
+}
+
+:host ::-webkit-scrollbar {
+	width: 5px;
+	height: 5px;
+	margin: 5px 0;
+}
+:host ::-webkit-scrollbar-thumb {
+	margin: 5px 0;
+	border-radius: 15px;
+	background-image: linear-gradient(#c9d1d9, #c9d1d9);
+}
+:host ::-webkit-scrollbar-track {
+	margin: 5px 0;
+	border-radius: 15px;
+}
+
+:host ::highlight(xtt-highlight) {
+	color: #ce9178;
+}

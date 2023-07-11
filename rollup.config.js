@@ -50,6 +50,7 @@ export default [
 			"xtt-tooltip": "components/xtt-tooltip.js",
 			"xtt-select": "components/xtt-select.js",
 			"xtt-textarea": "components/xtt-textarea.js",
+			"xtt-text-edit": "components/xtt-text-edit.js",
 			"xtt-markdown": "components/xtt-markdown.js",
 			"xtt-list": "components/xtt-list.js",
 			"xtt-list-next": "components/xtt-list-next.js",
@@ -58,7 +59,8 @@ export default [
 			"plugins/xtt-mouseSnow": "plugins/xtt-mouseSnow.js",
 			"_xtt-code": "_internal/components/xtt-code.js",
 			"_xtt-body": "_internal/components/xtt-body.js",
-			"nami/xtt-web-bg": "nami/components/xtt-web-bg.js"
+			"nami/xtt-web-bg": "nami/components/xtt-web-bg.js",
+			"nami/xtt-msg": "nami/components/xtt-msg.js"
 		},
 		output: {
 			dir: "dist",
