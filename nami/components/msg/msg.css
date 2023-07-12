@@ -2,9 +2,6 @@
 	display: flex;
 	font-size: 14px;
 }
-:host([heightSize="large"]) {
-	height: 224px;
-}
 
 #left {
 	width: calc((100% - 100px) / 5 * 3);

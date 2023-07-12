@@ -22,7 +22,14 @@ export class xttMsgElement extends xttRelectElement {
 	connectedCallback() {
 		super.connectedCallback();
 
-		this.#left.value = this.textContent;
+		this.#left.textContent = this.textContent;
+
+		this.#doShowText();
+		this.#changeHighlight();
+	}
+
+	_reflectElementAdded() {
+		this.#left.textContent = this.textContent;
 
 		this.#doShowText();
 		this.#changeHighlight();
@@ -38,7 +45,7 @@ export class xttMsgElement extends xttRelectElement {
 		const rangeList = [];
 
 		left.forEach((textNode) => {
-			for (const match of textNode.nodeValue.matchAll(/!\[[^\]]+\]/g)) {
+			for (const match of textNode.nodeValue.matchAll(/!\[[^\]]+\]|-->>/g)) {
 				const range = new Range();
 				range.setStart(textNode, match.index);
 				range.setEnd(textNode, match.index + match[0].length);
@@ -72,6 +79,9 @@ export class xttMsgElement extends xttRelectElement {
 	async #doShowText() {
 		const start = Date.now();
 		const text = this.#left.value;
+		if (!text) {
+			return;
+		}
 		console.time(text);
 		this.#right.innerHTML = await replace(text);
 		console.timeEnd(text);

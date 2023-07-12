@@ -1,7 +1,6 @@
 import { xttBaseElement } from "../com/base.js";
 import style from "./text-edit.css" assert { type: "css" };
 import { css } from "xtt-utils";
-import spanHtml from "./text-edit-span.html";
 
 export class xttTextEditElement extends xttBaseElement {
 	static templateContent = "<slot></slot>";
@@ -61,7 +60,7 @@ export class xttTextEditElement extends xttBaseElement {
 			overflow: "hidden"
 		});
 
-		hiddenTextarea.innerHTML = spanHtml;
+		hiddenTextarea.innerHTML = "lorem ipsum".repeat(100);
 
 		const borderSize =
 			parseInt(css(textarea, "border-block-start-width")) + parseInt(css(textarea, "border-block-end-width"));
