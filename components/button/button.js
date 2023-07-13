@@ -55,8 +55,18 @@ export class xttButtonElement extends xttRelectElement {
 				position: "absolute",
 				top: "-9999px",
 				left: "-9999px",
-				"font-size": window.getComputedStyle(this.#text).fontSize,
-				"max-width": this.#text.offsetWidth + "px"
+				"font-size": css(this.#text, "font-size"),
+				"max-width": this.#text.getBoundingClientRect().width + 0.5 + "px",
+				"padding-inline-start": css(this.#text, "padding-inline-start"),
+				"padding-inline-end": css(this.#text, "padding-inline-end"),
+				"padding-block-start": css(this.#text, "padding-block-start"),
+				"padding-block-end": css(this.#text, "padding-block-end"),
+				"border-inline-start-width": css(this.#text, "border-inline-start-width"),
+				"border-inline-end-width": css(this.#text, "border-inline-end-width"),
+				"border-block-start-width": css(this.#text, "border-block-start-width"),
+				"border-block-end-width": css(this.#text, "border-block-end-width"),
+				"box-sizing": "border-box",
+				"text-align": "start"
 			});
 
 			this.appendChild(span);
