@@ -1,31 +1,26 @@
 :host {
-	--button-primary-color: hsl(195deg 100% 50%);
-	--button-primary-light-color: hsl(195deg, 100%, 65%);
-	--button-primary-dark-color: hsl(195deg, 100%, 40%);
-
 	--button-bg-color: transparent;
 	--button-font-color: inherit;
 	--button-padding: 4px 10px;
-	--button-border-color: silver;
+	--button-border-color: hsl(0, 0%, 75%);
 	--button-border-radius: 4px;
-	--button-focus-outline: thin dotted #000000;
 	--button-column-gap: 8px;
+	--button-focus-outline: thin dotted black;
 
 	--button-line-clamp: 1;
 
 	--button-bg-color-hover: transparent;
-	--button-font-color-hover: hsl(195deg 100% 50%);
-	--button-border-color-hover: hsl(195deg 100% 50%);
+	--button-font-color-hover: var(--primary-color);
+	--button-border-color-hover: var(--primary-color);
 }
 :host([type="primary"]) {
-	--button-bg-color: var(--button-primary-color);
-	--button-bg-color-hover: var(--button-primary-light-color);
+	--button-bg-color: var(--primary-color);
+	--button-bg-color-hover: var(--primary-light-color);
 	--button-font-color: white;
-	--button-border-color: var(--button-primary-color);
-	--button-focus-outline: thin dotted var(--button-primary-color);
 	--button-font-color-hover: white;
+	--button-border-color: var(--primary-color);
 
-	--button-bg-color-active: var(--button-primary-dark-color);
+	--button-bg-color-active: var(--primary-dark-color);
 }
 :host([type="base"]) {
 	--button-bg-color: transparent;
@@ -37,21 +32,21 @@
 	--button-bg-color: transparent;
 	--button-font-color: inherit;
 
-	--button-bg-color-hover: hsl(216 33% 95%);
+	--button-bg-color-hover: hsl(0 0% 95%);
 	--button-font-color-hover: inherit;
 
-	--button-bg-color-active: hsl(216 33% 90%);
+	--button-bg-color-active: hsl(0 0% 90%);
 }
 :host([text][type="primary"]) {
-	--button-font-color: var(--button-primary-color);
-	--button-font-color-hover: var(--button-primary-color);
+	--button-font-color: var(--primary-color);
+	--button-font-color-hover: var(--primary-color);
 }
 :host([size="large"]) {
 	--button-padding: 8px 15px;
 }
 
 :host(:focus) {
-	outline: var(--button-focus-outline, thin dotted grey);
+	outline: var(--button-focus-outline, thin dotted black);
 	outline-offset: 1px;
 }
 

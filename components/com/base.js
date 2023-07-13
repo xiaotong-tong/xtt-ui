@@ -1,3 +1,5 @@
+import baseStyle from "./base.css" assert { type: "css" };
+
 export class xttBaseElement extends HTMLElement {
 	#template() {
 		const template = document.createElement("template");
@@ -12,7 +14,7 @@ export class xttBaseElement extends HTMLElement {
 		const shadowRoot = this.attachShadow({ mode: "open" });
 
 		if (this.constructor.stylesContent) {
-			shadowRoot.adoptedStyleSheets = this.constructor.stylesContent;
+			shadowRoot.adoptedStyleSheets = [baseStyle, ...this.constructor.stylesContent];
 		}
 
 		if (this.constructor.templateContent) {

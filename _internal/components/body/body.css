@@ -12,4 +12,5 @@ body {
 }
 ::slotted(main) {
 	max-width: min(800px, 100vw);
+	flex: 1;
 }

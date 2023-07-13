@@ -1,0 +1,23 @@
+:host {
+	--primary-color: hsl(195deg, 100%, 50%);
+	--primary-light-color: hsl(195deg, 100%, 65%);
+	--primary-dark-color: hsl(195deg, 100%, 40%);
+
+	--grey-color: hsl(0deg, 0%, 75%);
+	--grey-light-color: hsl(0deg, 0%, 95%);
+}
+
+:host ::-webkit-scrollbar {
+	width: 5px;
+	height: 5px;
+	margin: 5px 0;
+}
+:host ::-webkit-scrollbar-thumb {
+	margin: 5px 0;
+	border-radius: 15px;
+	background: var(--grey-color);
+}
+:host ::-webkit-scrollbar-track {
+	margin: 5px 0;
+	border-radius: 15px;
+}

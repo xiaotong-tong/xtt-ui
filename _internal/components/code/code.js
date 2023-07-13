@@ -1,3 +1,4 @@
+import { xttBaseElement } from "../../../components/com/base.js";
 import style from "./code.css" assert { type: "css" };
 import highLightStyle from "highlight.js/styles/github.css" assert { type: "css" };
 
@@ -7,7 +8,7 @@ import { trimLineStart } from "xtt-utils";
 
 hljs.registerLanguage("html", xml);
 
-export class xttCodeElement extends HTMLElement {
+export class xttCodeElement extends xttBaseElement {
 	static templateContent = `
         <figure id="figure" part="figure">
 		  <details id="details" part="details">
@@ -15,26 +16,14 @@ export class xttCodeElement extends HTMLElement {
             <pre id="pre"><code id="code" class="language-html" tabindex="0"></code></pre>
 		  </details>
         </figure>`;
-
-	template() {
-		const template = document.createElement("template");
-		template.innerHTML = xttCodeElement.templateContent;
-
-		return template.content.cloneNode(true);
-	}
+	static stylesContent = [style, highLightStyle];
 
 	static get observedAttributes() {
 		return ["open"];
 	}
 
-	#shadowRoot;
-
 	constructor() {
 		super();
-
-		this.#shadowRoot = this.attachShadow({ mode: "open" });
-		this.#shadowRoot.adoptedStyleSheets = [style, highLightStyle];
-		this.#shadowRoot.appendChild(this.template());
 	}
 
 	connectedCallback() {
@@ -66,9 +55,9 @@ export class xttCodeElement extends HTMLElement {
 	}
 
 	get #code() {
-		return this.#shadowRoot.getElementById("code");
+		return this.shadowRoot.getElementById("code");
 	}
 	get #details() {
-		return this.#shadowRoot.getElementById("details");
+		return this.shadowRoot.getElementById("details");
 	}
 }

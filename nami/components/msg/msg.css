@@ -29,21 +29,6 @@
 	color: #4fc1ff;
 }
 
-:host ::-webkit-scrollbar {
-	width: 5px;
-	height: 5px;
-	margin: 5px 0;
-}
-:host ::-webkit-scrollbar-thumb {
-	margin: 5px 0;
-	border-radius: 15px;
-	background-image: linear-gradient(#c9d1d9, #c9d1d9);
-}
-:host ::-webkit-scrollbar-track {
-	margin: 5px 0;
-	border-radius: 15px;
-}
-
 :host ::highlight(xtt-highlight) {
 	color: #ce9178;
 }

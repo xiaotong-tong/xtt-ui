@@ -1,15 +1,11 @@
 :host {
-	--link-primary-color: hsl(195deg 100% 50%);
-	--link-primary-light-color: hsl(195deg, 100%, 70%);
-	--link-primary-dark-color: hsl(195deg, 100%, 40%);
-
 	--link-inline-align: center;
 
 	--link-font-color: inherit;
 	--link-font-color-hover: inherit;
 	--link-font-color-active: inherit;
 
-	--link-focus-outline: thin dotted #000000;
+	--link-focus-outline: thin dotted black;
 }
 
 :host(:is([block], [inline-block])) {
@@ -17,13 +13,13 @@
 }
 
 :host([block]) {
-	--link-hover-bg-color: hsl(215, 33%, 95%);
+	--link-hover-bg-color: var(--grey-light-color);
 }
 
 :host([type="primary"]) {
-	--link-font-color: var(--link-primary-color);
-	--link-font-color-hover: var(--link-primary-light-color);
-	--link-font-color-active: var(--link-primary-dark-color);
+	--link-font-color: var(--primary-color);
+	--link-font-color-hover: var(--primary-light-color);
+	--link-font-color-active: var(--primary-dark-color);
 }
 
 #link {
@@ -59,7 +55,7 @@
 	color: var(--link-font-color-active, inherit);
 }
 
-#link:focus-visible {
+#link:focus {
 	outline: var(--link-focus-outline);
 	outline-offset: 1px;
 }

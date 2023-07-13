@@ -13,7 +13,6 @@ export class xttEditorElement extends xttBaseElement {
         <div id="editor-container"></div>
     </div>`;
 	static stylesContent = [editorStyle, style];
-	static observeOptions = { childList: true, subtree: true };
 
 	static get observedAttributes() {
 		return [];
