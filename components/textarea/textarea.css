@@ -5,11 +5,14 @@
 }
 
 :host {
+	display: inline-block;
+}
+
+:host([block]) {
 	display: block;
 }
 
 #textarea {
-	display: block;
 	box-sizing: border-box;
 	width: 100%;
 	height: auto;

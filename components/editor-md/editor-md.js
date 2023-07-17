@@ -4,8 +4,8 @@ import style from "./editor-md.css" assert { type: "css" };
 export class xttEditorMdElement extends xttBaseElement {
 	static templateContent = `
     <div id="editor">
-		<xtt-textarea id="editorContainer"></xtt-textarea>
-		<xtt-markdown id="showContainer"></xtt-markdown>
+		<xtt-textarea id="editorContainer" block autosize></xtt-textarea>
+		<xtt-markdown id="previewContainer"></xtt-markdown>
     </div>`;
 	static stylesContent = [style];
 
@@ -14,14 +14,14 @@ export class xttEditorMdElement extends xttBaseElement {
 
 		this.#editorContainer.addEventListener("input", (ev) => {
 			const text = ev.target.value;
-			this.#showContainer.innerHTML = text;
+			this.#previewContainer.innerHTML = text;
 		});
 	}
 
 	get #editorContainer() {
 		return this.shadowRoot.getElementById("editorContainer");
 	}
-	get #showContainer() {
-		return this.shadowRoot.getElementById("showContainer");
+	get #previewContainer() {
+		return this.shadowRoot.getElementById("previewContainer");
 	}
 }

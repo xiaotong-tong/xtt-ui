@@ -50,7 +50,6 @@ export class xttTextareaElement extends xttBaseElement {
 	#textAreaHeight = () => {
 		const textarea = this.#textarea;
 		const hiddenTextarea = document.createElement("textarea");
-		this.shadowRoot.appendChild(hiddenTextarea);
 
 		css(hiddenTextarea, {
 			"letter-spacing": css(textarea, "letter-spacing"),
@@ -71,8 +70,11 @@ export class xttTextareaElement extends xttBaseElement {
 			top: "-9999px",
 			left: "-9999px",
 			visibility: "hidden",
-			height: 0
+			height: 0,
+			overflow: "hidden"
 		});
+
+		this.shadowRoot.appendChild(hiddenTextarea);
 
 		hiddenTextarea.value = textarea.value;
 

@@ -1,3 +1,13 @@
 :host {
 	display: block;
 }
+
+#editor {
+	display: flex;
+	column-gap: 8px;
+}
+
+#editorContainer,
+#previewContainer {
+	flex: 1;
+}

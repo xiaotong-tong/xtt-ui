@@ -31,7 +31,6 @@ export class xttTextEditElement extends xttBaseElement {
 	#contentHeight = (newValue) => {
 		const textarea = this;
 		const hiddenTextarea = document.createElement("div");
-		this.shadowRoot.appendChild(hiddenTextarea);
 
 		css(hiddenTextarea, {
 			"letter-spacing": css(textarea, "letter-spacing"),
@@ -59,6 +58,8 @@ export class xttTextEditElement extends xttBaseElement {
 			"-webkit-line-clamp": newValue,
 			overflow: "hidden"
 		});
+
+		this.shadowRoot.appendChild(hiddenTextarea);
 
 		hiddenTextarea.innerHTML = "lorem ipsum".repeat(100);
 

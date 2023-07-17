@@ -6,10 +6,7 @@
 }
 
 :host {
-	display: block;
 	box-sizing: border-box;
-	width: 100%;
-	height: auto;
 	border: thin solid;
 	line-height: 1.5;
 	white-space: pre-wrap;
@@ -17,6 +14,15 @@
 	font-size: var(--text-edit-font-size, 14px);
 	border-color: var(--text-edit-border-color, silver);
 	padding: var(--text-edit-padding);
+}
+
+:host {
+	display: inline-block;
+	width: 20em;
+}
+:host([block]) {
+	display: block;
+	width: 100%;
 }
 
 :host(:focus) {
