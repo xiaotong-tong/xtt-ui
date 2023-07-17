@@ -1,5 +1,9 @@
 import "./load.js";
 
+const appendBtn = document.createElement("xtt-button");
+appendBtn.textContent = "Append";
+document.querySelector("section").querySelector("p").insertAdjacentElement("beforebegin", appendBtn);
+
 const operate = document.getElementById("operate");
 
 const content = document.getElementById("content");

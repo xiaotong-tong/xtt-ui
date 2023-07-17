@@ -31,7 +31,39 @@ export class xttButtonElement extends xttRelectElement {
 
 		this.#tooltipElement = document.createElement("xtt-tooltip");
 		this.#tooltipElement.textContent = this.textContent;
+	}
 
+	connectedCallback() {
+		super.connectedCallback();
+
+		this.role = "button";
+
+		if (!this.hasAttribute("tabindex")) {
+			this.tabIndex = 0;
+		}
+
+		this.#appendTooltip();
+
+		this.#contentChanged();
+
+		this.#addA11yWithLabel();
+
+		if (this.hasAttribute("autofocus")) {
+			this.focus();
+		}
+	}
+
+	attributeChangedCallback(name, oldValue, newValue) {
+		if (name === "disabled") {
+			this.tabIndex = newValue !== null ? -1 : 0;
+		} else if (name === "data-xtt-tooltip") {
+			this.#tooltipElement.refreshTooltipContent(this);
+		} else if (name === "line") {
+			this.style.setProperty("--button-line-clamp", Number(newValue));
+		}
+	}
+
+	#appendTooltip() {
 		(this.closest("body") || this.getRootNode()).appendChild(this.#tooltipElement);
 
 		// 如果 button 内部的文本内容超出了 button 的宽度，就显示 tooltip
@@ -77,35 +109,8 @@ export class xttButtonElement extends xttRelectElement {
 
 			span.remove();
 		});
-	}
-
-	connectedCallback() {
-		super.connectedCallback();
-
-		this.role = "button";
-
-		if (!this.hasAttribute("tabindex")) {
-			this.tabIndex = 0;
-		}
-
-		this.#contentChanged();
 
 		this.#tooltipElement.initTrigger(this);
-		this.#addA11yWithLabel();
-
-		if (this.hasAttribute("autofocus")) {
-			this.focus();
-		}
-	}
-
-	attributeChangedCallback(name, oldValue, newValue) {
-		if (name === "disabled") {
-			this.tabIndex = newValue !== null ? -1 : 0;
-		} else if (name === "data-xtt-tooltip") {
-			this.#tooltipElement.refreshTooltipContent(this);
-		} else if (name === "line") {
-			this.style.setProperty("--button-line-clamp", Number(newValue));
-		}
 	}
 
 	#addA11yWithLabel() {
