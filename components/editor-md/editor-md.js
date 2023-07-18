@@ -16,6 +16,9 @@ export class xttEditorMdElement extends xttBaseElement {
 			const text = ev.target.value;
 			this.#previewContainer.innerHTML = text;
 		});
+		this.#editorContainer.addEventListener("change", (ev) => {
+			this.dispatchEvent(new Event("change"));
+		});
 	}
 
 	get #editorContainer() {
@@ -23,5 +26,24 @@ export class xttEditorMdElement extends xttBaseElement {
 	}
 	get #previewContainer() {
 		return this.shadowRoot.getElementById("previewContainer");
+	}
+
+	get value() {
+		return this.#editorContainer.value;
+	}
+	set value(value) {
+		this.#editorContainer.value = value;
+		this.#previewContainer.innerHTML = value;
+	}
+
+	get textContent() {
+		return this.value;
+	}
+	set textContent(value) {
+		this.value = value;
+	}
+
+	get parsed() {
+		return this.#previewContainer.parsed;
 	}
 }

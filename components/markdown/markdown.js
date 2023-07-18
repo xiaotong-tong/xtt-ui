@@ -47,6 +47,8 @@ export class xttMarkdownElement extends xttRelectElement {
 	static templateContent = `<div id="body" part="body" class="markdown-body"></div>`;
 	static stylesContent = [style, highLightStyle, githubMarkdownStyle];
 
+	#parsed = "";
+
 	connectedCallback() {
 		super.connectedCallback();
 
@@ -67,7 +69,8 @@ export class xttMarkdownElement extends xttRelectElement {
 	}
 
 	#parseMarkdown(content) {
-		this.#body.innerHTML = marked.parse(content);
+		this.#parsed = marked.parse(content);
+		this.#body.innerHTML = this.#parsed;
 	}
 
 	get #body() {
@@ -92,5 +95,9 @@ export class xttMarkdownElement extends xttRelectElement {
 	// 向外部暴露一个 headers 属性，用于获取所有的标题元素
 	get headers() {
 		return this.#body.querySelectorAll("h1, h2, h3, h4, h5, h6");
+	}
+
+	get parsed() {
+		return this.#parsed;
 	}
 }

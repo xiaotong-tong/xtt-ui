@@ -16,15 +16,31 @@ export class xttTextareaElement extends xttBaseElement {
 		super();
 	}
 
+	#autosizeWhenConnected = false;
+
 	connectedCallback() {
 		this.value = this.textContent;
+
+		this.#textarea.addEventListener("change", (ev) => {
+			this.dispatchEvent(new Event("change"));
+		});
+
+		if (this.#autosizeWhenConnected) {
+			this.#autoResize(true);
+		}
 	}
 
 	attributeChangedCallback(name, oldValue, newValue) {
 		if (name === "rows") {
-			this.#textarea.rows = newValue;
+			this.#textarea.rows = newValue || 3;
 		} else if (name === "autosize") {
-			this.#textarea.removeAttribute("rows");
+			// 如果还没有连接到DOM，那么就先记录下来，等连接到DOM后再执行
+			// 因为在没有连接到DOM的时候，无法获取正确获取的 textarea 的一些 css 样式
+			// 在计算高度的时候，会出现错误
+			if (this.isConnected === false) {
+				this.#autosizeWhenConnected = newValue !== null;
+				return;
+			}
 			this.#autoResize(newValue !== null);
 		} else if (name === "readonly") {
 			this.#textarea.readOnly = newValue !== null;
@@ -44,6 +60,7 @@ export class xttTextareaElement extends xttBaseElement {
 			autoResizeHandler();
 		} else {
 			this.#textarea.removeEventListener("input", autoResizeHandler);
+			css(this.#textarea, "height", "");
 		}
 	};
 
@@ -78,10 +95,19 @@ export class xttTextareaElement extends xttBaseElement {
 
 		hiddenTextarea.value = textarea.value;
 
-		const borderSize =
+		let borderSize =
 			parseInt(css(textarea, "border-block-start-width")) + parseInt(css(textarea, "border-block-end-width"));
 
-		const height = hiddenTextarea.scrollHeight + borderSize;
+		if (isNaN(borderSize)) {
+			borderSize = 0;
+		}
+
+		let height = hiddenTextarea.scrollHeight + borderSize;
+
+		if (height === 0) {
+			hiddenTextarea.value = "1";
+			height = hiddenTextarea.scrollHeight + borderSize;
+		}
 
 		hiddenTextarea.remove();
 
