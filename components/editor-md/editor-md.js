@@ -46,4 +46,8 @@ export class xttEditorMdElement extends xttBaseElement {
 	get parsed() {
 		return this.#previewContainer.parsed;
 	}
+
+	get abstract() {
+		return this.#previewContainer.abstract;
+	}
 }

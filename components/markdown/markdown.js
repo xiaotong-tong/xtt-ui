@@ -100,4 +100,8 @@ export class xttMarkdownElement extends xttRelectElement {
 	get parsed() {
 		return this.#parsed;
 	}
+
+	get abstract() {
+		return this.#body.textContent;
+	}
 }

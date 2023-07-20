@@ -11,3 +11,7 @@
 #previewContainer {
 	flex: 1;
 }
+
+#previewContainer {
+	padding: 4px 8px;
+}
