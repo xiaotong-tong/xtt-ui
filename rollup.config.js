@@ -80,30 +80,30 @@ export default [
 			format: "iife"
 		},
 		plugins: minPluginOptions
-	},
-	{
-		input: "./nami/xtt-utils-page.js",
-		output: {
-			file: "dist/xtt-utils-page.min.js",
-			format: "iife"
-		},
-		plugins: minPluginOptions
-	},
-	{
-		input: "./nami/xtt-msg.js",
-		output: {
-			file: "dist/xtt-msg.min.js",
-			format: "iife"
-		},
-		plugins: minPluginOptions
-	},
-	{
-		input: "./nami/xtt-msg.js",
-		output: {
-			file: "dist/xtt-msg-core.min.js",
-			format: "iife"
-		},
-		plugins: minPluginOptions,
-		external: ["xtt-msg"]
 	}
+	// {
+	// 	input: "./nami/xtt-utils-page.js",
+	// 	output: {
+	// 		file: "dist/xtt-utils-page.min.js",
+	// 		format: "iife"
+	// 	},
+	// 	plugins: minPluginOptions
+	// },
+	// {
+	// 	input: "./nami/xtt-msg.js",
+	// 	output: {
+	// 		file: "dist/xtt-msg.min.js",
+	// 		format: "iife"
+	// 	},
+	// 	plugins: minPluginOptions
+	// },
+	// {
+	// 	input: "./nami/xtt-msg.js",
+	// 	output: {
+	// 		file: "dist/xtt-msg-core.min.js",
+	// 		format: "iife"
+	// 	},
+	// 	plugins: minPluginOptions,
+	// 	external: ["xtt-msg"]
+	// }
 ];

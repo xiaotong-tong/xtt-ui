@@ -40,6 +40,10 @@ document.getElementById("setPrimary").addEventListener("click", () => {
 	operate.setAttribute("type", "primary");
 });
 
+document.getElementById("setDanger").addEventListener("click", () => {
+	operate.setAttribute("type", "danger");
+});
+
 document.getElementById("setBase").addEventListener("click", () => {
 	operate.setAttribute("type", "base");
 });

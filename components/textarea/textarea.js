@@ -56,6 +56,7 @@ export class xttTextareaElement extends xttBaseElement {
 			css(this.#textarea, "height", this.#textAreaHeight() + "px");
 		};
 		if (added) {
+			this.#textarea.removeEventListener("input", autoResizeHandler);
 			this.#textarea.addEventListener("input", autoResizeHandler);
 			autoResizeHandler();
 		} else {
@@ -80,7 +81,7 @@ export class xttTextareaElement extends xttBaseElement {
 			"padding-inline-end": css(textarea, "padding-inline-end"),
 			"border-block-start-width": css(textarea, "border-block-start-width"),
 			"border-block-end-width": css(textarea, "border-block-end-width"),
-			width: css(textarea, "width"),
+			width: textarea.clientWidth + "px",
 			"box-sizing": css(textarea, "box-sizing"),
 
 			position: "absolute",
@@ -121,5 +122,6 @@ export class xttTextareaElement extends xttBaseElement {
 		this.#textarea.value = value;
 		this.#textarea.textContent = value;
 		this.textContent = value;
+		this.#autoResize(true);
 	}
 }

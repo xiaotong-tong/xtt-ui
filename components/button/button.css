@@ -22,6 +22,16 @@
 
 	--button-bg-color-active: var(--primary-dark-color);
 }
+:host([type="danger"]) {
+	--button-bg-color: var(--danger-color);
+	--button-bg-color-hover: var(--danger-light-color);
+	--button-font-color: white;
+	--button-font-color-hover: white;
+	--button-border-color: var(--danger-color);
+
+	--button-bg-color-active: var(--danger-dark-color);
+	--button-border-color-hover: var(--danger-light-color);
+}
 :host([type="base"]) {
 	--button-bg-color: transparent;
 	--button-bg-color-hover: transparent;
@@ -40,6 +50,10 @@
 :host([text][type="primary"]) {
 	--button-font-color: var(--primary-color);
 	--button-font-color-hover: var(--primary-color);
+}
+:host([text][type="danger"]) {
+	--button-font-color: var(--danger-color);
+	--button-font-color-hover: var(--danger-color);
 }
 :host([size="large"]) {
 	--button-padding: 8px 15px;

@@ -3,6 +3,10 @@
 	--primary-light-color: hsl(195deg, 100%, 65%);
 	--primary-dark-color: hsl(195deg, 100%, 40%);
 
+	--danger-color: hsl(0deg, 87%, 65%);
+	--danger-light-color: hsl(0deg, 87%, 75%);
+	--danger-dark-color: hsl(0deg, 87%, 50%);
+
 	--grey-color: hsl(0deg, 0%, 75%);
 	--grey-light-color: hsl(0deg, 0%, 95%);
 }

@@ -123,7 +123,7 @@ export class xttTooltipElement extends xttBaseElement {
 		el.xttTooltipElement = this;
 	}
 	initTrigger(elements) {
-		if (elements instanceof NodeList) {
+		if (elements instanceof NodeList || Array.isArray(elements)) {
 			elements.forEach(this.#refreshTrigger, this);
 		} else if (elements?.nodeType === 1) {
 			this.#refreshTrigger(elements);
