@@ -114,7 +114,7 @@ export class xttButtonElement extends xttRelectElement {
 	}
 
 	#addA11yWithLabel() {
-		let labels = Array.from(this.labels);
+		let labels = this.labels;
 
 		if (labels.length) {
 			attrValueAppendIds(this, "aria-labelledby", labels);

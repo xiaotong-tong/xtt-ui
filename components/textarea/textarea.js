@@ -6,7 +6,6 @@ import { css } from "xtt-utils";
 export class xttTextareaElement extends xttBaseElement {
 	static templateContent = html;
 	static stylesContent = [style];
-	static observeOptions = { childList: true };
 
 	static get observedAttributes() {
 		return ["readonly", "rows", "autosize", "maxlength", "minlength"];
@@ -48,7 +47,7 @@ export class xttTextareaElement extends xttBaseElement {
 	}
 
 	get #textarea() {
-		return this.shadowRoot.querySelector("textarea");
+		return this.shadowRoot.getElementById("textarea");
 	}
 
 	#autoResize = (added) => {

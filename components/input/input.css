@@ -1,0 +1,28 @@
+:host {
+	--input-padding: 5px 8px;
+	--input-border-color: silver;
+	--input-focus-outline: thin solid hsl(195deg 100% 50%);
+}
+
+:host {
+	display: inline-block;
+}
+
+:host([block]) {
+	display: block;
+}
+
+#input {
+	box-sizing: border-box;
+	width: 100%;
+	height: auto;
+	resize: none;
+	border: thin solid;
+	line-height: 1.5;
+	border-color: var(--input-border-color, silver);
+	padding: var(--input-padding);
+}
+
+#input:focus {
+	outline: var(--input-focus-outline);
+}
