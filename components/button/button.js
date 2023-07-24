@@ -1,8 +1,7 @@
-import { xttRelectElement } from "../com/reflect.js";
+import { xttFormElementFactory } from "../com/form.js";
 import style from "./button.css" assert { type: "css" };
 import { css } from "xtt-utils";
 import html from "./button.html";
-import { attrValueAppendIds } from "../../utils/xtt-ui-utils.js";
 
 /**
  * @description button component
@@ -11,12 +10,12 @@ import { attrValueAppendIds } from "../../utils/xtt-ui-utils.js";
  * @example <xtt-button>Button</xtt-button>
  */
 
-export class xttButtonElement extends xttRelectElement {
+export class xttButtonElement extends xttFormElementFactory("reflect") {
 	static templateContent = html;
-	static stylesContent = [style];
+	static stylesContent = [...super.stylesContent, style];
 
 	static get observedAttributes() {
-		return ["disabled", "line", "data-xtt-tooltip", "data-aria-type"];
+		return [...super.observedAttributes, "line", "data-xtt-tooltip", "data-aria-type"];
 	}
 
 	observeOptions = {
@@ -34,23 +33,18 @@ export class xttButtonElement extends xttRelectElement {
 	}
 
 	connectedCallback() {
-		super.connectedCallback();
-
 		this.role = "button";
 
+		// 如果没有显示设置 tabindex 属性，就设置为 0，让元素可以被聚焦
 		if (!this.hasAttribute("tabindex")) {
 			this.tabIndex = 0;
 		}
 
+		super.connectedCallback();
+
 		this.#appendTooltip();
 
 		this.#contentChanged();
-
-		this.#addA11yWithLabel();
-
-		if (this.hasAttribute("autofocus")) {
-			this.focus();
-		}
 	}
 
 	attributeChangedCallback(name, oldValue, newValue) {
@@ -61,6 +55,8 @@ export class xttButtonElement extends xttRelectElement {
 		} else if (name === "line") {
 			this.style.setProperty("--button-line-clamp", Number(newValue));
 		}
+
+		super.attributeChangedCallback?.(name, oldValue, newValue);
 	}
 
 	#appendTooltip() {
@@ -111,14 +107,6 @@ export class xttButtonElement extends xttRelectElement {
 		});
 
 		this.#tooltipElement.initTrigger(this);
-	}
-
-	#addA11yWithLabel() {
-		let labels = this.labels;
-
-		if (labels.length) {
-			attrValueAppendIds(this, "aria-labelledby", labels);
-		}
 	}
 
 	_reflectElementAdded() {
@@ -177,21 +165,5 @@ export class xttButtonElement extends xttRelectElement {
 	}
 	get #text() {
 		return this.shadowRoot.getElementById("text");
-	}
-
-	get disabled() {
-		return this.hasAttribute("disabled");
-	}
-	set disabled(value) {
-		this.toggleAttribute("disabled", value);
-	}
-	get labels() {
-		if (this.id) {
-			// 为了防止误查找，这里只查找和 xtt-button 处于同一个 shadowRoot 下的 label
-			return this.getRootNode().querySelectorAll(`label[for="${this.id}"]`);
-		} else {
-			// 返回一个空的 NodeList
-			return document.createElement(null).childNodes;
-		}
 	}
 }

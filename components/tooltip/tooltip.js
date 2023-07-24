@@ -5,7 +5,7 @@ import { displayPopover } from "../../utils/displayPopover.js";
 
 export class xttTooltipElement extends xttBaseElement {
 	static templateContent = `<div id="popover" part="popover"></div>`;
-	static stylesContent = [style];
+	static stylesContent = [...super.stylesContent, style];
 
 	/**
 	 * 页面的留白边距，tooltip 框不会超出这个距离

@@ -1,15 +1,17 @@
-import { xttBaseElement } from "../com/base.js";
+import { xttInputElement } from "../com/input.js";
 import style from "./textarea.css" assert { type: "css" };
 import html from "./textarea.html";
 import { css } from "xtt-utils";
 
-export class xttTextareaElement extends xttBaseElement {
+export class xttTextareaElement extends xttInputElement {
 	static templateContent = html;
-	static stylesContent = [style];
+	static stylesContent = [...super.stylesContent, style];
 
 	static get observedAttributes() {
-		return ["readonly", "rows", "autosize", "maxlength", "minlength"];
+		return [...super.observedAttributes, "rows", "autosize"];
 	}
+
+	focusableElement = this.#textarea;
 
 	constructor() {
 		super();
@@ -18,11 +20,9 @@ export class xttTextareaElement extends xttBaseElement {
 	#autosizeWhenConnected = false;
 
 	connectedCallback() {
-		this.value = this.textContent;
+		super.connectedCallback();
 
-		this.#textarea.addEventListener("change", (ev) => {
-			this.dispatchEvent(new Event("change"));
-		});
+		this.value = this.textContent;
 
 		if (this.#autosizeWhenConnected) {
 			this.#autoResize(true);
@@ -41,9 +41,9 @@ export class xttTextareaElement extends xttBaseElement {
 				return;
 			}
 			this.#autoResize(newValue !== null);
-		} else if (name === "readonly") {
-			this.#textarea.readOnly = newValue !== null;
 		}
+
+		super.attributeChangedCallback?.(name, oldValue, newValue);
 	}
 
 	get #textarea() {
@@ -115,10 +115,11 @@ export class xttTextareaElement extends xttBaseElement {
 	};
 
 	get value() {
-		return this.#textarea.value;
+		return super.value;
 	}
 	set value(value) {
-		this.#textarea.value = value;
+		super.value = value;
+
 		this.#textarea.textContent = value;
 		this.textContent = value;
 		this.#autoResize(true);

@@ -4,7 +4,7 @@ import { css } from "xtt-utils";
 
 export class xttPageNavElement extends xttRelectElement {
 	static templateContent = `<nav id="nav" part="nav"><slot></slot></nav>`;
-	static stylesContent = [style];
+	static stylesContent = [...super.stylesContent, style];
 	static observeOptions = { childList: true, subtree: true };
 
 	static get observedAttributes() {

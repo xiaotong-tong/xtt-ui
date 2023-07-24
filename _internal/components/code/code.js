@@ -16,7 +16,7 @@ export class xttCodeElement extends xttBaseElement {
             <pre id="pre"><code id="code" class="language-html" tabindex="0"></code></pre>
 		  </details>
         </figure>`;
-	static stylesContent = [style, highLightStyle];
+	static stylesContent = [...super.stylesContent, highLightStyle, style];
 
 	static get observedAttributes() {
 		return ["open"];

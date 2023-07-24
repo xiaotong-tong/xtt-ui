@@ -12,7 +12,7 @@ export class xttEditorElement extends xttBaseElement {
         <div id="toolbar-container"></div>
         <div id="editor-container"></div>
     </div>`;
-	static stylesContent = [editorStyle, style];
+	static stylesContent = [...super.stylesContent, editorStyle, style];
 
 	static get observedAttributes() {
 		return [];

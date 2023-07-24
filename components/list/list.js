@@ -3,7 +3,7 @@ import style from "./list.css" assert { type: "css" };
 
 export class xttListElement extends xttRelectElement {
 	static templateContent = `<ul id="list" part="list"><slot></slot></ul>`;
-	static stylesContent = [style];
+	static stylesContent = [...super.stylesContent, style];
 	static observeOptions = { childList: true, subtree: true };
 
 	static get observedAttributes() {

@@ -7,7 +7,7 @@ export class xttEditorMdElement extends xttBaseElement {
 		<xtt-textarea id="editorContainer" block autosize></xtt-textarea>
 		<xtt-markdown id="previewContainer"></xtt-markdown>
     </div>`;
-	static stylesContent = [style];
+	static stylesContent = [...super.stylesContent, style];
 
 	constructor() {
 		super();

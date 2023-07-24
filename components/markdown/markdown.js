@@ -45,7 +45,7 @@ marked.use(
 
 export class xttMarkdownElement extends xttRelectElement {
 	static templateContent = `<div id="body" part="body" class="markdown-body"></div>`;
-	static stylesContent = [style, highLightStyle, githubMarkdownStyle];
+	static stylesContent = [...super.stylesContent, highLightStyle, githubMarkdownStyle, style];
 
 	#parsed = "";
 

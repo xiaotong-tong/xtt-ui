@@ -1,31 +1,43 @@
-import { xttBaseElement } from "../com/base.js";
+import { xttFormElementFactory } from "../com/form.js";
 import style from "./text-edit.css" assert { type: "css" };
 import { css } from "xtt-utils";
 
-export class xttTextEditElement extends xttBaseElement {
+export class xttTextEditElement extends xttFormElementFactory() {
 	static templateContent = "<slot></slot>";
-	static stylesContent = [style];
+	static stylesContent = [...super.stylesContent, style];
 	static observeOptions = { childList: true };
 
 	static get observedAttributes() {
-		return ["readonly", "rows", "autosize", "maxlength", "minlength"];
+		return [...super.observedAttributes, "rows", "autosize", "readonly"];
 	}
+
+	focusableElement = this;
 
 	constructor() {
 		super();
 	}
 
 	connectedCallback() {
-		this.toggleAttribute("contenteditable", "plaintext-only");
-		this.tabIndex = 1;
+		super.connectedCallback();
+
+		if (!this.hasAttribute("readonly")) {
+			this.toggleAttribute("contenteditable", "plaintext-only");
+			this.tabIndex = 1;
+		}
 	}
 
 	attributeChangedCallback(name, oldValue, newValue) {
 		if (name === "readonly") {
-			this.removeAttribute("contenteditable");
+			if (newValue !== null) {
+				this.removeAttribute("contenteditable");
+			} else {
+				this.toggleAttribute("contenteditable", "plaintext-only");
+			}
 		} else if (name === "rows") {
 			this.#contentHeight(newValue);
 		}
+
+		super.attributeChangedCallback?.(name, oldValue, newValue);
 	}
 
 	#contentHeight = (newValue) => {

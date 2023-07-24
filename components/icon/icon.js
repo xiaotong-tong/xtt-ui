@@ -5,7 +5,7 @@ import { chevronDownIcon } from "./icons/chevronDown.js";
 
 export class xttIconElement extends xttBaseElement {
 	static templateContent = `<slot></slot>`;
-	static stylesContent = [style];
+	static stylesContent = [...super.stylesContent, style];
 
 	static get observedAttributes() {
 		return ["icon"];

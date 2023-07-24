@@ -81,12 +81,6 @@
 	transition: background-color 0.2s;
 }
 
-/* disabled 状态 */
-:host([disabled]) {
-	pointer-events: none;
-	opacity: 0.5;
-}
-
 :host([text]) {
 	border: none;
 }

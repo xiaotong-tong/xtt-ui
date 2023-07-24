@@ -6,7 +6,7 @@ import { replace } from "xtt-msg";
 
 export class xttMsgElement extends xttRelectElement {
 	static templateContent = html;
-	static stylesContent = [style];
+	static stylesContent = [...super.stylesContent, style];
 
 	constructor() {
 		super();

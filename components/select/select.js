@@ -1,16 +1,17 @@
-import { xttRelectElement } from "../com/reflect.js";
+import { xttFormElementFactory } from "../com/form.js";
 import style from "./select.css" assert { type: "css" };
-import { attrValueAppendIds } from "../../utils/xtt-ui-utils.js";
 import { displayPopover } from "../../utils/displayPopover.js";
 import html from "./select.html";
 
-export class xttSelectElement extends xttRelectElement {
+export class xttSelectElement extends xttFormElementFactory("reflect") {
 	static templateContent = html;
-	static stylesContent = [style];
+	static stylesContent = [...super.stylesContent, style];
 
-	static get observedAttributes() {
-		return ["disabled"];
-	}
+	// static get observedAttributes() {
+	// 	return [...super.observedAttributes];
+	// }
+
+	focusableElement = this.#select;
 
 	connectedCallback() {
 		super.connectedCallback();
@@ -19,36 +20,17 @@ export class xttSelectElement extends xttRelectElement {
 		this.#refreshSelectTrigger();
 
 		this.#handleEventOfSelect();
-
-		this.#addA11yWithLabel();
 	}
 
-	attributeChangedCallback(name, oldValue, newValue) {
-		if (name === "disabled") {
-			this.#select.disabled = newValue !== null;
-		}
-	}
+	// attributeChangedCallback(name, oldValue, newValue) {
+	// 	super.attributeChangedCallback?.(name, oldValue, newValue);
+	// }
 
 	_reflectElementNodeAdded(node) {
 		this.#elementContentChanged(node);
 	}
 	_reflectElementNodeRemoved(node) {
 		this.#elementContentChanged(node);
-	}
-
-	#addA11yWithLabel() {
-		let labels = Array.from(this.labels);
-
-		if (labels.length) {
-			labels = labels.map((label) => {
-				const copy = label.cloneNode(true);
-				copy.hidden = true;
-				this.shadowRoot.appendChild(copy);
-				return copy;
-			});
-
-			attrValueAppendIds(this.#select, "aria-labelledby", labels);
-		}
 	}
 
 	#refreshSelectTrigger() {
@@ -306,14 +288,5 @@ export class xttSelectElement extends xttRelectElement {
 				return true;
 			}
 		});
-	}
-
-	get labels() {
-		if (this.id) {
-			return this.getRootNode().querySelectorAll(`label[for="${this.id}"]`);
-		} else {
-			// 返回一个空的 NodeList
-			return document.createElement(null).childNodes;
-		}
 	}
 }

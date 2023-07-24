@@ -3,7 +3,7 @@ import style from "./link.css" assert { type: "css" };
 
 export class xttLinkElement extends xttBaseElement {
 	static templateContent = `<a id="link" part="link"><slot></slot></a>`;
-	static stylesContent = [style];
+	static stylesContent = [...super.stylesContent, style];
 
 	static get observedAttributes() {
 		return ["href", "target", "download"];

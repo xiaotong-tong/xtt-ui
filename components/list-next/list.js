@@ -7,7 +7,7 @@ export class xttListNextElement extends xttRelectElement {
     <div type="container" id="container">
         <ul id="list" part="list"><slot></slot></ul>
     </div>`;
-	static stylesContent = [style];
+	static stylesContent = [...super.stylesContent, style];
 	static observeOptions = { childList: true, subtree: true };
 
 	static get observedAttributes() {
