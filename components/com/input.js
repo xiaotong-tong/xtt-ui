@@ -2,7 +2,7 @@ import { xttFormElementFactory } from "./form.js";
 
 export class xttInputElement extends xttFormElementFactory() {
 	static get observedAttributes() {
-		return [...super.observedAttributes, "readonly", "maxlength", "minlength"];
+		return [...super.observedAttributes, "value", "readonly", "maxlength", "minlength"];
 	}
 
 	focusableElement = this;
@@ -29,6 +29,8 @@ export class xttInputElement extends xttFormElementFactory() {
 			this.maxLength = newValue;
 		} else if (name === "minlength") {
 			this.minLength = newValue;
+		} else if (name === "value") {
+			this.value = newValue;
 		}
 
 		super.attributeChangedCallback?.(name, oldValue, newValue);
