@@ -6,6 +6,7 @@ import "./components/xtt-select.js";
 import "./components/xtt-textarea.js";
 import "./components/xtt-text-edit.js";
 import "./components/xtt-input.js";
+import "./components/xtt-number-field.js";
 import "./components/xtt-markdown.js";
 import "./components/xtt-list.js";
 import "./components/xtt-page-nav.js";

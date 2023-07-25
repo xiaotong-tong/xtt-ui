@@ -1,0 +1,58 @@
+:host {
+	--input-padding: 5px 8px;
+	--input-border-color: silver;
+	--input-focus-outline: thin solid hsl(195deg 100% 50%);
+}
+
+:host {
+	display: inline-block;
+	position: relative;
+	min-width: 187px;
+}
+
+:host([block]) {
+	display: block;
+}
+
+#input {
+	box-sizing: border-box;
+	width: 100%;
+	height: auto;
+	resize: none;
+	border: thin solid;
+	line-height: 1.5;
+	border-color: var(--input-border-color, silver);
+	padding: var(--input-padding);
+}
+
+#input:focus {
+	outline: var(--input-focus-outline);
+}
+
+/* 为 spin button 设置一个宽度，为 minus 和 plus 占位 */
+#input::-webkit-inner-spin-button {
+	flex-basis: calc(2em + 44px);
+	visibility: hidden;
+}
+
+#minus,
+#plus {
+	--button-border-radius: 0;
+
+	position: absolute;
+	inset-block-start: 0;
+	height: 100%;
+}
+
+#minus::part(icon),
+#plus::part(icon) {
+	align-items: center;
+}
+
+#minus {
+	inset-inline-end: 38px;
+	border-inline-end: none;
+}
+#plus {
+	inset-inline-end: 0;
+}

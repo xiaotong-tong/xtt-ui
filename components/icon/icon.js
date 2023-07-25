@@ -2,6 +2,8 @@ import { xttBaseElement } from "../com/base.js";
 import style from "./icon.css" assert { type: "css" };
 import { powerIcon } from "./icons/power.js";
 import { chevronDownIcon } from "./icons/chevronDown.js";
+import { plusIcon } from "./icons/plus.js";
+import { minusIcon } from "./icons/minus.js";
 
 export class xttIconElement extends xttBaseElement {
 	static templateContent = `<slot></slot>`;
@@ -28,6 +30,12 @@ export class xttIconElement extends xttBaseElement {
 				break;
 			case "chevronDown":
 				this.innerHTML = chevronDownIcon;
+				break;
+			case "plus":
+				this.innerHTML = plusIcon;
+				break;
+			case "minus":
+				this.innerHTML = minusIcon;
 				break;
 		}
 	}

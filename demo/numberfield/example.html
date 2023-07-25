@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="./example.js" type="module"></script>
+		<link rel="stylesheet" href="../com/layout.css" />
+	</head>
+	<body>
+		<h1>number-field 输入框</h1>
+
+		<h2>基本使用</h2>
+
+		<xtt-number-field value="0"></xtt-number-field>
+
+		<xtt-number-field readonly value="0"></xtt-number-field>
+
+		<xtt-code>
+			<xtt-number-field value="0"></xtt-number-field>
+			<xtt-number-field readonly value="0"></xtt-number-field>
+		</xtt-code>
+
+		<h2>block</h2>
+
+		<xtt-number-field block value="0"></xtt-number-field>
+
+		<xtt-code>
+			<xtt-number-field block value="0">This is block number field</xtt-number-field>
+		</xtt-code>
+
+		<h2>min max step</h2>
+		<xtt-number-field value="3" min="0" max="10" step="2"></xtt-number-field>
+
+		<section>
+			<h2>operate</h2>
+
+			<div>
+				<xtt-number-field id="operate" value="0"></xtt-number-field>
+			</div>
+
+			<h3>actions</h3>
+
+			<div class="label-layout">
+				<label>block:</label>
+				<xtt-button id="setBlock">block</xtt-button>
+				<xtt-button id="removeBlock">remove</xtt-button>
+			</div>
+		</section>
+	</body>
+</html>

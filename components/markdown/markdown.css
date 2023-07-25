@@ -1,7 +1,8 @@
 :host {
 	--md-bg-color: #fff;
-	--md-color-canvas-default: #d0d7de;
-	--md-color-canvas-subtle: #f6f8fa;
+	--md-color-canvas-default: transparent;
+	--md-color-canvas-subtle: transparent;
+	--md-color-border-default: #d0d7de;
 }
 
 :host {
@@ -14,4 +15,10 @@
 
 	--color-canvas-default: var(--md-color-canvas-default);
 	--color-canvas-subtle: var(--md-color-canvas-subtle);
+	--color-border-default: var(--md-color-border-default);
+}
+
+#body pre {
+	border: 1px solid var(--color-border-default);
+	background-color: var(--grey-light-color);
 }

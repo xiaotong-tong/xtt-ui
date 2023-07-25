@@ -1,6 +1,6 @@
 {
 	"name": "xtt-ui",
-	"version": "0.0.4-alpha.3",
+	"version": "0.0.4-alpha.4",
 	"description": "a front-end ui library based on web components",
 	"main": "index.js",
 	"module": "index.js",
