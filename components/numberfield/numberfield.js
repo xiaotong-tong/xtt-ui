@@ -43,7 +43,7 @@ export class xttNumberFieldElement extends xttInputElement {
 			this.#input.focus();
 		});
 
-		const spinBtnsMouseEventHandler = (plused) => {
+		const spinBtnsMouseEventHandler = (plused, byTouch) => {
 			const refreshValue = () => {
 				let value = this.value;
 
@@ -80,7 +80,7 @@ export class xttNumberFieldElement extends xttInputElement {
 
 			// 监听鼠标抬起事件，清除定时器，以及触发 change 事件
 			document.addEventListener(
-				"mouseup",
+				byTouch ? "touchend" : "mouseup",
 				() => {
 					clearInterval(timer);
 					this.dispatchEvent(new Event("change"));
@@ -96,6 +96,13 @@ export class xttNumberFieldElement extends xttInputElement {
 		});
 		this.#plus.addEventListener("mousedown", () => {
 			spinBtnsMouseEventHandler(true);
+		});
+
+		this.#minus.addEventListener("touchstart", () => {
+			spinBtnsMouseEventHandler(false, true);
+		});
+		this.#plus.addEventListener("touchstart", () => {
+			spinBtnsMouseEventHandler(true, true);
 		});
 	}
 
