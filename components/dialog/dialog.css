@@ -1,0 +1,38 @@
+:host {
+	display: block;
+}
+
+#dialog {
+	border: none;
+	margin-block-start: 10vh;
+	min-width: 300px;
+}
+
+#dialog::backdrop {
+	background-color: #00000080;
+}
+
+#dialog:focus {
+	outline: none;
+}
+
+#header {
+	display: flex;
+	justify-content: start;
+	align-items: center;
+	margin-block-end: 8px;
+}
+
+::slotted(.close) {
+	order: 99;
+	margin-inline-start: auto;
+	font-size: 24px;
+	color: var(--grey-color);
+}
+
+#footer {
+	display: flex;
+	justify-content: flex-end;
+	margin-block-start: 8px;
+	column-gap: 8px;
+}

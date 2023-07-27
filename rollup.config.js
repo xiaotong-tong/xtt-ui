@@ -48,6 +48,7 @@ export default [
 			"xtt-button": "components/xtt-button.js",
 			"xtt-link": "components/xtt-link.js",
 			"xtt-tooltip": "components/xtt-tooltip.js",
+			"xtt-dialog": "components/xtt-dialog.js",
 			"xtt-select": "components/xtt-select.js",
 			"xtt-textarea": "components/xtt-textarea.js",
 			"xtt-text-edit": "components/xtt-text-edit.js",
