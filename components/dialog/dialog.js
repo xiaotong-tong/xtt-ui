@@ -32,6 +32,12 @@ export class xttDialogElement extends xttBaseElement {
 				this.close();
 			}
 		});
+		this.#dialog.addEventListener("keydown", (event) => {
+			if (event.key === "Escape") {
+				this.close();
+				event.preventDefault();
+			}
+		});
 	}
 
 	attributeChangedCallback(name, oldValue, newValue) {
@@ -149,16 +155,36 @@ export class xttDialogElement extends xttBaseElement {
 		return this.shadowRoot.getElementById("footerSlot");
 	}
 
+	#triggerElement = null;
+	get triggerElement() {
+		return this.#triggerElement;
+	}
+	set triggerElement(el) {
+		// 为触发元素设置 aria 属性
+		this.#triggerElement = el;
+		el.ariaHasPopup = "dialog";
+		el.ariaControls = uniqueId(this).id;
+		el.ariaExpanded = "false";
+	}
+
 	open() {
 		// showModal 打开对话框后会默认聚焦第一个可聚焦元素，这里手动改为聚焦对话框
 		this.#dialog.showModal();
 		this.#dialog.focus();
+
+		if (this.triggerElement) {
+			this.triggerElement.ariaExpanded = "true";
+		}
 	}
 	close() {
 		if (!this.#dialog.open) {
 			return false;
 		}
 		this.#dialog?.close();
+
+		if (this.triggerElement) {
+			this.triggerElement.ariaExpanded = "false";
+		}
 	}
 
 	get title() {

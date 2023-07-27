@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="./example.js" type="module"></script>
+	</head>
+	<body>
+		<p>default</p>
+		<xtt-button id="open1">open</xtt-button>
+		<xtt-dialog id="dialog1"> This is dialog </xtt-dialog>
+
+		<p>with title</p>
+		<xtt-button id="open2">open</xtt-button>
+		<xtt-dialog id="dialog2" title="dialog title"> This is dialog </xtt-dialog>
+
+		<p>modal-close</p>
+		<xtt-button id="open3">open</xtt-button>
+		<xtt-dialog id="dialog3" title="dialog title" modal-close> This is dialog </xtt-dialog>
+
+		<p>自定义 header</p>
+		<xtt-button id="open4">open</xtt-button>
+		<xtt-dialog id="dialog4">
+			<xtt-header slot="header">自定义 header</xtt-header>
+			This is dialog
+		</xtt-dialog>
+
+		<p>自定义 footer</p>
+		<xtt-button id="open5">open</xtt-button>
+		<xtt-dialog id="dialog5">
+			This is dialog
+			<xtt-footer slot="footer">自定义 footer</xtt-footer>
+		</xtt-dialog>
+
+		<p>align-center</p>
+		<xtt-button id="open6">open</xtt-button>
+		<xtt-dialog id="dialog6" align-center> This is dialog </xtt-dialog>
+	</body>
+</html>

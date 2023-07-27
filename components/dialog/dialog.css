@@ -8,6 +8,10 @@
 	min-width: 300px;
 }
 
+:host([align-center]) #dialog {
+	margin-block-start: auto;
+}
+
 #dialog::backdrop {
 	background-color: #00000080;
 }
