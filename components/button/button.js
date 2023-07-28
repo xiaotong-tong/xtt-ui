@@ -117,44 +117,43 @@ export class xttButtonElement extends xttFormElementFactory("reflect") {
 	}
 
 	#contentChanged() {
-		let hasIcon = false,
-			hasText = false;
+		let hasIcon = false;
 
-		if (this.hasChildNodes()) {
-			this.classList.remove("no-icon", "no-text");
-			const childNodes = this.childNodes;
-
-			if (this.querySelector(':scope > [slot="icon"]')) {
-				hasIcon = true;
-			} else {
-				// 如果元素内部没有 slot="icon" 元素，那就判断第一个元素是否是 xtt-icon 自定义元素或者 具有 xtt-icon 类名的元素
-				// 如果是，就将其设置为 slot="icon"
-				let el = childNodes[0];
-
-				// 如果第一个元素是空文本节点，就判断第二个元素，因为换行符等空白符也会被解析为文本节点，而这些文本是没有任何意义的
-				if (el?.nodeType === Node.TEXT_NODE && !el?.textContent.trim()) {
-					el = childNodes[1];
-				}
-
-				if (el?.tagName === "XTT-ICON" || el?.classList?.has?.("xtt-icon")) {
-					hasIcon = true;
-					el.slot = "icon";
-				}
-			}
-
-			for (const el of childNodes) {
-				if (el.slot !== "icon" && el.textContent.trim()) {
-					hasText = true;
-					break;
-				}
-			}
-		}
-		if (!hasIcon) {
+		if (this.#iconSlot.assignedNodes()?.length) {
+			this.classList.remove("no-icon");
+			hasIcon = true;
+		} else {
 			this.classList.add("no-icon");
 		}
-		if (!hasText) {
-			this.classList.add("no-text");
+
+		const testSlotChildNodes = this.#textSlot.assignedNodes();
+		if (testSlotChildNodes?.length) {
+			// 如果元素内部没有 slot="icon" 元素，那就判断第一个元素是否是 xtt-icon 自定义元素或者 具有 xtt-icon 类名的元素
+			// 如果是，就将其设置为 slot="icon"
+			if (!hasIcon) {
+				let firedEl = testSlotChildNodes[0];
+
+				// 如果第一个元素是空文本节点，就判断第二个元素，因为换行符等空白符也会被解析为文本节点，而这些文本是没有任何意义的
+				if (firedEl?.nodeType === Node.TEXT_NODE && !firedEl?.textContent.trim()) {
+					firedEl = testSlotChildNodes[1];
+					testSlotChildNodes.shift();
+				}
+
+				if (firedEl?.tagName === "XTT-ICON" || firedEl?.classList?.has?.("xtt-icon")) {
+					firedEl.slot = "icon";
+					this.classList.remove("no-icon");
+					testSlotChildNodes.shift();
+				}
+			}
+
+			// 如果元素内部只有空白符，就当作没有内容处理
+			if (testSlotChildNodes.some((el) => !!el.textContent.trim())) {
+				this.classList.remove("no-text");
+			} else {
+				this.classList.add("no-text");
+			}
 		}
+
 		if (!this.dataset.xttTooltip) {
 			this.#tooltipElement.textContent = this.textContent;
 		}
@@ -165,5 +164,11 @@ export class xttButtonElement extends xttFormElementFactory("reflect") {
 	}
 	get #text() {
 		return this.shadowRoot.getElementById("text");
+	}
+	get #iconSlot() {
+		return this.shadowRoot.getElementById("iconSlot");
+	}
+	get #textSlot() {
+		return this.shadowRoot.getElementById("textSlot");
 	}
 }
