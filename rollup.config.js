@@ -60,6 +60,8 @@ export default [
 			"xtt-editor-md": "components/xtt-editor-md.js",
 			"xtt-input": "components/xtt-input.js",
 			"xtt-number-field": "components/xtt-number-field.js",
+			"xtt-grid": "components/xtt-grid.js",
+			"xtt-grid-column": "components/xtt-grid-column.js",
 			"plugins/xtt-mouseSnow": "plugins/xtt-mouseSnow.js",
 			"_xtt-code": "_internal/components/xtt-code.js",
 			"_xtt-body": "_internal/components/xtt-body.js",
