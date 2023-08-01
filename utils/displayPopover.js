@@ -13,7 +13,8 @@ const getPositionWithBlock = (rect, popRect, dir, margin, vp) => {
 	return {
 		top: y,
 		[x >= 0 ? "left" : "right"]: Math.abs(x),
-		overFlow: dir === "block-start" ? y < vp : y + popRect.height + vp > visualViewport.height
+		overFlow: dir === "block-start" ? y < vp : y + popRect.height + vp > visualViewport.height,
+		dir: dir
 	};
 };
 
@@ -31,7 +32,7 @@ export const displayPopover = (target, popover, dirList, options) => {
 	dirList = dirList || ["block-start", "block-end"];
 
 	const rect = target.getBoundingClientRect();
-	const popRect = popover.getBoundingClientRect();
+	let popRect = popover.getBoundingClientRect();
 
 	let position;
 
@@ -47,6 +48,13 @@ export const displayPopover = (target, popover, dirList, options) => {
 		}
 	}
 
+	popover.classList.remove("top", "bottom");
+	if (position.dir === "block-start") {
+		popover.classList.add("top");
+	} else if (position.dir === "block-end") {
+		popover.classList.add("bottom");
+	}
+
 	css(
 		popover,
 		Object.assign({
@@ -56,4 +64,10 @@ export const displayPopover = (target, popover, dirList, options) => {
 			right: position.right ? position.right + "px" : ""
 		})
 	);
+
+	if (popover.querySelector("#arrow")) {
+		popover.querySelector("#arrow").style.left = `max(${
+			rect.left + rect.width / 2 - popover.getBoundingClientRect().left
+		}px, 0px)`;
+	}
 };

@@ -1,10 +1,11 @@
 import { xttBaseElement } from "../com/base.js";
 import style from "./tooltip.css" assert { type: "css" };
+import html from "./tooltip.html";
 import { uniqueId, attrValueAppendIds } from "../../utils/xtt-ui-utils.js";
 import { displayPopover } from "../../utils/displayPopover.js";
 
 export class xttTooltipElement extends xttBaseElement {
-	static templateContent = `<div id="popover" part="popover"></div>`;
+	static templateContent = html;
 	static stylesContent = [...super.stylesContent, style];
 
 	/**
@@ -37,6 +38,12 @@ export class xttTooltipElement extends xttBaseElement {
 
 	get #popover() {
 		return this.shadowRoot.getElementById("popover");
+	}
+	get #content() {
+		return this.shadowRoot.getElementById("content");
+	}
+	get #arrow() {
+		return this.shadowRoot.getElementById("arrow");
 	}
 
 	#popoverMouseEventAdded = false;
@@ -175,10 +182,10 @@ export class xttTooltipElement extends xttBaseElement {
 	}
 
 	get textContent() {
-		return this.#popover.textContent || super.textContent;
+		return this.#content.textContent || super.textContent;
 	}
 	set textContent(value) {
-		this.#popover.textContent = value;
+		this.#content.textContent = value;
 		this.ariaLabel = value.trim();
 	}
 }

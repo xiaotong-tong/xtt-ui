@@ -45,7 +45,32 @@
 #popover::before {
 	content: "";
 	position: absolute;
-	inset: -10px 0;
+	inset: 0;
 	opacity: 0;
 	z-index: -1;
+}
+#popover.top::before {
+	inset-block-end: -10px;
+}
+#popover.bottom::before {
+	inset-block-start: -10px;
+}
+
+#arrow {
+	position: absolute;
+	width: 8px;
+	height: 8px;
+	background-color: var(--tooltip-bg-color);
+	border: thin solid var(--tooltip-border-color);
+	transform-origin: center center;
+	transform: translateX(-4px) rotate(45deg);
+}
+
+.top #arrow {
+	clip-path: polygon(0 100%, 100% 100%, 100% 0);
+	bottom: -5px;
+}
+.bottom #arrow {
+	clip-path: polygon(0 0, 0 100%, 100% 0);
+	top: -5px;
 }
