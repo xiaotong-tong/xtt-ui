@@ -10,11 +10,13 @@ import { markedHighlight } from "marked-highlight";
 import javascript from "highlight.js/lib/languages/javascript";
 import xml from "highlight.js/lib/languages/xml";
 import plaintext from "highlight.js/lib/languages/plaintext";
+import diff from "highlight.js/lib/languages/diff";
 
 hljs.registerLanguage("javascript", javascript);
 hljs.registerLanguage("js", javascript);
 hljs.registerLanguage("html", xml);
 hljs.registerLanguage("plaintext", plaintext);
+hljs.registerLanguage("diff", diff);
 
 marked.setOptions({
 	gfm: true,
