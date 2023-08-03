@@ -60,7 +60,7 @@ export class xttMsgElement extends xttRelectElement {
 		if (CSS.highlights.has("xtt-highlight")) {
 			highlight = CSS.highlights.get("xtt-highlight");
 
-			// 删除上次的高亮，不如每次修改都会追加一大堆重复的高亮
+			// 删除上次的高亮，不然每次修改都会追加一大堆重复的高亮
 			if (this.#oldRangeList.length) {
 				this.#oldRangeList.forEach((range) => highlight.delete(range));
 			}

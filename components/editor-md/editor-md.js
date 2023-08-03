@@ -14,7 +14,7 @@ export class xttEditorMdElement extends xttBaseElement {
 
 		this.#editorContainer.addEventListener("input", (ev) => {
 			const text = ev.target.value;
-			this.#previewContainer.innerHTML = text;
+			this.#previewContainer.textContent = text;
 		});
 		this.#editorContainer.addEventListener("change", (ev) => {
 			this.dispatchEvent(new Event("change"));
