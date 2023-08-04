@@ -1,6 +1,7 @@
 import { xttRelectElement } from "../com/reflect.js";
 import style from "./markdown.css" assert { type: "css" };
 import highLightStyle from "highlight.js/styles/github.css" assert { type: "css" };
+import highLightStyleOfDark from "highlight.js/styles/github-dark.css" assert { type: "css" };
 import githubMarkdownStyle from "github-markdown-css" assert { type: "css" };
 
 import { marked } from "marked";
@@ -34,7 +35,15 @@ marked.use(
 		langPrefix: "hljs language-",
 		highlight(code, lang) {
 			const language = hljs.getLanguage(lang) ? lang : "plaintext";
-			return hljs.highlight(code, { language }).value;
+			let resCode = hljs.highlight(code, { language });
+			// 添加代码块前的行号
+			resCode = resCode.value
+				.split("\n")
+				.map((line, index) => {
+					return `<span class="code-line" data-line-num="${index + 1}">${line}</span>`;
+				})
+				.join("\n");
+			return resCode;
 		}
 	})
 );
@@ -48,6 +57,10 @@ marked.use(
 export class xttMarkdownElement extends xttRelectElement {
 	static templateContent = `<div id="body" part="body" class="markdown-body"></div>`;
 	static stylesContent = [...super.stylesContent, highLightStyle, githubMarkdownStyle, style];
+
+	static get observedAttributes() {
+		return ["dark"];
+	}
 
 	#parsed = "";
 
@@ -64,6 +77,16 @@ export class xttMarkdownElement extends xttRelectElement {
 
 		// 因为这个事件是绑定在 window 上的，所以在组件销毁时需要手动移除
 		window.removeEventListener("hashchange", this.#hashchangeEventBindThis);
+	}
+
+	attributeChangedCallback(name, oldValue, newValue) {
+		if (name === "dark") {
+			if (newValue !== null) {
+				this.shadowRoot.adoptedStyleSheets.push(highLightStyleOfDark);
+			} else {
+				this.shadowRoot.adoptedStyleSheets.pop();
+			}
+		}
 	}
 
 	_reflectElementAdded(el) {

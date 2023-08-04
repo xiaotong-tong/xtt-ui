@@ -9,6 +9,7 @@
 
 	--grey-color: hsl(0deg, 0%, 75%);
 	--grey-light-color: hsl(0deg, 0%, 95%);
+	--grey-dark-color: hsl(0deg, 0%, 50%);
 }
 
 :host::-webkit-scrollbar,
@@ -23,6 +24,11 @@
 	border-radius: 15px;
 	background: var(--grey-color);
 }
+:host([dark])::-webkit-scrollbar-thumb,
+:host([dark]) ::-webkit-scrollbar-thumb {
+	background: var(--grey-dark-color);
+}
+
 :host::-webkit-scrollbar-track,
 :host ::-webkit-scrollbar-track {
 	margin: 5px 0;

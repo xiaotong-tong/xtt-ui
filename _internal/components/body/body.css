@@ -14,3 +14,7 @@ body {
 	max-width: min(800px, 100vw);
 	flex: 1;
 }
+
+:host([dark]) {
+	filter: brightness(0.3);
+}
