@@ -89,8 +89,11 @@ export class xttMarkdownElement extends xttRelectElement {
 		}
 	}
 
-	_reflectElementAdded(el) {
-		this.#parseMarkdown(el.textContent);
+	_reflectElementAdded() {
+		this.#parseMarkdown(this.textContent);
+	}
+	_reflectElementRemoved() {
+		this.#parseMarkdown(this.textContent);
 	}
 
 	#parseMarkdown(content) {
