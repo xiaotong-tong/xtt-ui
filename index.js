@@ -12,3 +12,4 @@ import "./components/xtt-list.js";
 import "./components/xtt-page-nav.js";
 // import "./components/xtt-editor.js";
 import "./components/xtt-editor-md.js";
+import "./components/xtt-dialog.js";

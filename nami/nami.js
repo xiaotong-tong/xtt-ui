@@ -13,5 +13,6 @@ import "../components/xtt-text-edit.js";
 import "../components/xtt-input.js";
 import "../components/xtt-number-field.js";
 import "../components/xtt-editor-md.js";
+import "../components/xtt-dialog.js";
 
 import "./components/xtt-web-bg.js";
