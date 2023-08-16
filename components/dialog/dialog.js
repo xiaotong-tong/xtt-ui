@@ -180,6 +180,17 @@ export class xttDialogElement extends xttBaseElement {
 		if (!this.#dialog.open) {
 			return false;
 		}
+
+		const isCancel = this.dispatchEvent(
+			new CustomEvent("xtt-close", {
+				bubbles: false,
+				cancelable: true
+			})
+		);
+		if (!isCancel) {
+			return;
+		}
+
 		this.#dialog?.close();
 
 		if (this.triggerElement) {

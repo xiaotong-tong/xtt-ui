@@ -47,6 +47,13 @@ export class xttButtonElement extends xttFormElementFactory("reflect") {
 		this.#contentChanged();
 	}
 
+	disconnectedCallback() {
+		super.disconnectedCallback();
+
+		// 在元素被移除时，将 tooltip 也移除
+		this.#tooltipElement.remove();
+	}
+
 	attributeChangedCallback(name, oldValue, newValue) {
 		if (name === "disabled") {
 			this.tabIndex = newValue !== null ? -1 : 0;
