@@ -1,4 +1,4 @@
-import { xttRelectElement } from "../../../components/com/reflect.js";
+import { xttRelectElement } from "../com/reflect.js";
 import html from "./msg.html";
 import style from "./msg.css" assert { type: "css" };
 import { throttle } from "xtt-utils";

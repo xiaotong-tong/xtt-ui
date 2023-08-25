@@ -2,3 +2,6 @@ node_modules/
 dist/
 package-lock.json
 .vscode/
+
+# 项目内部标签的打包后的文件
+_internal/xtt-index.js

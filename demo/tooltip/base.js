@@ -1,4 +1,4 @@
-import "../../dist/_xtt-code.js";
+import "../../_internal/xtt-index.js";
 import "../../dist/xtt-tooltip.js";
 
 document.getElementById("initTriggerTooltip").initTrigger(document.querySelectorAll(".initTrigger"));

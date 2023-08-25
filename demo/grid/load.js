@@ -1,4 +1,3 @@
-import "../../dist/_xtt-code.js";
-import "../../dist/xtt-tooltip.js";
+import "../../_internal/xtt-index.js";
 import "../../dist/xtt-grid-column.js";
 import "../../dist/xtt-grid.js";
