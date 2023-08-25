@@ -83,7 +83,6 @@ export default [
 			// 以下为没有打包到 index 中的组件, 想要使用的话需要单独手动引入
 			"xtt-web-bg": "components/xtt-web-bg.js",
 			"xtt-msg": "components/xtt-msg.js",
-			// "xtt-editor": "components/xtt-editor.js", // 暂时不打包
 			"xtt-list-next": "components/xtt-list-next.js",
 
 			// 未完成的组件，暂时不打包
