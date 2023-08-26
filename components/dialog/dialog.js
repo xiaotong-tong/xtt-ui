@@ -47,7 +47,13 @@ export class xttDialogElement extends xttBaseElement {
 	}
 
 	#refreshHeader() {
-		if (!this.#headerSlot.assignedNodes()?.length) {
+		const noCustomHeader = () => {
+			const header = this.#headerSlot.assignedNodes();
+
+			return !(header?.length && !(header.length = 1 && header[0] === this.#titleElement));
+		};
+
+		if (noCustomHeader()) {
 			const closeButton = document.createElement("xtt-button");
 			closeButton.setAttribute("slot", "header");
 			closeButton.setAttribute("text", "");
@@ -198,12 +204,21 @@ export class xttDialogElement extends xttBaseElement {
 		}
 	}
 
+	#isRemoveTitleByPrivate = false;
 	get title() {
 		return this.getAttribute("data-xtt-title");
 	}
 	set title(value) {
+		if (this.#isRemoveTitleByPrivate) {
+			return;
+		}
+
 		// 使用 data-xtt-title 代替 title 属性，避免浏览器默认行为
 		this.setAttribute("data-xtt-title", value);
+		this.#refreshTitle();
+
+		this.#isRemoveTitleByPrivate = true;
 		this.removeAttribute("title");
+		this.#isRemoveTitleByPrivate = false;
 	}
 }

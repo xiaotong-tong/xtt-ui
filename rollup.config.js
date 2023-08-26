@@ -11,6 +11,9 @@ import styles from "rollup-plugin-lib-styles";
 import discardComments from "postcss-discard-comments";
 import html from "rollup-plugin-html";
 
+// 用于打包 d.ts 文件
+import { dts } from "rollup-plugin-dts";
+
 const minPluginOptions = [
 	html(),
 	commonjs(),
@@ -119,5 +122,12 @@ export default [
 			format: "iife"
 		},
 		plugins: [html(), commonjs(), importAssertions(), nodeResolve()]
+	},
+
+	// 打包 d.ts 文件
+	{
+		input: "types/index.d.ts",
+		output: [{ file: "dist/index.d.ts", format: "es" }],
+		plugins: [dts()]
 	}
 ];
