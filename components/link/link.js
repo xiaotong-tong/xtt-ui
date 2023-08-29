@@ -21,9 +21,30 @@ export class xttLinkElement extends xttBaseElement {
 		return this.#link.href;
 	}
 	set href(value) {
+		if (value === null) {
+			this.removeAttribute("href");
+			this.#link.removeAttribute("href");
+			return;
+		}
+
 		this.#link.href = value;
 		this.setAttribute("href", value);
 	}
+
+	get target() {
+		return this.#link.target;
+	}
+	set target(value) {
+		if (value === null) {
+			this.removeAttribute("target");
+			this.#link.removeAttribute("target");
+			return;
+		}
+
+		this.#link.target = value;
+		this.setAttribute("target", value);
+	}
+
 	get origin() {
 		return this.#link.origin;
 	}

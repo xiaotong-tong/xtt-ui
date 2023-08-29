@@ -3,10 +3,10 @@ import style from "./editor-md.css" assert { type: "css" };
 
 export class xttEditorMdElement extends xttBaseElement {
 	static templateContent = `
-    <div id="editor">
-		<xtt-textarea id="editorContainer" block autosize></xtt-textarea>
-		<xtt-markdown id="previewContainer"></xtt-markdown>
-    </div>`;
+		<div id="editor">
+			<xtt-textarea id="editorContainer" block autosize></xtt-textarea>
+			<xtt-markdown id="previewContainer"></xtt-markdown>
+		</div>`;
 	static stylesContent = [...super.stylesContent, style];
 
 	constructor() {

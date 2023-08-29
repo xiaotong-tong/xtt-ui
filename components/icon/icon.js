@@ -20,7 +20,7 @@ export class xttIconElement extends xttBaseElement {
 
 	attributeChangedCallback(name, oldValue, newValue) {
 		if (name === "icon") {
-			this.#setIcon(newValue);
+			this.icon = newValue;
 		}
 	}
 
@@ -41,6 +41,19 @@ export class xttIconElement extends xttBaseElement {
 			case "close":
 				this.innerHTML = closeIcon;
 				break;
+			default:
+				this.innerHTML = "";
 		}
+	}
+
+	get icon() {
+		return this.getAttribute("icon");
+	}
+	set icon(value) {
+		if (value !== this.icon) {
+			this.setAttribute("icon", value);
+		}
+
+		this.#setIcon(value);
 	}
 }

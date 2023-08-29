@@ -1,5 +1,5 @@
 import style from "./web-bg.css" assert { type: "css" };
-import { fileToB64, b64ToBlob } from "xtt-utils";
+import { toDataUrl, dataUrlToBlob } from "xtt-utils";
 
 export class xttWebBgElement extends HTMLElement {
 	static get observedAttributes() {
@@ -90,7 +90,7 @@ export class xttWebBgElement extends HTMLElement {
 		} else {
 			const localBg = localStorage.getItem(this.#saveKey);
 			if (localBg) {
-				const blob = await b64ToBlob(localBg);
+				const blob = await dataUrlToBlob(localBg);
 				this.#updateBgUrl(URL.createObjectURL(blob), true);
 			}
 		}
@@ -126,8 +126,8 @@ export class xttWebBgElement extends HTMLElement {
 					};
 				};
 			} else {
-				fileToB64(file).then((b64) => {
-					localStorage.setItem(this.#saveKey, b64);
+				toDataUrl(file).then((dataUrl) => {
+					localStorage.setItem(this.#saveKey, dataUrl);
 				});
 			}
 

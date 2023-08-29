@@ -54,6 +54,10 @@ export class xttInputElement extends xttFormElementFactory() {
 		return this.focusableElement.maxLength;
 	}
 	set maxLength(value) {
+		if (value === null) {
+			this.focusableElement.removeAttribute("maxlength");
+			return;
+		}
 		this.focusableElement.maxLength = value;
 	}
 
@@ -61,6 +65,10 @@ export class xttInputElement extends xttFormElementFactory() {
 		return this.focusableElement.minLength;
 	}
 	set minLength(value) {
+		if (value === null) {
+			this.focusableElement.removeAttribute("minlength");
+			return;
+		}
 		this.focusableElement.minLength = value;
 	}
 }
