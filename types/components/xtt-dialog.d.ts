@@ -1,5 +1,6 @@
 interface XttDialogElementEventMap {
 	"xtt-close": CustomEvent;
+	"xtt-submit": CustomEvent;
 }
 
 export interface XttDialogElement extends HTMLElement {

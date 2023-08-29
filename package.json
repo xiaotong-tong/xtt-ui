@@ -1,11 +1,12 @@
 {
 	"name": "xtt-ui",
-	"version": "0.1.0",
+	"version": "0.1.1-alpha.1",
 	"description": "a front-end ui library based on web components",
 	"type": "module",
 	"main": "dist/index.js",
 	"browser": "dist/index.min.js",
 	"types": "dist/index.d.ts",
+	"typings": "dist/index.d.ts",
 	"scripts": {
 		"prestart": "npm run build",
 		"start": "serve -n",
@@ -13,7 +14,10 @@
 		"build": "rollup -c rollup.config.js"
 	},
 	"exports": {
-		".": "./dist/index.min.js",
+		".": {
+			"default": "./dist/index.min.js",
+			"types": "./dist/index.d.ts"
+		},
 		"./*": "./dist/*"
 	},
 	"files": [

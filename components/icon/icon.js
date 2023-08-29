@@ -15,6 +15,11 @@ export class xttIconElement extends xttBaseElement {
 	}
 
 	connectedCallback() {
+		// 如果 xtt-icon 没有设置 role 属性，则设置为 img
+		if (!this.hasAttribute("role")) {
+			this.role = "img";
+		}
+
 		this.style.setProperty("--icon-size", window.getComputedStyle(this).fontSize || "24px");
 	}
 
