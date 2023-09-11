@@ -11,6 +11,7 @@ import { XttNumberFieldElement } from "./components/xtt-numberfield";
 import { XttSelectElement } from "./components/xtt-select";
 import { XttTextEditElement } from "./components/xtt-text-edit";
 import { XttTextAreaElement } from "./components/xtt-textarea";
+import { XttSoundElement } from "./components/xtt-sound";
 
 declare global {
 	interface HTMLElementTagNameMap {
@@ -27,6 +28,7 @@ declare global {
 		"xtt-select": XttSelectElement;
 		"xtt-text-edit": XttTextEditElement;
 		"xtt-textarea": XttTextAreaElement;
+		"xtt-sound": XttSoundElement;
 	}
 }
 
@@ -43,5 +45,6 @@ export {
 	XttNumberFieldElement,
 	XttSelectElement,
 	XttTextEditElement,
-	XttTextAreaElement
+	XttTextAreaElement,
+	XttSoundElement
 };

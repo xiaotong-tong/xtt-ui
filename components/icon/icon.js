@@ -1,10 +1,6 @@
 import { xttBaseElement } from "../com/base.js";
 import style from "./icon.css" assert { type: "css" };
-import { powerIcon } from "./icons/power.js";
-import { chevronDownIcon } from "./icons/chevronDown.js";
-import { plusIcon } from "./icons/plus.js";
-import { minusIcon } from "./icons/minus.js";
-import { closeIcon } from "./icons/close.js";
+import { mdiPower, mdiChevronDown, mdiPlus, mdiMinus, mdiClose, mdiMusicNote } from "@mdi/js";
 
 export class xttIconElement extends xttBaseElement {
 	static templateContent = `<slot></slot>`;
@@ -29,22 +25,29 @@ export class xttIconElement extends xttBaseElement {
 		}
 	}
 
+	#getSvg(path) {
+		return `<svg aria-hidden="true" viewBox="0 0 24 24"><path d="${path}"></path></svg>`;
+	}
+
 	#setIcon(iconName) {
 		switch (iconName) {
 			case "power":
-				this.innerHTML = powerIcon;
+				this.innerHTML = this.#getSvg(mdiPower);
 				break;
 			case "chevronDown":
-				this.innerHTML = chevronDownIcon;
+				this.innerHTML = this.#getSvg(mdiChevronDown);
 				break;
 			case "plus":
-				this.innerHTML = plusIcon;
+				this.innerHTML = this.#getSvg(mdiPlus);
 				break;
 			case "minus":
-				this.innerHTML = minusIcon;
+				this.innerHTML = this.#getSvg(mdiMinus);
 				break;
 			case "close":
-				this.innerHTML = closeIcon;
+				this.innerHTML = this.#getSvg(mdiClose);
+				break;
+			case "musicNote":
+				this.innerHTML = this.#getSvg(mdiMusicNote);
 				break;
 			default:
 				this.innerHTML = "";

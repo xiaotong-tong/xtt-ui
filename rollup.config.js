@@ -79,6 +79,7 @@ export default [
 			"xtt-editor-md": "components/xtt-editor-md.js",
 			"xtt-input": "components/xtt-input.js",
 			"xtt-number-field": "components/xtt-number-field.js",
+			"xtt-sound": "components/xtt-sound.js",
 
 			// plugins 目录下的文件，因为不是组件，是鼠标动画效果，所以单独打包到 plugins 目录下
 			"plugins/xtt-mouseSnow": "plugins/xtt-mouseSnow.js",
