@@ -20,6 +20,13 @@ export class xttSoundElement extends xttBaseElement {
 		this.addEventListener("click", () => {
 			this.#audio.play();
 		});
+
+		// 在可以播放流媒体时，再显示音频图标
+		this.style.opacity = 0;
+
+		this.#audio.addEventListener("canplay", () => {
+			this.style.opacity = 1;
+		});
 	}
 
 	get #icon() {
