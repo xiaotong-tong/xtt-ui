@@ -122,6 +122,9 @@ export class xttTextareaElement extends xttInputElement {
 
 		this.#textarea.textContent = value;
 		this.textContent = value;
-		this.#autoResize(true);
+
+		if (this.getAttribute("autosize") !== null) {
+			this.#autoResize(true);
+		}
 	}
 }
