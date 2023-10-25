@@ -1,5 +1,13 @@
 # xttUtils
 
+## test
+
+```js
+let fn = () =&gt; {};
+
+let fn = () =\&gt; {};
+```
+
 ## random Methods
 
 ### random
@@ -18,8 +26,8 @@
 
 #### params
 
--   [min=1] (number) (可选)：最小值
--   [max=100] (number) (可选)：最大值
+- [min=1] (number) (可选)：最小值
+- [max=100] (number) (可选)：最大值
 
 如果不传递参数，返回一个介于 1 和 100 之间的整数 (包含 0 和 100)。
 
@@ -29,7 +37,7 @@
 
 #### returns
 
--   (number)：介于 min 和 max 之间的随机整数 (包含 min 和 max)。
+- (number)：介于 min 和 max 之间的随机整数 (包含 min 和 max)。
 
 #### example
 
@@ -46,17 +54,17 @@ random(-Infinity, Infinity); // -9007199254740991 - 9007199254740991
 
 #### params
 
--   [min=1] (number)：最小值
--   [max=10] (number)：最大值
--   [number|option] (object)：配置项, 如果是数字，则表示列表个数
-    -   [option.count=max-min+1] (number)：列表个数
-    -   [option.unique=false] (boolean)：列表中的数是否唯一
+- [min=1] (number)：最小值
+- [max=10] (number)：最大值
+- [number|option] (object)：配置项, 如果是数字，则表示列表个数
+  - [option.count=max-min+1] (number)：列表个数
+  - [option.unique=false] (boolean)：列表中的数是否唯一
 
 min 和 max 参数与 [random](./random.md) 方法一致。(默认值除外)
 
 #### returns
 
--   (number[])：每项均介于 min 和 max 之间的 length 为 count 的随机数列表
+- (number[])：每项均介于 min 和 max 之间的 length 为 count 的随机数列表
 
 #### example
 
@@ -88,15 +96,15 @@ Get the string to the left of the matching item in the string
 
 #### params
 
--   str (string)：The string to get
+- str (string)：The string to get
 
--   searchTerm (string | RegExp)：The string or regular expression to match
+- searchTerm (string | RegExp)：The string or regular expression to match
 
--   [beforeWhichTimes=1] (number)：Stop after matching several times, the default is 1, if the number is greater than the number of matches, the string to the left of the last match is returned
+- [beforeWhichTimes=1] (number)：Stop after matching several times, the default is 1, if the number is greater than the number of matches, the string to the left of the last match is returned
 
 #### returns
 
--   (string)：Returns the string to the left of the matching item
+- (string)：Returns the string to the left of the matching item
 
 #### example
 
@@ -115,15 +123,15 @@ getTermLeft("abc1de2", /\d/, 3); // "abc1de"
 
 #### params
 
--   str (string)：要获取的字符串
+- str (string)：要获取的字符串
 
--   searchTerm (string | RegExp)：要匹配的字符串或正则表达式
+- searchTerm (string | RegExp)：要匹配的字符串或正则表达式
 
--   [beforeWhichTimes=1] (number)：匹配到几次后停止，默认为 1, 如果数字大于匹配到的次数，则返回最后一个匹配项右侧的字符串，如果想取右侧开始第一个匹配项，可以传入 -1
+- [beforeWhichTimes=1] (number)：匹配到几次后停止，默认为 1, 如果数字大于匹配到的次数，则返回最后一个匹配项右侧的字符串，如果想取右侧开始第一个匹配项，可以传入 -1
 
 #### returns
 
--   (string)：返回匹配项右侧的字符串
+- (string)：返回匹配项右侧的字符串
 
 #### example
 
@@ -142,12 +150,12 @@ getTermRight("abc1de2", /\d/, 3); // ""
 
 #### params
 
--   str (string)：要处理的字符串
--   term ([string | RegExp, string | RegExp])：要匹配的字符串或正则表达式范围
+- str (string)：要处理的字符串
+- term ([string | RegExp, string | RegExp])：要匹配的字符串或正则表达式范围
 
 #### returns
 
--   (string)：返回匹配范围内的字符串
+- (string)：返回匹配范围内的字符串
 
 #### example
 
@@ -163,14 +171,14 @@ getRangeByTerm("a1bcd2e", [/\d/, /\d/]); // "bcd"
 
 #### params
 
--   str (string)：要转换的字符串
--   [options] (Object)：可选参数
-    -   [separator=""] (string)：分隔符
-    -   [base=16] (2 | 8 | 10 | 16)：进制
+- str (string)：要转换的字符串
+- [options] (Object)：可选参数
+  - [separator=""] (string)：分隔符
+  - [base=16] (2 | 8 | 10 | 16)：进制
 
 #### returns
 
--   (string)：Unicode 编码点
+- (string)：Unicode 编码点
 
 #### example
 
@@ -188,21 +196,21 @@ charToCodePoint("Hello World!", { base: 2, separator: " " }); // "0b1001000 0b11
 
 #### params
 
--   collection (\*): 要循环的目标。
--   iteratee (Iteratee): 在循环的每次迭代上执行的函数。
--   options (object): 循环的选项。
--   options.thisArg (object): iteratee 函数中的 this 的值。
--   options.asyncIterator (boolean): 目标是否为异步迭代器。
+- collection (\*): 要循环的目标。
+- iteratee (Iteratee): 在循环的每次迭代上执行的函数。
+- options (object): 循环的选项。
+- options.thisArg (object): iteratee 函数中的 this 的值。
+- options.asyncIterator (boolean): 目标是否为异步迭代器。
 
 Iteratee:
 
--   iterator (\*): 当前迭代的值。
--   i (number): 当前迭代的索引。
--   target (\_): 当前迭代的目标。如果目标是对象，则此值为 Object.entries(\_)。
+- iterator (\*): 当前迭代的值。
+- i (number): 当前迭代的索引。
+- target (\_): 当前迭代的目标。如果目标是对象，则此值为 Object.entries(\_)。
 
 #### returns
 
--   (Array | Promise\<Array>): 返回循环的结果。如果目标是异步迭代器，则返回值是 Promise。
+- (Array | Promise\<Array>): 返回循环的结果。如果目标是异步迭代器，则返回值是 Promise。
 
 ### throttle
 
@@ -213,12 +221,12 @@ Iteratee:
 
 #### params
 
--   func (function)：要节流的函数
--   delay (number)：等待时间
+- func (function)：要节流的函数
+- delay (number)：等待时间
 
 #### returns
 
--   (function)：节流后的函数
+- (function)：节流后的函数
 
 #### example
 
@@ -244,14 +252,14 @@ throttle((a) => console.log(a), 3000);
 
 #### params
 
--   date (Date|string|number): 日期
--   format (string|object): 格式化字符串或者格式化选项
-    -   format (string): 格式化字符串, 默认为 'YYYY-MM-DD hh:mm:ss'，可选值参考下方 format 列表
-    -   lang (string): 语言，默认为 'en'
+- date (Date|string|number): 日期
+- format (string|object): 格式化字符串或者格式化选项
+  - format (string): 格式化字符串, 默认为 'YYYY-MM-DD hh:mm:ss'，可选值参考下方 format 列表
+  - lang (string): 语言，默认为 'en'
 
 #### returns
 
--   (string|Function): 格式化后的日期
+- (string|Function): 格式化后的日期
 
 如果仅传入 date 参数，返回日期固定的偏函数，后续可以传入 format 参数，可以用于多次格式化同一个日期，
 如果初次调用时已经传入了 format 参数，则直接返回格式化后的日期
@@ -295,4 +303,4 @@ formatDate("2023-01-01", { format: "dddd", lang: "zh-CN" }); // => '星期日'
 
 #### references
 
--   MDN [Intl.DateTimeFormat](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat/DateTimeFormat)
+- MDN [Intl.DateTimeFormat](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat/DateTimeFormat)

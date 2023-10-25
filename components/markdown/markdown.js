@@ -38,6 +38,21 @@ marked.use(
 			let resCode = hljs.highlight(code, { language });
 			// 添加代码块前的行号
 			resCode = resCode.value
+				.replace(/\\?&(amp|lt|gt|nbsp);/g, (match) => {
+					if (match.startsWith("\\")) {
+						return match.slice(1);
+					}
+
+					// 下面一些字符在 xss 过滤时会被转义，但是这里因为是代码块，不会显示这些 HTML 实体，所以需要手动转义回来
+					return (
+						{
+							"&lt;": "<",
+							"&gt;": ">",
+							"&nbsp;": " ",
+							"&amp;": "&"
+						}[match] || match
+					);
+				})
 				.split("\n")
 				.map((line, index) => {
 					return `<span class="code-line" data-line-num="${index + 1}">${line}</span>`;
@@ -45,10 +60,8 @@ marked.use(
 				.join("\n");
 			return resCode;
 		}
-	})
-);
+	}),
 
-marked.use(
 	gfmHeadingId({
 		prefix: "xtt-md-"
 	})
