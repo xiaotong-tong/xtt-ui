@@ -2,7 +2,7 @@ import { xttFormElementFactory } from "./form.js";
 
 export class xttInputElement extends xttFormElementFactory() {
 	static get observedAttributes() {
-		return [...super.observedAttributes, "value", "readonly", "maxlength", "minlength"];
+		return [...super.observedAttributes, "value", "readonly", "maxlength", "minlength", "placeholder"];
 	}
 
 	focusableElement = this;
@@ -31,6 +31,8 @@ export class xttInputElement extends xttFormElementFactory() {
 			this.minLength = newValue;
 		} else if (name === "value") {
 			this.value = newValue;
+		} else if (name === "placeholder") {
+			this.placeholder = newValue;
 		}
 
 		super.attributeChangedCallback?.(name, oldValue, newValue);
@@ -59,6 +61,7 @@ export class xttInputElement extends xttFormElementFactory() {
 			return;
 		}
 		this.focusableElement.maxLength = value;
+		this.setAttribute("maxlength", value);
 	}
 
 	get minLength() {
@@ -70,5 +73,18 @@ export class xttInputElement extends xttFormElementFactory() {
 			return;
 		}
 		this.focusableElement.minLength = value;
+		this.setAttribute("minlength", value);
+	}
+
+	get placeholder() {
+		return this.focusableElement.placeholder;
+	}
+	set placeholder(value) {
+		if (value === null) {
+			this.focusableElement.removeAttribute("placeholder");
+			return;
+		}
+		this.focusableElement.placeholder = value;
+		this.setAttribute("placeholder", value);
 	}
 }

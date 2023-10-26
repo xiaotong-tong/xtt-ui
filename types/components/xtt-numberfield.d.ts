@@ -10,5 +10,6 @@ export interface XttNumberFieldElement extends HTMLElement {
 	autofocus: boolean;
 	maxLength: number | string | null;
 	minLength: number | string | null;
+	placeholder: string | null;
 	readonly labels: NodeListOf<HTMLLabelElement>;
 }

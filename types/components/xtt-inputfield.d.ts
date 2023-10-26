@@ -4,6 +4,7 @@ export interface XttInputFieldElement extends HTMLElement {
 	readOnly: boolean;
 	maxLength: number | string | null;
 	minLength: number | string | null;
+	placeholder: string | null;
 
 	readonly labels: NodeListOf<HTMLLabelElement>;
 	disabled: boolean;

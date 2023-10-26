@@ -5,4 +5,5 @@ export interface XttTextAreaElement extends HTMLElement {
 	readonly labels: NodeListOf<HTMLLabelElement>;
 	disabled: boolean;
 	autofocus: boolean;
+	placeholder: string | null;
 }
