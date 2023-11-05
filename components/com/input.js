@@ -61,7 +61,10 @@ export class xttInputElement extends xttFormElementFactory() {
 			return;
 		}
 		this.focusableElement.maxLength = value;
-		this.setAttribute("maxlength", value);
+
+		if (this.getAttribute("maxlength") !== value) {
+			this.setAttribute("maxlength", value);
+		}
 	}
 
 	get minLength() {
@@ -73,7 +76,10 @@ export class xttInputElement extends xttFormElementFactory() {
 			return;
 		}
 		this.focusableElement.minLength = value;
-		this.setAttribute("minlength", value);
+
+		if (this.getAttribute("minlength") !== value) {
+			this.setAttribute("minlength", value);
+		}
 	}
 
 	get placeholder() {
@@ -85,6 +91,9 @@ export class xttInputElement extends xttFormElementFactory() {
 			return;
 		}
 		this.focusableElement.placeholder = value;
-		this.setAttribute("placeholder", value);
+
+		if (this.getAttribute("placeholder") !== value) {
+			this.setAttribute("placeholder", value);
+		}
 	}
 }
