@@ -1,14 +1,7 @@
 import terser from "@rollup/plugin-terser";
-import importAssertions from "rollup-plugin-import-assertions";
+import css from "rollup-plugin-import-css";
 import { nodeResolve } from "@rollup/plugin-node-resolve";
 import commonjs from "@rollup/plugin-commonjs";
-
-// 用于处理 css 文件，将 css 文件中的注释全部删除
-// 因为 css 会全部编译成 js 文件，内容会被当做字符串处理，所以 terser 压缩的时候不会删除注释
-// 而这些 css 注释是无用的，所以在这里删除，减少文件大小
-// ！！！ 如果不在这里删除，使用方是无法通过常规操作删除的
-import styles from "rollup-plugin-lib-styles";
-import discardComments from "postcss-discard-comments";
 import html from "rollup-plugin-html";
 
 // 用于打包 d.ts 文件
@@ -17,15 +10,9 @@ import { dts } from "rollup-plugin-dts";
 const minPluginOptions = [
 	html(),
 	commonjs(),
-	styles({
-		mode: "emit",
-		plugins: [
-			discardComments({
-				removeAll: true
-			})
-		]
+	css({
+		minify: true
 	}),
-	importAssertions(),
 	terser(),
 	nodeResolve()
 ];
@@ -40,16 +27,10 @@ export default [
 		},
 		plugins: [
 			html(),
-			styles({
-				mode: "emit",
-				plugins: [
-					discardComments({
-						removeAll: true
-					})
-				]
-			}),
 			commonjs(),
-			importAssertions(),
+			css({
+				minify: true
+			}),
 			nodeResolve()
 		]
 	},
@@ -101,15 +82,9 @@ export default [
 		},
 		plugins: [
 			html(),
-			styles({
-				mode: "emit",
-				plugins: [
-					discardComments({
-						removeAll: true
-					})
-				]
+			css({
+				minify: true
 			}),
-			importAssertions(),
 			commonjs(),
 			nodeResolve()
 		]
@@ -122,7 +97,7 @@ export default [
 			file: "_internal/xtt-index.js",
 			format: "iife"
 		},
-		plugins: [html(), commonjs(), importAssertions(), nodeResolve()]
+		plugins: [html(), commonjs(), css(), nodeResolve()]
 	},
 
 	// 打包 d.ts 文件
