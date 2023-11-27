@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Button</title>
+		<script src="./index.js" type="module"></script>
+		<link rel="stylesheet" href="../com/layout.css" />
+	</head>
+	<body is="xtt-body">
+		<xtt-page-nav>
+			<h2>Base 组件</h2>
+			<xtt-list>
+				<xtt-list-item active>
+					<xtt-link href="#">icon-button</xtt-link>
+				</xtt-list-item>
+				<xtt-list-item>
+					<xtt-link href="/demo/button/index.html">button</xtt-link>
+				</xtt-list-item>
+			</xtt-list>
+		</xtt-page-nav>
+
+		<main>
+			<h1>Icon-Button 按钮</h1>
+
+			<p>图标按钮</p>
+
+			<section class="operate-wrapper">
+				<div class="operate-content">
+					<xtt-icon-button id="operate">
+						<xtt-icon icon="power">power</xtt-icon>
+					</xtt-button>
+				</div>
+			</section>
+
+			<section>
+				<h2>基础用法</h2>
+				<xtt-icon-button>
+					<xtt-icon icon="power">power</xtt-icon>
+				</xtt-icon-button>
+
+				<xtt-icon-button disabled>
+					<xtt-icon icon="power">power</xtt-icon>
+				</xtt-icon-button>
+
+				<xtt-icon-button autofocus>
+					<xtt-icon icon="power">power</xtt-icon>
+				</xtt-icon-button>
+
+				<xtt-icon-button data-xtt-tooltip="power icon">
+					<xtt-icon icon="power">power</xtt-icon>
+				</xtt-icon-button>
+
+				<label for="lbBtn">label1:</label>
+				<xtt-icon-button id="lbBtn">
+					<xtt-icon icon="power">power</xtt-icon>
+				</xtt-icon-button>
+				<label for="lbBtn">label2:</label>
+
+				<xtt-code open>
+					<xtt-icon-button>
+						<xtt-icon icon="power">power</xtt-icon>
+					</xtt-icon-button>
+					<xtt-icon-button disabled>
+						<xtt-icon icon="power">power</xtt-icon>
+					</xtt-icon-button>
+					<xtt-icon-button autofocus>
+						<xtt-icon icon="power">power</xtt-icon>
+					</xtt-icon-button>
+					<xtt-icon-button data-xtt-tooltip="power icon">
+						<xtt-icon icon="power">power</xtt-icon>
+					</xtt-icon-button>
+				</xtt-code>
+			</section>
+
+			<section>
+				<h2>attrs</h2>
+
+				<h3>type 样式</h3>
+				<xtt-icon-button>
+					<xtt-icon icon="power">power</xtt-icon>
+				</xtt-icon-button>
+				<xtt-icon-button type="primary">
+					<xtt-icon icon="power">power</xtt-icon>
+				</xtt-icon-button>
+				<xtt-icon-button type="success">
+					<xtt-icon icon="power">power</xtt-icon>
+				</xtt-icon-button>
+				<xtt-icon-button type="danger">
+					<xtt-icon icon="power">power</xtt-icon>
+				</xtt-icon-button>
+				<xtt-icon-button type="warning">
+					<xtt-icon icon="power">power</xtt-icon>
+				</xtt-icon-button>
+				<xtt-icon-button type="base">
+					<xtt-icon icon="power">power</xtt-icon>
+				</xtt-icon-button>
+
+				<xtt-code>
+					<xtt-icon-button>
+						<xtt-icon icon="power">power</xtt-icon>
+					</xtt-icon-button>
+					<xtt-icon-button type="primary">
+						<xtt-icon icon="power">power</xtt-icon>
+					</xtt-icon-button>
+					<xtt-icon-button type="success">
+						<xtt-icon icon="power">power</xtt-icon>
+					</xtt-icon-button>
+					<xtt-icon-button type="danger">
+						<xtt-icon icon="power">power</xtt-icon>
+					</xtt-icon-button>
+					<xtt-icon-button type="warning">
+						<xtt-icon icon="power">power</xtt-icon>
+					</xtt-icon-button>
+					<xtt-icon-button type="base">
+						<xtt-icon icon="power">power</xtt-icon>
+					</xtt-icon-button>
+				</xtt-code>
+
+				<h3>size 尺寸</h3>
+				<xtt-icon-button size="large">
+					<xtt-icon icon="power">power</xtt-icon>
+				</xtt-icon-button>
+				<xtt-icon-button>
+					<xtt-icon icon="power">power</xtt-icon>
+				</xtt-icon-button>
+				<xtt-icon-button size="small">
+					<xtt-icon icon="power">power</xtt-icon>
+				</xtt-icon-button>
+
+				<xtt-code>
+					<xtt-icon-button size="large">
+						<xtt-icon icon="power">power</xtt-icon>
+					</xtt-icon-button>
+					<xtt-icon-button>
+						<xtt-icon icon="power">power</xtt-icon>
+					</xtt-icon-button>
+					<xtt-icon-button size="small">
+						<xtt-icon icon="power">power</xtt-icon>
+					</xtt-icon-button>
+				</xtt-code>
+			</section>
+		</main>
+	</body>
+</html>

@@ -1,0 +1,108 @@
+:host {
+	--icon-button-size: 36px;
+	--icon-button-font-size: 20px;
+
+	--icon-button-border-color: hsl(0, 0%, 75%);
+	--icon-button-bg-color: transparent;
+	--icon-button-font-color: inherit;
+
+	--icon-button-focus-outline: thin dotted black;
+
+	--icon-button-bg-color-hover: transparent;
+	--icon-button-font-color-hover: var(--primary-color);
+	--icon-button-border-color-hover: var(--primary-color);
+}
+:host([type="primary"]) {
+	--icon-button-bg-color: var(--primary-color);
+	--icon-button-bg-color-hover: var(--primary-light-color);
+	--icon-button-font-color: white;
+	--icon-button-font-color-hover: white;
+	--icon-button-border-color: var(--primary-color);
+
+	--icon-button-bg-color-active: var(--primary-dark-color);
+}
+:host([type="danger"]) {
+	--icon-button-bg-color: var(--danger-color);
+	--icon-button-bg-color-hover: var(--danger-light-color);
+	--icon-button-font-color: white;
+	--icon-button-font-color-hover: white;
+	--icon-button-border-color: var(--danger-color);
+
+	--icon-button-bg-color-active: var(--danger-dark-color);
+	--icon-button-border-color-hover: var(--danger-light-color);
+}
+:host([type="success"]) {
+	--icon-button-bg-color: var(--success-color);
+	--icon-button-bg-color-hover: var(--success-light-color);
+	--icon-button-font-color: white;
+	--icon-button-font-color-hover: white;
+	--icon-button-border-color: var(--success-color);
+
+	--icon-button-bg-color-active: var(--success-dark-color);
+	--icon-button-border-color-hover: var(--success-light-color);
+}
+:host([type="warning"]) {
+	--icon-button-bg-color: var(--warning-color);
+	--icon-button-bg-color-hover: var(--warning-light-color);
+	--icon-button-font-color: white;
+	--icon-button-font-color-hover: white;
+	--icon-button-border-color: var(--warning-color);
+
+	--icon-button-bg-color-active: var(--warning-dark-color);
+	--icon-button-border-color-hover: var(--warning-light-color);
+}
+:host([type="base"]) {
+	--icon-button-bg-color: transparent;
+	--icon-button-bg-color-hover: transparent;
+	--icon-button-font-color-hover: inherit;
+	--icon-button-border-color-hover: silver;
+}
+
+:host([size="large"]) {
+	--icon-button-size: 44px;
+	--icon-button-font-size: 24px;
+}
+:host([size="small"]) {
+	--icon-button-size: 28px;
+	--icon-button-font-size: 16px;
+}
+
+:host(:focus) {
+	outline: var(--icon-button-focus-outline, thin dotted black);
+	outline-offset: 1px;
+}
+
+:host {
+	width: var(--icon-button-size);
+	height: var(--icon-button-size);
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	box-sizing: border-box;
+	border: thin solid;
+	border-color: var(--icon-button-border-color, silver);
+	cursor: pointer;
+
+	background-color: var(--icon-button-bg-color, transparent);
+	color: var(--icon-button-font-color, inherit);
+	transition: background-color 0.2s;
+}
+
+/* 检测设备是否支持 hover */
+/* 将 hover 样式统一放到该区域进行管理 */
+@media (hover: hover) {
+	:host(:hover) {
+		background-color: var(--icon-button-bg-color-hover);
+		border-color: var(--icon-button-border-color-hover, silver);
+		color: var(--icon-button-font-color-hover, inherit);
+	}
+}
+
+:host(:active) {
+	background-color: var(--icon-button-bg-color-active, transparent);
+}
+
+:host > * {
+	font-size: var(--icon-button-font-size);
+	--icon-size: var(--icon-button-font-size);
+}

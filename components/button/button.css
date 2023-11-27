@@ -112,16 +112,3 @@
 	overflow: hidden;
 	text-align: start;
 }
-:host(.no-icon) #icon,
-:host(.no-text) #text {
-	display: none;
-}
-
-#icon {
-	display: inline-flex;
-	align-items: flex-start;
-	padding-block-start: 2px;
-}
-:host(.no-text) #icon {
-	padding-block-start: 0;
-}

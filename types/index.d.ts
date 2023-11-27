@@ -1,5 +1,9 @@
 import { XttTooltipElement } from "./components/xtt-tooltip";
-import { XttButtonElement, XttButtonElementSlots } from "./components/xtt-button";
+import {
+	XttButtonElement,
+	XttButtonElementSlots
+} from "./components/xtt-button";
+import { XttIconButtonElement } from "./components/xtt-icon-button";
 import { XttDialogElement } from "./components/xtt-dialog";
 import { XttEditorMDElement } from "./components/xtt-editor-md";
 import { XttIconElement } from "./components/xtt-icon";
@@ -17,6 +21,7 @@ declare global {
 	interface HTMLElementTagNameMap {
 		"xtt-tooltip": XttTooltipElement;
 		"xtt-button": XttButtonElement & XttButtonElementSlots;
+		"xtt-icon-button": XttIconButtonElement;
 		"xtt-dialog": XttDialogElement;
 		"xtt-editor-md": XttEditorMDElement;
 		"xtt-icon": XttIconElement;
@@ -35,6 +40,7 @@ declare global {
 export {
 	XttTooltipElement,
 	XttButtonElement,
+	XttIconButtonElement,
 	XttDialogElement,
 	XttEditorMDElement,
 	XttIconElement,

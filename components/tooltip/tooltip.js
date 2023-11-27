@@ -81,6 +81,11 @@ export class xttTooltipElement extends xttBaseElement {
 		};
 
 		const showEvent = (ev) => {
+			// 如果 tooltip 的内容为空，那么不显示 tooltip
+			if (this.textContent.trim() === "") {
+				return;
+			}
+
 			this.show(ev.currentTarget ?? ev.target);
 
 			el.addEventListener("pointerdown", hideEvent, {
@@ -123,7 +128,10 @@ export class xttTooltipElement extends xttBaseElement {
 	#refreshTrigger(el) {
 		// 给触发 tooltip 的元素添加 aria 属性，值为 tooltip 的 ID, 供无障碍设备访问 tooltip 的内容
 		// 如果元素上有 data-aria-type 属性，且值为 labelledby，那么使用 aria-labelledby 属性，否则使用 aria-describedby 属性
-		const referenceType = el.dataset.ariaType === "labelledby" ? "aria-labelledby" : "aria-describedby";
+		const referenceType =
+			el.dataset.ariaType === "labelledby"
+				? "aria-labelledby"
+				: "aria-describedby";
 		attrValueAppendIds(el, referenceType, this);
 
 		this.#handleEventOfTrigger(el);

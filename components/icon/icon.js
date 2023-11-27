@@ -1,6 +1,13 @@
 import { xttBaseElement } from "../com/base.js";
 import style from "./icon.css" assert { type: "css" };
-import { mdiPower, mdiChevronDown, mdiPlus, mdiMinus, mdiClose, mdiMusicNote } from "@mdi/js";
+import {
+	mdiPower,
+	mdiChevronDown,
+	mdiPlus,
+	mdiMinus,
+	mdiClose,
+	mdiMusicNote
+} from "@mdi/js";
 
 export class xttIconElement extends xttBaseElement {
 	static templateContent = `<slot></slot>`;
@@ -16,7 +23,10 @@ export class xttIconElement extends xttBaseElement {
 			this.role = "img";
 		}
 
-		this.style.setProperty("--icon-size", window.getComputedStyle(this).fontSize || "24px");
+		this.style.setProperty(
+			"--icon-default-size",
+			window.getComputedStyle(this).fontSize || "24px"
+		);
 	}
 
 	attributeChangedCallback(name, oldValue, newValue) {

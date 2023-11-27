@@ -1,13 +1,13 @@
 :host {
-	--icon-size: 24px;
-}
-
-:host {
 	display: inline-flex;
 	align-items: center;
 	justify-content: center;
-	width: var(--icon-size);
-	height: var(--icon-size);
+	/*  如果有 --icon-size，就取 --icon-size 的值，
+		如果没有 --icon-size，就取 --icon-default-size 的值，
+		如果都没有，就取 24px 
+	*/
+	width: var(--icon-size, var(--icon-default-size, 24px));
+	height: var(--icon-size, var(--icon-default-size, 24px));
 	aspect-ratio: 1;
 	vertical-align: middle;
 }

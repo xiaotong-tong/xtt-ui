@@ -7,6 +7,14 @@
 	--danger-light-color: hsl(0deg, 87%, 75%);
 	--danger-dark-color: hsl(0deg, 87%, 50%);
 
+	--success-color: hsl(100deg 54% 50%);
+	--success-light-color: hsl(100deg 54% 65%);
+	--success-dark-color: hsl(100deg 54% 40%);
+
+	--warning-color: hsl(45deg 100% 50%);
+	--warning-light-color: hsl(45deg 100% 65%);
+	--warning-dark-color: hsl(45deg 100% 40%);
+
 	--grey-color: hsl(0deg, 0%, 75%);
 	--grey-light-color: hsl(0deg, 0%, 95%);
 	--grey-dark-color: hsl(0deg, 0%, 50%);
