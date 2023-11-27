@@ -13,3 +13,20 @@
 .label-layout + .label-layout {
 	margin-block-start: 8px;
 }
+
+.operate-wrapper {
+	display: flex;
+	outline: thin solid #ccc;
+}
+
+.operate-wrapper > .operate-content {
+	flex: 1 1 auto;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	min-height: 300px;
+}
+
+.operate-wrapper > .lil-gui {
+	flex: none;
+}

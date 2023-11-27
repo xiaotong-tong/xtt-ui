@@ -26,18 +26,54 @@
 
 			<p>按钮，用于替代原生的 button 元素，提供丰富的样式和功能。</p>
 
+			<section class="operate-wrapper">
+				<div class="operate-content">
+					<xtt-button id="operate">default</xtt-button>
+				</div>
+
+				<!-- <h3>actions</h3>
+
+				<div class="label-layout">
+					<label>type:</label>
+					<xtt-button id="setPrimary">primary</xtt-button>
+					<xtt-button id="setDanger">danger</xtt-button>
+					<xtt-button id="setBase">base</xtt-button>
+					<xtt-button id="removeType">remove</xtt-button>
+				</div>
+
+				<div class="label-layout">
+					<label>text:</label>
+					<xtt-button id="setText">set</xtt-button>
+					<xtt-button id="removeText">remove</xtt-button>
+				</div>
+
+				<div class="label-layout">
+					<label>size:</label>
+					<xtt-button id="setLargeSize">large</xtt-button>
+					<xtt-button id="removeSize">remove</xtt-button>
+				</div>
+
+				<div class="label-layout">
+					<label>block:</label>
+					<xtt-button id="setBlock">block</xtt-button>
+					<xtt-button id="removeBlock">remove</xtt-button>
+				</div> -->
+			</section>
+
 			<section>
 				<h2>基础用法</h2>
 				<xtt-button>default</xtt-button>
 				<xtt-button style="max-width: 200px"
-					>long long long long long long long long text with max width is 200px</xtt-button
+					>long long long long long long long long text with max width
+					is 200px</xtt-button
 				>
 				<xtt-button disabled>disabled</xtt-button>
 				<xtt-button autofocus>autofocus</xtt-button>
 
 				<p>
-					在内部文字超出最大可显示宽度时, button 内的文字会显示 ... 省略，同时在鼠标 hover 或者 focus 时, 会显示一个
-					tooltip, tooltip 的内容为全部的文字
+					在内部文字超出最大可显示宽度时, button 内的文字会显示 ...
+					省略，同时在鼠标 hover 或者 focus 时, 会显示一个 tooltip,
+					tooltip 的内容为全部的文字
 				</p>
 
 				<label for="lbBtn">label1:</label>
@@ -47,7 +83,8 @@
 				<xtt-code open>
 					<xtt-button>default</xtt-button>
 					<xtt-button style="max-width: 200px"
-						>long long long long long long long long text with max width is 200px</xtt-button
+						>long long long long long long long long text with max
+						width is 200px</xtt-button
 					>
 					<xtt-button disabled>disabled</xtt-button>
 					<xtt-button autofocus>autofocus</xtt-button>
@@ -58,18 +95,28 @@
 				<h2>attrs</h2>
 
 				<h3>icon 图标</h3>
-				<xtt-button data-xtt-tooltip="only icon" data-aria-type="labelledby">
+				<xtt-button
+					data-xtt-tooltip="only icon"
+					data-aria-type="labelledby"
+				>
 					<xtt-icon icon="power">power</xtt-icon>
 				</xtt-button>
 
-				<xtt-button> <xtt-icon icon="power">power</xtt-icon> power icon </xtt-button>
+				<xtt-button>
+					<xtt-icon icon="power">power</xtt-icon> power icon
+				</xtt-button>
 
 				<xtt-code>
-					<xtt-button data-xtt-tooltip="only icon" data-aria-type="labelledby">
+					<xtt-button
+						data-xtt-tooltip="only icon"
+						data-aria-type="labelledby"
+					>
 						<xtt-icon icon="power">power</xtt-icon>
 					</xtt-button>
 
-					<xtt-button> <xtt-icon icon="power">power</xtt-icon> power icon </xtt-button>
+					<xtt-button>
+						<xtt-icon icon="power">power</xtt-icon> power icon
+					</xtt-button>
 				</xtt-code>
 
 				<h3>type 样式</h3>
@@ -123,69 +170,11 @@
 					>long long long long long long long long text</xtt-button
 				>
 				<xtt-code>
-					<xtt-button style="max-width: 200px" line="2">long long long long long long long long text</xtt-button>
+					<xtt-button style="max-width: 200px" line="2"
+						>long long long long long long long long
+						text</xtt-button
+					>
 				</xtt-code>
-			</section>
-
-			<section>
-				<h2>operate</h2>
-
-				<div>
-					<xtt-button id="operate">default</xtt-button>
-				</div>
-
-				<h3>actions</h3>
-
-				<div class="label-layout">
-					<label for="content">text:</label> <br />
-					<textarea id="content" rows="5" cols="100"></textarea>
-					<xtt-button id="getContent">get</xtt-button>
-					<xtt-button id="setContent">set</xtt-button>
-				</div>
-
-				<div class="label-layout">
-					<label for="maxWidth">max-width:</label> <br />
-					<input id="maxWidth" type="number" min="0" placeholder="200" />
-					<xtt-button id="setMaxWidth">set</xtt-button>
-				</div>
-
-				<div class="label-layout">
-					<label for="lineValue">line:</label> <br />
-					<input id="lineValue" type="number" min="1" />
-					<xtt-button id="setline">set</xtt-button>
-				</div>
-
-				<div class="label-layout">
-					<label>icon:</label>
-					<xtt-button id="setIcon">set</xtt-button>
-					<xtt-button id="removeIcon">remove</xtt-button>
-				</div>
-
-				<div class="label-layout">
-					<label>type:</label>
-					<xtt-button id="setPrimary">primary</xtt-button>
-					<xtt-button id="setDanger">danger</xtt-button>
-					<xtt-button id="setBase">base</xtt-button>
-					<xtt-button id="removeType">remove</xtt-button>
-				</div>
-
-				<div class="label-layout">
-					<label>text:</label>
-					<xtt-button id="setText">set</xtt-button>
-					<xtt-button id="removeText">remove</xtt-button>
-				</div>
-
-				<div class="label-layout">
-					<label>size:</label>
-					<xtt-button id="setLargeSize">large</xtt-button>
-					<xtt-button id="removeSize">remove</xtt-button>
-				</div>
-
-				<div class="label-layout">
-					<label>block:</label>
-					<xtt-button id="setBlock">block</xtt-button>
-					<xtt-button id="removeBlock">remove</xtt-button>
-				</div>
 			</section>
 		</main>
 	</body>

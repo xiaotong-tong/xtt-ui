@@ -15,7 +15,12 @@ export class xttButtonElement extends xttFormElementFactory("reflect") {
 	static stylesContent = [...super.stylesContent, style];
 
 	static get observedAttributes() {
-		return [...super.observedAttributes, "line", "data-xtt-tooltip", "data-aria-type"];
+		return [
+			...super.observedAttributes,
+			"line",
+			"data-xtt-tooltip",
+			"data-aria-type"
+		];
 	}
 
 	observeOptions = {
@@ -60,14 +65,16 @@ export class xttButtonElement extends xttFormElementFactory("reflect") {
 		} else if (name === "data-xtt-tooltip") {
 			this.#tooltipElement.refreshTooltipContent(this);
 		} else if (name === "line") {
-			this.style.setProperty("--button-line-clamp", Number(newValue));
+			this.line = newValue;
 		}
 
 		super.attributeChangedCallback?.(name, oldValue, newValue);
 	}
 
 	#appendTooltip() {
-		(this.closest("body") || this.getRootNode()).appendChild(this.#tooltipElement);
+		(this.closest("body") || this.getRootNode()).appendChild(
+			this.#tooltipElement
+		);
 
 		// 如果 button 内部的文本内容超出了 button 的宽度，就显示 tooltip
 		// 否则就阻止 tooltip 的显示
@@ -91,15 +98,28 @@ export class xttButtonElement extends xttFormElementFactory("reflect") {
 				top: "-9999px",
 				left: "-9999px",
 				"font-size": css(this.#text, "font-size"),
-				"max-width": this.#text.getBoundingClientRect().width + 0.5 + "px",
+				"max-width":
+					this.#text.getBoundingClientRect().width + 0.5 + "px",
 				"padding-inline-start": css(this.#text, "padding-inline-start"),
 				"padding-inline-end": css(this.#text, "padding-inline-end"),
 				"padding-block-start": css(this.#text, "padding-block-start"),
 				"padding-block-end": css(this.#text, "padding-block-end"),
-				"border-inline-start-width": css(this.#text, "border-inline-start-width"),
-				"border-inline-end-width": css(this.#text, "border-inline-end-width"),
-				"border-block-start-width": css(this.#text, "border-block-start-width"),
-				"border-block-end-width": css(this.#text, "border-block-end-width"),
+				"border-inline-start-width": css(
+					this.#text,
+					"border-inline-start-width"
+				),
+				"border-inline-end-width": css(
+					this.#text,
+					"border-inline-end-width"
+				),
+				"border-block-start-width": css(
+					this.#text,
+					"border-block-start-width"
+				),
+				"border-block-end-width": css(
+					this.#text,
+					"border-block-end-width"
+				),
 				"box-sizing": "border-box",
 				"text-align": "start"
 			});
@@ -141,12 +161,18 @@ export class xttButtonElement extends xttFormElementFactory("reflect") {
 				let firedEl = testSlotChildNodes[0];
 
 				// 如果第一个元素是空文本节点，就判断第二个元素，因为换行符等空白符也会被解析为文本节点，而这些文本是没有任何意义的
-				if (firedEl?.nodeType === Node.TEXT_NODE && !firedEl?.textContent.trim()) {
+				if (
+					firedEl?.nodeType === Node.TEXT_NODE &&
+					!firedEl?.textContent.trim()
+				) {
 					firedEl = testSlotChildNodes[1];
 					testSlotChildNodes.shift();
 				}
 
-				if (firedEl?.tagName === "XTT-ICON" || firedEl?.classList?.has?.("xtt-icon")) {
+				if (
+					firedEl?.tagName === "XTT-ICON" ||
+					firedEl?.classList?.has?.("xtt-icon")
+				) {
 					firedEl.slot = "icon";
 					this.classList.remove("no-icon");
 					testSlotChildNodes.shift();
@@ -177,5 +203,28 @@ export class xttButtonElement extends xttFormElementFactory("reflect") {
 	}
 	get #textSlot() {
 		return this.shadowRoot.getElementById("textSlot");
+	}
+
+	get line() {
+		return Number(this.getAttribute("line"));
+	}
+	set line(value) {
+		if (value === null) {
+			this.removeAttribute("line");
+			this.style.removeProperty("--button-line-clamp");
+			return;
+		}
+
+		value = Number(value);
+
+		if (isNaN(value)) {
+			throw new TypeError("line must be a number or null");
+		}
+
+		this.style.setProperty("--button-line-clamp", value);
+
+		if (this.line !== value) {
+			this.setAttribute("line", value);
+		}
 	}
 }

@@ -49,6 +49,7 @@
 		"@mdi/js": "^7.2.96",
 		"github-markdown-css": "^5.2.0",
 		"highlight.js": "^11.8.0",
+		"lil-gui": "^0.19.1",
 		"marked": "^5.0.5",
 		"marked-gfm-heading-id": "^3.0.4",
 		"marked-highlight": "^2.0.1",

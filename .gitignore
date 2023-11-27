@@ -5,3 +5,4 @@ package-lock.json
 
 # 项目内部标签的打包后的文件
 _internal/xtt-index.js
+_internal/lil-gui.js

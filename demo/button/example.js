@@ -1,40 +1,54 @@
 import "./load.js";
-
-const appendBtn = document.createElement("xtt-button");
-appendBtn.textContent = "Append";
-document.querySelector("section").querySelector("p").insertAdjacentElement("beforebegin", appendBtn);
+import GUI from "../../_internal/lil-gui.js";
 
 const operate = document.getElementById("operate");
 
-const content = document.getElementById("content");
-document.getElementById("getContent").addEventListener("click", () => {
-	content.value = operate.textContent;
-});
-document.getElementById("setContent").addEventListener("click", () => {
-	operate.textContent = content.value;
+const gui = new GUI({
+	container: document.querySelector(".operate-wrapper")
 });
 
-document.getElementById("setMaxWidth").addEventListener("click", () => {
-	const value = document.getElementById("maxWidth").value;
+const obj = {
+	content: "default",
+	maxWidth: -1,
+	line: 1,
+	hasIcon: false
+};
+
+gui.add(obj, "content").onChange((value) => {
+	operate.textContent = value;
+});
+gui.add(obj, "maxWidth", -1).onChange((value) => {
+	if (value === -1) {
+		operate.style.maxWidth = "";
+		return;
+	}
 	operate.style.maxWidth = value + "px";
 });
-
-document.getElementById("setline").addEventListener("click", () => {
-	const value = document.getElementById("lineValue").value;
-	operate.setAttribute("line", value);
+gui.add(obj, "line", 1).onChange((value) => {
+	if (value === 1) {
+		operate.line = null;
+		return;
+	}
+	operate.line = value;
+});
+gui.add(obj, "hasIcon").onChange((value) => {
+	if (value) {
+		const icon = document.createElement("xtt-icon");
+		icon.setAttribute("icon", "power");
+		icon.slot = "icon";
+		operate.appendChild(icon);
+	} else {
+		const icon = operate.querySelector("xtt-icon");
+		icon?.remove();
+	}
 });
 
-document.getElementById("setIcon").addEventListener("click", () => {
-	const icon = document.createElement("xtt-icon");
-	icon.setAttribute("icon", "power");
-	icon.slot = "icon";
-	operate.appendChild(icon);
-});
-
-document.getElementById("removeIcon").addEventListener("click", () => {
-	const icon = operate.querySelector("xtt-icon");
-	icon?.remove();
-});
+const appendBtn = document.createElement("xtt-button");
+appendBtn.textContent = "Append";
+document
+	.querySelectorAll("section")[1]
+	.querySelector("p")
+	.insertAdjacentElement("beforebegin", appendBtn);
 
 document.getElementById("setPrimary").addEventListener("click", () => {
 	operate.setAttribute("type", "primary");

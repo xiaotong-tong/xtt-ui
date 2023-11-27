@@ -100,6 +100,16 @@ export default [
 		plugins: [html(), commonjs(), css(), nodeResolve()]
 	},
 
+	// 将 lil-gui 打包到 _internal 目录下
+	{
+		input: "node_modules/lil-gui",
+		output: {
+			file: "_internal/lil-gui.js",
+			format: "esm"
+		},
+		plugins: [commonjs(), nodeResolve()]
+	},
+
 	// 打包 d.ts 文件
 	{
 		input: "types/index.d.ts",
