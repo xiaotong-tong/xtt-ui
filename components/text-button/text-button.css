@@ -1,0 +1,38 @@
+:host {
+	--text-button-font-color: inherit;
+	--text-button-bg-color-hover: hsl(0 0% 95%);
+	--text-button-bg-color-active: hsl(0 0% 90%);
+}
+:host([type="primary"]) {
+	--text-button-font-color: var(--primary-color);
+}
+:host([type="danger"]) {
+	--text-button-font-color: var(--danger-color);
+}
+:host([type="success"]) {
+	--text-button-font-color: var(--success-color);
+}
+:host([type="warning"]) {
+	--text-button-font-color: var(--warning-color);
+}
+:host([type="base"]) {
+	--text-button-bg-color-hover: inherit;
+	--text-button-bg-color-active: inherit;
+}
+
+:host {
+	border: none;
+	background-color: transparent;
+	color: var(--text-button-font-color, inherit);
+}
+
+@media (hover: hover) {
+	:host(:hover) {
+		background-color: var(--text-button-bg-color-hover);
+		color: var(--text-button-font-color, inherit);
+	}
+}
+
+:host(:active) {
+	background-color: var(--text-button-bg-color-active, transparent);
+}

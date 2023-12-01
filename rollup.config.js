@@ -48,6 +48,7 @@ export default [
 		input: {
 			"xtt-icon": "components/xtt-icon.js",
 			"xtt-button": "components/xtt-button.js",
+			"xtt-text-button": "components/xtt-text-button.js",
 			"xtt-icon-button": "components/xtt-icon-button.js",
 			"xtt-link": "components/xtt-link.js",
 			"xtt-tooltip": "components/xtt-tooltip.js",

@@ -11,7 +11,11 @@
 		"prestart": "npm run build",
 		"start": "serve -n",
 		"prebuild": "rimraf dist",
-		"build": "rollup -c rollup.config.js"
+		"build": "rollup -c rollup.config.js",
+		"predocs:dev": "npm run build",
+		"docs:dev": "vitepress dev docs",
+		"docs:build": "vitepress build docs",
+		"docs:preview": "vitepress preview docs"
 	},
 	"exports": {
 		".": {
@@ -43,7 +47,8 @@
 		"rollup-plugin-dts": "^6.0.0",
 		"rollup-plugin-html": "^0.2.1",
 		"rollup-plugin-import-css": "^3.3.5",
-		"serve": "^14.2.0"
+		"serve": "^14.2.0",
+		"vitepress": "^1.0.0-rc.31"
 	},
 	"dependencies": {
 		"@mdi/js": "^7.2.96",

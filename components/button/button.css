@@ -4,7 +4,6 @@
 	--button-padding: 4px 10px;
 	--button-border-color: hsl(0, 0%, 75%);
 	--button-border-radius: 4px;
-	--button-column-gap: 8px;
 	--button-focus-outline: thin dotted black;
 
 	--button-line-clamp: 1;
@@ -16,47 +15,56 @@
 :host([type="primary"]) {
 	--button-bg-color: var(--primary-color);
 	--button-bg-color-hover: var(--primary-light-color);
+	--button-bg-color-active: var(--primary-dark-color);
+
 	--button-font-color: white;
 	--button-font-color-hover: white;
-	--button-border-color: var(--primary-color);
 
-	--button-bg-color-active: var(--primary-dark-color);
+	--button-border-color: var(--primary-color);
+	--button-border-color-hover: var(--primary-light-color);
 }
 :host([type="danger"]) {
 	--button-bg-color: var(--danger-color);
 	--button-bg-color-hover: var(--danger-light-color);
+	--button-bg-color-active: var(--danger-dark-color);
+
 	--button-font-color: white;
 	--button-font-color-hover: white;
-	--button-border-color: var(--danger-color);
 
-	--button-bg-color-active: var(--danger-dark-color);
+	--button-border-color: var(--danger-color);
 	--button-border-color-hover: var(--danger-light-color);
 }
+:host([type="success"]) {
+	--button-bg-color: var(--success-color);
+	--button-bg-color-hover: var(--success-light-color);
+	--button-bg-color-active: var(--success-dark-color);
+
+	--button-font-color: white;
+	--button-font-color-hover: white;
+
+	--button-border-color: var(--success-color);
+	--button-border-color-hover: var(--success-light-color);
+}
+:host([type="warning"]) {
+	--button-bg-color: var(--warning-color);
+	--button-bg-color-hover: var(--warning-light-color);
+	--button-bg-color-active: var(--warning-dark-color);
+
+	--button-font-color: white;
+	--button-font-color-hover: white;
+
+	--button-border-color: var(--warning-color);
+	--button-border-color-hover: var(--warning-light-color);
+}
 :host([type="base"]) {
-	--button-bg-color: transparent;
-	--button-bg-color-hover: transparent;
 	--button-font-color-hover: inherit;
-	--button-border-color-hover: silver;
-}
-:host([text]) {
-	--button-bg-color: transparent;
-	--button-font-color: inherit;
-
-	--button-bg-color-hover: hsl(0 0% 95%);
-	--button-font-color-hover: inherit;
-
-	--button-bg-color-active: hsl(0 0% 90%);
-}
-:host([text][type="primary"]) {
-	--button-font-color: var(--primary-color);
-	--button-font-color-hover: var(--primary-color);
-}
-:host([text][type="danger"]) {
-	--button-font-color: var(--danger-color);
-	--button-font-color-hover: var(--danger-color);
+	--button-border-color-hover: var(--button-border-color);
 }
 :host([size="large"]) {
 	--button-padding: 8px 15px;
+}
+:host([size="small"]) {
+	--button-padding: 1px 4px;
 }
 
 :host(:focus) {
@@ -71,18 +79,12 @@
 	cursor: pointer;
 	overflow-wrap: break-word;
 	max-width: 100%;
-	font-size: inherit;
 	border-radius: var(--button-border-radius, 4px);
 	padding: var(--button-padding, 4px 10px);
-	column-gap: var(--button-column-gap, 8px);
 	background-color: var(--button-bg-color, transparent);
 	border-color: var(--button-border-color, silver);
 	color: var(--button-font-color, inherit);
 	transition: background-color 0.2s;
-}
-
-:host([text]) {
-	border: none;
 }
 
 /* 检测设备是否支持 hover */

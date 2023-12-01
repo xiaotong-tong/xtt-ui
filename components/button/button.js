@@ -3,13 +3,6 @@ import style from "./button.css" assert { type: "css" };
 import { css } from "xtt-utils";
 import html from "./button.html";
 
-/**
- * @description button component
- * @slot icon - icon to display
- * @slot - text to display
- * @example <xtt-button>Button</xtt-button>
- */
-
 export class xttButtonElement extends xttFormElementFactory("reflect") {
 	static templateContent = html;
 	static stylesContent = [...super.stylesContent, style];
@@ -17,7 +10,10 @@ export class xttButtonElement extends xttFormElementFactory("reflect") {
 	static get observedAttributes() {
 		return [
 			...super.observedAttributes,
+			"type",
 			"line",
+			"size",
+			"block",
 			"data-xtt-tooltip",
 			"data-aria-type"
 		];
@@ -173,6 +169,45 @@ export class xttButtonElement extends xttFormElementFactory("reflect") {
 
 		if (this.line !== value) {
 			this.setAttribute("line", value);
+		}
+	}
+
+	get type() {
+		return this.getAttribute("type");
+	}
+	set type(value) {
+		if (value === null) {
+			this.removeAttribute("type");
+			return;
+		}
+
+		if (this.type !== value) {
+			this.setAttribute("type", value);
+		}
+	}
+
+	get size() {
+		return this.getAttribute("size");
+	}
+	set size(value) {
+		if (value === null) {
+			this.removeAttribute("size");
+			return;
+		}
+
+		if (this.size !== value) {
+			this.setAttribute("size", value);
+		}
+	}
+
+	get block() {
+		return this.hasAttribute("block");
+	}
+	set block(value) {
+		if (value) {
+			this.toggleAttribute("block", true);
+		} else {
+			this.removeAttribute("block");
 		}
 	}
 }

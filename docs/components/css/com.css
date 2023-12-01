@@ -1,0 +1,25 @@
+.operate-wrapper {
+	display: flex;
+	outline: thin solid #ccc;
+}
+
+.operate-wrapper > .operate-content {
+	flex: 1 1 auto;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	min-height: 300px;
+	padding: 8px;
+}
+
+.operate-wrapper > .lil-gui {
+	flex: none;
+}
+
+.wrap > * {
+	margin-block-end: 8px;
+}
+
+.wrap > :not([block]) {
+	margin-inline-end: 16px;
+}

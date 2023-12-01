@@ -1,6 +1,7 @@
 import "./components/xtt-tooltip.js";
 import "./components/xtt-icon.js";
 import "./components/xtt-button.js";
+import "./components/xtt-text-button.js";
 import "./components/xtt-icon-button.js";
 import "./components/xtt-link.js";
 import "./components/xtt-select.js";
