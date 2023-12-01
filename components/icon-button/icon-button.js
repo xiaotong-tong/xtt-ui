@@ -74,4 +74,32 @@ export class xttIconButtonElement extends xttFormElementFactory() {
 		}
 		this.#tooltipElement.refreshTooltipContent(this);
 	}
+
+	get size() {
+		return this.getAttribute("size");
+	}
+	set size(value) {
+		if (value === null) {
+			this.removeAttribute("size");
+			return;
+		}
+
+		if (this.size !== value) {
+			this.setAttribute("size", value);
+		}
+	}
+
+	get type() {
+		return this.getAttribute("type");
+	}
+	set type(value) {
+		if (value === null) {
+			this.removeAttribute("type");
+			return;
+		}
+
+		if (this.type !== value) {
+			this.setAttribute("type", value);
+		}
+	}
 }

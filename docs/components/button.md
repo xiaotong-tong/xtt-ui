@@ -1,7 +1,9 @@
 <script setup>
-import { onMounted } from 'vue'
+import { onMounted, onUnmounted } from 'vue'
 import "./css/com.css"
 import GUI from "lil-gui";
+
+let gui;
 
 onMounted(async () => {
 	await Promise.all([
@@ -11,7 +13,7 @@ onMounted(async () => {
 
 	const operate = document.getElementById("operate");
 
-	const gui = new GUI({
+	gui = new GUI({
 		container: document.querySelector(".operate-wrapper")
 	});
 
@@ -62,6 +64,10 @@ onMounted(async () => {
 	gui.add(obj, "disabled").onChange((value) => {
 		operate.disabled = value
 	});
+});
+
+onUnmounted(() => {
+	gui.destroy();
 });
 </script>
 

@@ -79,6 +79,7 @@
 	align-items: center;
 	justify-content: center;
 	box-sizing: border-box;
+	vertical-align: middle;
 	border: thin solid;
 	border-color: var(--icon-button-border-color, silver);
 	cursor: pointer;
