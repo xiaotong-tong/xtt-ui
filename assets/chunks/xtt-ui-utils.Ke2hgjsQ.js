@@ -1,0 +1,1 @@
+const n=i=>(i.id||(i.id="xttId"+ ++n.uId),i);n.uId=0;const f=(i,o,t)=>{const a=i.getAttribute(o);let u=a?a.split(" "):[];if(t.length)t.forEach(d=>{const c=n(d).id;u.includes(c)||u.push(c)});else if((t==null?void 0:t.nodeType)===1){const d=n(t).id;u.includes(d)||u.push(d)}return i.setAttribute(o,u.join(" ")),i};export{f as a,n as u};
