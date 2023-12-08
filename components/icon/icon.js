@@ -1,13 +1,6 @@
 import { xttBaseElement } from "../com/base.js";
 import style from "./icon.css" assert { type: "css" };
-import {
-	mdiPower,
-	mdiChevronDown,
-	mdiPlus,
-	mdiMinus,
-	mdiClose,
-	mdiMusicNote
-} from "@mdi/js";
+import { mdiPower, mdiChevronDown, mdiPlus, mdiMinus, mdiClose, mdiMusicNote } from "@mdi/js";
 
 export class xttIconElement extends xttBaseElement {
 	static templateContent = `<slot></slot>`;
@@ -23,10 +16,7 @@ export class xttIconElement extends xttBaseElement {
 			this.role = "img";
 		}
 
-		this.style.setProperty(
-			"--icon-default-size",
-			window.getComputedStyle(this).fontSize || "24px"
-		);
+		this.style.setProperty("--icon-default-size", window.getComputedStyle(this).fontSize || "24px");
 	}
 
 	attributeChangedCallback(name, oldValue, newValue) {
@@ -40,34 +30,28 @@ export class xttIconElement extends xttBaseElement {
 	}
 
 	#setIcon(iconName) {
-		switch (iconName) {
-			case "power":
-				this.innerHTML = this.#getSvg(mdiPower);
-				break;
-			case "chevronDown":
-				this.innerHTML = this.#getSvg(mdiChevronDown);
-				break;
-			case "plus":
-				this.innerHTML = this.#getSvg(mdiPlus);
-				break;
-			case "minus":
-				this.innerHTML = this.#getSvg(mdiMinus);
-				break;
-			case "close":
-				this.innerHTML = this.#getSvg(mdiClose);
-				break;
-			case "musicNote":
-				this.innerHTML = this.#getSvg(mdiMusicNote);
-				break;
-			default:
-				this.innerHTML = "";
-		}
+		const iconMap = {
+			power: mdiPower,
+			chevronDown: mdiChevronDown,
+			plus: mdiPlus,
+			minus: mdiMinus,
+			close: mdiClose,
+			musicNote: mdiMusicNote
+		};
+
+		this.innerHTML = iconMap[iconName] ? this.#getSvg(iconMap[iconName]) : "";
 	}
 
 	get icon() {
 		return this.getAttribute("icon");
 	}
 	set icon(value) {
+		if (value === null) {
+			this.removeAttribute("type");
+			this.innerHTML = "";
+			return;
+		}
+
 		if (value !== this.icon) {
 			this.setAttribute("icon", value);
 		}

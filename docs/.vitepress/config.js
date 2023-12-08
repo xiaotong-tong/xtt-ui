@@ -21,6 +21,10 @@ export default defineConfig({
 						link: "/components/text-button"
 					},
 					{
+						text: "icon",
+						link: "/components/icon"
+					},
+					{
 						text: "icon-button",
 						link: "/components/icon-button"
 					}
@@ -28,9 +32,7 @@ export default defineConfig({
 			}
 		],
 
-		socialLinks: [
-			{ icon: "github", link: "https://github.com/xiaotong-tong/xtt-ui" }
-		]
+		socialLinks: [{ icon: "github", link: "https://github.com/xiaotong-tong/xtt-ui" }]
 	},
 	vue: {
 		template: {

@@ -64,9 +64,6 @@ export default [
 			"xtt-number-field": "components/xtt-number-field.js",
 			"xtt-sound": "components/xtt-sound.js",
 
-			// plugins 目录下的文件，因为不是组件，是鼠标动画效果，所以单独打包到 plugins 目录下
-			"plugins/xtt-mouseSnow": "plugins/xtt-mouseSnow.js",
-
 			// 以下为没有打包到 index 中的组件, 想要使用的话需要单独手动引入
 			"xtt-web-bg": "components/xtt-web-bg.js",
 			"xtt-msg": "components/xtt-msg.js",
