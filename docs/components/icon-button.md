@@ -68,25 +68,23 @@ onUnmounted(() => {
 </section>
 
 <p>
-	添加 data-xtt-tooltip 属性可以显示 tooltip
+	添加 data-xtt-tooltip 属性可以显示 tooltip, 如果没有特别情况请尽可能的添加该属性，因为屏幕阅读器不认识图标，添加该属性可以让屏幕阅读器读出 tooltip 的内容，如果不想显示 tooltip，可以使用 aria-label 等属性来替代
 </p>
 
 ```html
 <xtt-icon-button><xtt-icon icon="power">power</xtt-icon></xtt-icon-button>
 <xtt-icon-button><xtt-icon icon="close">close</xtt-icon></xtt-icon-button>
 <xtt-icon-button>X</xtt-icon-button>
-<xtt-icon-button disabled
-	><xtt-icon icon="power">power</xtt-icon></xtt-icon-button
->
-<xtt-icon-button autofocus
-	><xtt-icon icon="power">power</xtt-icon></xtt-icon-button
->
+<xtt-icon-button disabled><xtt-icon icon="power">power</xtt-icon></xtt-icon-button>
+<xtt-icon-button autofocus><xtt-icon icon="power">power</xtt-icon></xtt-icon-button>
 <xtt-icon-button data-xtt-tooltip="power icon">
 	<xtt-icon icon="power">power</xtt-icon>
 </xtt-icon-button>
 ```
 
 ## type 样式
+
+type 会更改按钮的显示风格，目前支持 6 种风格，分别为 primary、danger、success、warning、base、default
 
 <section class="wrap">
 	<xtt-icon-button type="primary"><xtt-icon icon="power">power</xtt-icon></xtt-icon-button>
@@ -98,25 +96,17 @@ onUnmounted(() => {
 </section>
 
 ```html
-<xtt-icon-button type="primary"
-	><xtt-icon icon="power">power</xtt-icon></xtt-icon-button
->
-<xtt-icon-button type="danger"
-	><xtt-icon icon="power">power</xtt-icon></xtt-icon-button
->
-<xtt-icon-button type="success"
-	><xtt-icon icon="power">power</xtt-icon></xtt-icon-button
->
-<xtt-icon-button type="warning"
-	><xtt-icon icon="power">power</xtt-icon></xtt-icon-button
->
-<xtt-icon-button type="base"
-	><xtt-icon icon="power">power</xtt-icon></xtt-icon-button
->
+<xtt-icon-button type="primary"><xtt-icon icon="power">power</xtt-icon></xtt-icon-button>
+<xtt-icon-button type="danger"><xtt-icon icon="power">power</xtt-icon></xtt-icon-button>
+<xtt-icon-button type="success"><xtt-icon icon="power">power</xtt-icon></xtt-icon-button>
+<xtt-icon-button type="warning"><xtt-icon icon="power">power</xtt-icon></xtt-icon-button>
+<xtt-icon-button type="base"><xtt-icon icon="power">power</xtt-icon></xtt-icon-button>
 <xtt-icon-button><xtt-icon icon="power">power</xtt-icon></xtt-icon-button>
 ```
 
 ## size 尺寸
+
+按钮尺寸，目前支持 3 种尺寸，分别为 large、default、small
 
 <section class="wrap">
 	<xtt-icon-button size="large"><xtt-icon icon="power">power</xtt-icon></xtt-icon-button>
@@ -125,11 +115,7 @@ onUnmounted(() => {
 </section>
 
 ```html
-<xtt-icon-button size="large"
-	><xtt-icon icon="power">power</xtt-icon></xtt-icon-button
->
+<xtt-icon-button size="large"><xtt-icon icon="power">power</xtt-icon></xtt-icon-button>
 <xtt-icon-button><xtt-icon icon="power">power</xtt-icon></xtt-icon-button>
-<xtt-icon-button size="small"
-	><xtt-icon icon="power">power</xtt-icon></xtt-icon-button
->
+<xtt-icon-button size="small"><xtt-icon icon="power">power</xtt-icon></xtt-icon-button>
 ```

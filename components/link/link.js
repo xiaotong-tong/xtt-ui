@@ -63,4 +63,40 @@ export class xttLinkElement extends xttBaseElement {
 	toString() {
 		return this.#link.toString();
 	}
+
+	get type() {
+		return this.getAttribute("type");
+	}
+	set type(value) {
+		if (value === null) {
+			this.removeAttribute("type");
+			return;
+		}
+
+		if (this.type !== value) {
+			this.setAttribute("type", value);
+		}
+	}
+
+	get inlineBlock() {
+		return this.hasAttribute("inline-block");
+	}
+	set inlineBlock(value) {
+		if (value) {
+			this.toggleAttribute("inline-block", true);
+		} else {
+			this.removeAttribute("inline-block");
+		}
+	}
+
+	get block() {
+		return this.hasAttribute("block");
+	}
+	set block(value) {
+		if (value) {
+			this.toggleAttribute("block", true);
+		} else {
+			this.removeAttribute("block");
+		}
+	}
 }

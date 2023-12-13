@@ -1,6 +1,4 @@
 :host {
-	--link-inline-align: center;
-
 	--link-font-color: inherit;
 	--link-font-color-hover: inherit;
 	--link-font-color-active: inherit;
@@ -8,18 +6,46 @@
 	--link-focus-outline: thin dotted black;
 }
 
-:host(:is([block], [inline-block])) {
-	--link-padding: 4px 10px;
-}
-
-:host([block]) {
-	--link-hover-bg-color: var(--grey-light-color);
-}
-
 :host([type="primary"]) {
 	--link-font-color: var(--primary-color);
 	--link-font-color-hover: var(--primary-light-color);
 	--link-font-color-active: var(--primary-dark-color);
+}
+
+:host([type="success"]) {
+	--link-font-color: var(--success-color);
+	--link-font-color-hover: var(--success-light-color);
+	--link-font-color-active: var(--success-dark-color);
+}
+:host([type="danger"]) {
+	--link-font-color: var(--danger-color);
+	--link-font-color-hover: var(--danger-light-color);
+	--link-font-color-active: var(--danger-dark-color);
+}
+:host([type="warning"]) {
+	--link-font-color: var(--warning-color);
+	--link-font-color-hover: var(--warning-light-color);
+	--link-font-color-active: var(--warning-dark-color);
+}
+
+:host(:is([block], [inline-block])) {
+	--link-padding: 4px 10px;
+	--link-inline-align: center;
+}
+
+/* link 默认是 inline 元素 */
+:host {
+	display: inline;
+}
+:host([inline-block]) {
+	display: inline-block;
+	max-width: 100%;
+}
+:host([block]) {
+	--link-hover-bg-color: var(--grey-light-color);
+
+	display: block;
+	width: 100%;
 }
 
 #link {
@@ -33,7 +59,6 @@
 	max-width: 100%;
 	justify-content: var(--link-inline-align);
 	box-sizing: border-box;
-
 	padding: var(--link-padding, 4px 10px);
 }
 :host([block]) #link {
@@ -41,13 +66,13 @@
 	width: 100%;
 }
 
-:host([block]) #link:hover {
-	background-color: var(--link-hover-bg-color);
-}
-
 @media (hover: hover) {
 	#link:hover {
 		color: var(--link-font-color-hover, inherit);
+	}
+
+	:host([block]) #link:hover {
+		background-color: var(--link-hover-bg-color);
 	}
 }
 
@@ -58,15 +83,4 @@
 #link:focus {
 	outline: var(--link-focus-outline);
 	outline-offset: 1px;
-}
-
-/* link 默认是 inline 元素 */
-:host {
-	display: inline;
-}
-:host([inline-block]) {
-	display: inline-block;
-}
-:host([block]) {
-	display: block;
 }

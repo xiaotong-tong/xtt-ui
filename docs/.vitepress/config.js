@@ -27,6 +27,10 @@ export default defineConfig({
 					{
 						text: "icon-button",
 						link: "/components/icon-button"
+					},
+					{
+						text: "link",
+						link: "/components/link"
 					}
 				]
 			}

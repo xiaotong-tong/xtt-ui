@@ -95,14 +95,15 @@ onUnmounted(() => {
 ```html
 <xtt-text-button>default</xtt-text-button>
 <xtt-text-button style="max-width: 200px"
-	>long long long long long long long long text with max width is
-	200px</xtt-text-button
+	>long long long long long long long long text with max width is 200px</xtt-text-button
 >
 <xtt-text-button disabled>disabled</xtt-text-button>
 <xtt-text-button autofocus>autofocus</xtt-text-button>
 ```
 
 ## type 样式
+
+type 会更改按钮的显示风格，目前支持 6 种风格，分别为 primary、danger、success、warning、base、default
 
 <section class="wrap">
 	<xtt-text-button type="primary">primary</xtt-text-button>
@@ -124,6 +125,8 @@ onUnmounted(() => {
 
 ## size 尺寸
 
+按钮尺寸，目前支持 3 种尺寸，分别为 large、default、small
+
 <section class="wrap">
 	<xtt-text-button size="large">large</xtt-text-button>
 	<xtt-text-button>default</xtt-text-button>
@@ -138,26 +141,34 @@ onUnmounted(() => {
 
 ## block
 
+将按钮转换为块级元素。
+
 <section class="wrap">
 	<xtt-text-button block>block</xtt-text-button>
 	<xtt-text-button type="primary" block>block</xtt-text-button>
 	<xtt-text-button type="danger" block>block</xtt-text-button>
+	<xtt-text-button type="success" block>block</xtt-text-button>
+	<xtt-text-button type="warning" block>block</xtt-text-button>
+	<xtt-text-button type="base" block>block</xtt-text-button>
 </section>
 
 ```html
 <xtt-text-button block>block</xtt-text-button>
 <xtt-text-button type="primary" block>block</xtt-text-button>
 <xtt-text-button type="danger" block>block</xtt-text-button>
+<xtt-text-button type="success" block>block</xtt-text-button>
+<xtt-text-button type="warning" block>block</xtt-text-button>
+<xtt-text-button type="base" block>block</xtt-text-button>
 ```
 
 ## line
+
+设置按钮内文字的最大行数，当文字超出最大行数时，会显示 ... 省略号。默认为 1
 
 <section class="wrap">
 	<xtt-text-button style="max-width: 200px" line="2">long long long long long long long long text</xtt-text-button>
 </section>
 
 ```html
-<xtt-text-button style="max-width: 200px" line="2"
-	>long long long long long long long long text</xtt-text-button
->
+<xtt-text-button style="max-width: 200px" line="2">long long long long long long long long text</xtt-text-button>
 ```

@@ -98,17 +98,14 @@ onUnmounted(() => {
 
 ```html
 <xtt-button>default</xtt-button>
-<xtt-button style="max-width: 200px"
-	>long long long long long long long long text with max width is
-	200px</xtt-button
->
+<xtt-button style="max-width: 200px">long long long long long long long long text with max width is 200px</xtt-button>
 <xtt-button disabled>disabled</xtt-button>
 <xtt-button autofocus>autofocus</xtt-button>
 ```
 
 ## type 样式
 
-type 会更改按钮的显示风格，目前支持 4 种风格，分别为 default、primary、danger、base
+type 会更改按钮的显示风格，目前支持 6 种风格，分别为 primary、danger、success、warning、base、default
 
 <section class="wrap">
 	<xtt-button type="primary">primary</xtt-button>
@@ -130,6 +127,8 @@ type 会更改按钮的显示风格，目前支持 4 种风格，分别为 defau
 
 ## size 尺寸
 
+按钮尺寸，目前支持 3 种尺寸，分别为 large、default、small
+
 <section class="wrap">
 	<xtt-button size="large">large</xtt-button>
 	<xtt-button>default</xtt-button>
@@ -144,26 +143,34 @@ type 会更改按钮的显示风格，目前支持 4 种风格，分别为 defau
 
 ## block
 
+将按钮转换为块级元素。
+
 <section class="wrap">
 	<xtt-button block>block</xtt-button>
 	<xtt-button type="primary" block>block</xtt-button>
 	<xtt-button type="danger" block>block</xtt-button>
+	<xtt-button type="success" block>block</xtt-button>
+	<xtt-button type="warning" block>block</xtt-button>
+	<xtt-button type="base" block>block</xtt-button>
 </section>
 
 ```html
 <xtt-button block>block</xtt-button>
 <xtt-button type="primary" block>block</xtt-button>
 <xtt-button type="danger" block>block</xtt-button>
+<xtt-button type="success" block>block</xtt-button>
+<xtt-button type="warning" block>block</xtt-button>
+<xtt-button type="base" block>block</xtt-button>
 ```
 
 ## line
+
+设置按钮内文字的最大行数，当文字超出最大行数时，会显示 ... 省略号。默认为 1
 
 <section class="wrap">
 	<xtt-button style="max-width: 200px" line="2">long long long long long long long long text</xtt-button>
 </section>
 
 ```html
-<xtt-button style="max-width: 200px" line="2"
-	>long long long long long long long long text</xtt-button
->
+<xtt-button style="max-width: 200px" line="2">long long long long long long long long text</xtt-button>
 ```
