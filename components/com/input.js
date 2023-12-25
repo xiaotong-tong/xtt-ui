@@ -50,6 +50,10 @@ export class xttInputElement extends xttFormElementFactory() {
 	}
 	set readOnly(value) {
 		this.focusableElement.readOnly = value;
+
+		if (this.getAttribute("readonly") !== value) {
+			this.toggleAttribute("readonly", value);
+		}
 	}
 
 	get maxLength() {

@@ -27,4 +27,15 @@ export class xttInputFieldElement extends xttInputElement {
 	get #input() {
 		return this.shadowRoot.getElementById("input");
 	}
+
+	get block() {
+		return this.hasAttribute("block");
+	}
+	set block(value) {
+		if (value) {
+			this.toggleAttribute("block", true);
+		} else {
+			this.removeAttribute("block");
+		}
+	}
 }

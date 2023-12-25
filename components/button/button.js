@@ -8,15 +8,7 @@ export class xttButtonElement extends xttFormElementFactory("reflect") {
 	static stylesContent = [...super.stylesContent, style];
 
 	static get observedAttributes() {
-		return [
-			...super.observedAttributes,
-			"type",
-			"line",
-			"size",
-			"block",
-			"data-xtt-tooltip",
-			"data-aria-type"
-		];
+		return [...super.observedAttributes, "type", "line", "size", "block", "data-xtt-tooltip", "data-aria-type"];
 	}
 
 	observeOptions = {
@@ -68,9 +60,7 @@ export class xttButtonElement extends xttFormElementFactory("reflect") {
 	}
 
 	#appendTooltip() {
-		(this.closest("body") || this.getRootNode()).appendChild(
-			this.#tooltipElement
-		);
+		(this.closest("body") || this.getRootNode()).appendChild(this.#tooltipElement);
 
 		// 如果 button 内部的文本内容超出了 button 的宽度，就显示 tooltip
 		// 否则就阻止 tooltip 的显示
@@ -94,28 +84,15 @@ export class xttButtonElement extends xttFormElementFactory("reflect") {
 				top: "-9999px",
 				left: "-9999px",
 				"font-size": css(this.#text, "font-size"),
-				"max-width":
-					this.#text.getBoundingClientRect().width + 0.5 + "px",
+				"max-width": this.#text.getBoundingClientRect().width + 0.5 + "px",
 				"padding-inline-start": css(this.#text, "padding-inline-start"),
 				"padding-inline-end": css(this.#text, "padding-inline-end"),
 				"padding-block-start": css(this.#text, "padding-block-start"),
 				"padding-block-end": css(this.#text, "padding-block-end"),
-				"border-inline-start-width": css(
-					this.#text,
-					"border-inline-start-width"
-				),
-				"border-inline-end-width": css(
-					this.#text,
-					"border-inline-end-width"
-				),
-				"border-block-start-width": css(
-					this.#text,
-					"border-block-start-width"
-				),
-				"border-block-end-width": css(
-					this.#text,
-					"border-block-end-width"
-				),
+				"border-inline-start-width": css(this.#text, "border-inline-start-width"),
+				"border-inline-end-width": css(this.#text, "border-inline-end-width"),
+				"border-block-start-width": css(this.#text, "border-block-start-width"),
+				"border-block-end-width": css(this.#text, "border-block-end-width"),
 				"box-sizing": "border-box",
 				"text-align": "start"
 			});
