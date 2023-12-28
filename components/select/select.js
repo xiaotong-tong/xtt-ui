@@ -104,6 +104,8 @@ export class xttSelectElement extends xttFormElementFactory("reflect") {
 				case "ArrowDown":
 				case "ArrowUp":
 					this.#showPopover();
+					ev.preventDefault();
+					ev.stopPropagation();
 					break;
 			}
 		});
@@ -185,7 +187,8 @@ export class xttSelectElement extends xttFormElementFactory("reflect") {
 			if (target.tagName === "XTT-OPTION") {
 				const options = this.shadowRoot.querySelectorAll("xtt-option");
 				const focusedOption =
-					this.shadowRoot.querySelector("xtt-option:focus") || this.shadowRoot.querySelector("xtt-option[selected]");
+					this.shadowRoot.querySelector("xtt-option:focus") ||
+					this.shadowRoot.querySelector("xtt-option[selected]");
 
 				switch (ev.key) {
 					case "Enter":
@@ -196,9 +199,13 @@ export class xttSelectElement extends xttFormElementFactory("reflect") {
 						break;
 					case "ArrowDown":
 						this.#getNextCanFocusOption("next", options, focusedOption).focus();
+						ev.preventDefault();
+						ev.stopPropagation();
 						break;
 					case "ArrowUp":
 						this.#getNextCanFocusOption("prev", options, focusedOption).focus();
+						ev.preventDefault();
+						ev.stopPropagation();
 						break;
 					case "Escape":
 					case "Tab":

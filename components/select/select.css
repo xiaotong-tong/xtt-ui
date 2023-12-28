@@ -19,9 +19,6 @@
 	display: -webkit-box;
 	flex: 1;
 }
-#select::part(icon) {
-	order: 2;
-}
 
 #icon {
 	font-size: 24px;
