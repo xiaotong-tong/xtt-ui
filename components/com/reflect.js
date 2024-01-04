@@ -28,6 +28,13 @@ export class xttRelectElement extends xttBaseElement {
 							this._reflectElementTextRemoved(node);
 						}
 					});
+				} else if (mutation.type === "attributes") {
+					this._reflectElementAttributeChanged(
+						mutation.attributeName,
+						mutation.oldValue,
+						mutation.target.getAttribute(mutation.attributeName),
+						mutation.target
+					);
 				}
 			});
 		});
@@ -48,4 +55,6 @@ export class xttRelectElement extends xttBaseElement {
 	_reflectElementTextAdded() {}
 	_reflectElementNodeRemoved() {}
 	_reflectElementTextRemoved() {}
+
+	_reflectElementAttributeChanged() {}
 }

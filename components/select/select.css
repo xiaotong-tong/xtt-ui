@@ -11,17 +11,19 @@
 	max-width: 100%;
 }
 
-#select::part(button) {
-	align-items: center;
-	width: 100%;
+#select {
+	position: relative;
 }
+
 #select::part(text) {
-	display: -webkit-box;
-	flex: 1;
+	padding-inline-end: 1em;
 }
 
 #icon {
 	font-size: 24px;
+	position: absolute;
+	right: 2px;
+	top: 4px;
 }
 
 #popover {
@@ -32,6 +34,7 @@
 }
 #popover[open] {
 	display: block;
+	z-index: 99999;
 }
 
 #popover #popoverContent {
@@ -59,17 +62,18 @@ xtt-option[selected] {
 xtt-option:focus {
 	outline: 1px dotted silver;
 }
-xtt-option:not([selected]):focus {
+xtt-option:not(:is([selected], [disabled])):focus {
 	background-color: var(--select-option-active-bg-color);
 }
 
 /* disabled 状态 */
 xtt-option[disabled] {
 	opacity: 0.5;
+	cursor: default;
 }
 
 @media (hover: hover) {
-	xtt-option:not([selected]):hover {
+	xtt-option:not(:is([selected], [disabled])):hover {
 		background-color: var(--select-option-active-bg-color);
 	}
 }

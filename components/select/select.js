@@ -7,9 +7,13 @@ export class xttSelectElement extends xttFormElementFactory("reflect") {
 	static templateContent = html;
 	static stylesContent = [...super.stylesContent, style];
 
-	// static get observedAttributes() {
-	// 	return [...super.observedAttributes];
-	// }
+	observeOptions = {
+		subtree: true,
+		childList: true,
+		attributes: true,
+		attributeFilter: ["label"],
+		attributeOldValue: true,
+	};
 
 	focusableElement = this.#select;
 
@@ -22,15 +26,21 @@ export class xttSelectElement extends xttFormElementFactory("reflect") {
 		this.#handleEventOfSelect();
 	}
 
-	// attributeChangedCallback(name, oldValue, newValue) {
-	// 	super.attributeChangedCallback?.(name, oldValue, newValue);
-	// }
-
 	_reflectElementNodeAdded(node) {
 		this.#elementContentChanged(node);
 	}
 	_reflectElementNodeRemoved(node) {
 		this.#elementContentChanged(node);
+	}
+
+	_reflectElementAttributeChanged(name, oldValue, newValue, target) {
+		if (name === "label") {
+			this.#selectMinWidth();
+
+			if (target.hasAttribute("selected")) {
+				this.#refreshSelectTrigger();
+			}
+		}
 	}
 
 	#refreshSelectTrigger() {
@@ -42,7 +52,9 @@ export class xttSelectElement extends xttFormElementFactory("reflect") {
 			selectedOption?.setAttribute("selected", "");
 		}
 
-		this.#text.textContent = selectedOption?.getAttribute("label") || selectedOption?.textContent;
+		this.#text.textContent =
+			selectedOption?.getAttribute("label") ||
+			selectedOption?.textContent;
 	}
 
 	#selectMinWidth() {
@@ -56,17 +68,28 @@ export class xttSelectElement extends xttFormElementFactory("reflect") {
 
 		options.forEach((option) => {
 			const text = option.getAttribute("label") || option.textContent;
-			const maxContent = maxContentOption.getAttribute("label") || maxContentOption.textContent;
+			const maxContent =
+				maxContentOption.getAttribute("label") ||
+				maxContentOption.textContent;
 
 			if (text.length > maxContent.length) {
 				maxContentOption = option;
 			}
 		});
 
-		this.#text.textContent = maxContentOption.getAttribute("label") || maxContentOption.textContent;
+		const copySelect = this.#select.cloneNode(true);
 
-		const w = this.#select.getBoundingClientRect().width;
+		copySelect.querySelector("#text").textContent =
+			maxContentOption.getAttribute("label") ||
+			maxContentOption.textContent;
+
+		document.body.appendChild(copySelect);
+
+		const w = copySelect.getBoundingClientRect().width;
 		this.#select.style.minWidth = `min(${w}px, 100%)`;
+		this.style.minWidth = `min(${w}px, 100%)`;
+
+		copySelect.remove();
 	}
 
 	#elementContentChanged(el) {
@@ -152,10 +175,14 @@ export class xttSelectElement extends xttFormElementFactory("reflect") {
 			} else if (!option.hasAttribute("disabled")) {
 				optionElement.ariaSelected = false;
 			}
-			optionElement.toggleAttribute("disabled", option.hasAttribute("disabled"));
+			optionElement.toggleAttribute(
+				"disabled",
+				option.hasAttribute("disabled")
+			);
 			optionElement.setAttribute("value", option.value);
 
-			optionElement.textContent = option.getAttribute("label") || option.textContent;
+			optionElement.textContent =
+				option.getAttribute("label") || option.textContent;
 
 			this.#popoverContent.appendChild(optionElement);
 		});
@@ -198,12 +225,20 @@ export class xttSelectElement extends xttFormElementFactory("reflect") {
 						ev.preventDefault();
 						break;
 					case "ArrowDown":
-						this.#getNextCanFocusOption("next", options, focusedOption).focus();
+						this.#getNextCanFocusOption(
+							"next",
+							options,
+							focusedOption
+						).focus();
 						ev.preventDefault();
 						ev.stopPropagation();
 						break;
 					case "ArrowUp":
-						this.#getNextCanFocusOption("prev", options, focusedOption).focus();
+						this.#getNextCanFocusOption(
+							"prev",
+							options,
+							focusedOption
+						).focus();
 						ev.preventDefault();
 						ev.stopPropagation();
 						break;
@@ -220,23 +255,47 @@ export class xttSelectElement extends xttFormElementFactory("reflect") {
 			this.#closePopover();
 		};
 
-		wrapperElement.addEventListener("click", this.#handleEventListOfPopover.click);
-		wrapperElement.addEventListener("keydown", this.#handleEventListOfPopover.keydown);
+		wrapperElement.addEventListener(
+			"click",
+			this.#handleEventListOfPopover.click
+		);
+		wrapperElement.addEventListener(
+			"keydown",
+			this.#handleEventListOfPopover.keydown
+		);
 
-		document.addEventListener("scroll", this.#handleEventListOfPopover.docScroll);
+		document.addEventListener(
+			"scroll",
+			this.#handleEventListOfPopover.docScroll
+		);
 		// click 的事件需要延迟绑定，否则会导致点击的时候立即触发关闭，因为此时还在冒泡阶段
 		setTimeout(() => {
-			document.addEventListener("click", this.#handleEventListOfPopover.docClick);
+			document.addEventListener(
+				"click",
+				this.#handleEventListOfPopover.docClick
+			);
 		}, 0);
 	}
 	#removeEventOfPopover() {
 		const wrapperElement = this.#popoverContent;
 
-		wrapperElement.removeEventListener("click", this.#handleEventListOfPopover.click);
-		wrapperElement.removeEventListener("keydown", this.#handleEventListOfPopover.keydown);
+		wrapperElement.removeEventListener(
+			"click",
+			this.#handleEventListOfPopover.click
+		);
+		wrapperElement.removeEventListener(
+			"keydown",
+			this.#handleEventListOfPopover.keydown
+		);
 
-		document.removeEventListener("click", this.#handleEventListOfPopover.docClick);
-		document.removeEventListener("scroll", this.#handleEventListOfPopover.docScroll);
+		document.removeEventListener(
+			"click",
+			this.#handleEventListOfPopover.docClick
+		);
+		document.removeEventListener(
+			"scroll",
+			this.#handleEventListOfPopover.docScroll
+		);
 	}
 
 	#getNextCanFocusOption(direction, allOptions, activeOption) {
@@ -278,7 +337,10 @@ export class xttSelectElement extends xttFormElementFactory("reflect") {
 	}
 
 	#changePopoverPosition() {
-		displayPopover(this.#select, this.#popoverContent, ["block-end", "block-start"]);
+		displayPopover(this.#select, this.#popoverContent, [
+			"block-end",
+			"block-start",
+		]);
 	}
 
 	get value() {
@@ -289,7 +351,9 @@ export class xttSelectElement extends xttFormElementFactory("reflect") {
 
 		options.some((option) => {
 			if (option.value === val) {
-				this.querySelector("option[selected]").removeAttribute("selected");
+				this.querySelector("option[selected]").removeAttribute(
+					"selected"
+				);
 				option.setAttribute("selected", "");
 				this.#refreshSelectTrigger();
 				return true;
