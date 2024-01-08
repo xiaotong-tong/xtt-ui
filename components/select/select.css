@@ -13,6 +13,11 @@
 
 #select {
 	position: relative;
+	line-height: 1.5em;
+	min-height: calc(
+		1.5em + 10px
+	); /* 10px 是 padding-block 和 border-block 的和 */
+	vertical-align: middle;
 }
 
 #select::part(text) {

@@ -8,8 +8,7 @@
 	"types": "dist/index.d.ts",
 	"typings": "dist/index.d.ts",
 	"scripts": {
-		"prestart": "npm run build",
-		"start": "serve -n",
+		"start": "npm run docs:dev",
 		"prebuild": "rimraf dist",
 		"build": "rollup -c rollup.config.js",
 		"predocs:dev": "npm run build",

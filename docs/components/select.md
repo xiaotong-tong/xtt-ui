@@ -127,6 +127,7 @@ onUnmounted(() => {
 		<option label="option2"></option>
 		<option label="option3"></option>
 	</xtt-select>
+	<xtt-select></xtt-select>
 </section>
 
 ```html
@@ -146,4 +147,5 @@ onUnmounted(() => {
 	<option label="option2"></option>
 	<option label="option3"></option>
 </xtt-select>
+<xtt-select></xtt-select>
 ```
