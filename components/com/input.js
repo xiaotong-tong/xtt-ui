@@ -100,4 +100,16 @@ export class xttInputElement extends xttFormElementFactory() {
 			this.setAttribute("placeholder", value);
 		}
 	}
+
+	// 是否为块级元素
+	get block() {
+		return this.hasAttribute("block");
+	}
+	set block(value) {
+		if (value) {
+			this.toggleAttribute("block", true);
+		} else {
+			this.removeAttribute("block");
+		}
+	}
 }

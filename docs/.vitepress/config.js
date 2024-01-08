@@ -33,12 +33,16 @@ export default defineConfig({
 						link: "/components/link"
 					},
 					{
+						text: "select",
+						link: "/components/select"
+					},
+					{
 						text: "input",
 						link: "/components/input"
 					},
 					{
-						text: "select",
-						link: "/components/select"
+						text: "numberfield",
+						link: "/components/numberfield"
 					}
 				]
 			}

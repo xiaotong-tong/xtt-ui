@@ -12,10 +12,6 @@ export class xttNumberFieldElement extends xttInputElement {
 
 	focusableElement = this.#input;
 
-	constructor() {
-		super();
-	}
-
 	connectedCallback() {
 		super.connectedCallback();
 
@@ -44,6 +40,9 @@ export class xttNumberFieldElement extends xttInputElement {
 		});
 
 		const spinBtnsMouseEventHandler = (plused, byTouch) => {
+			// 如果当前是 readonly 或者 disabled 状态，则不执行任何操作
+			if (this.readOnly || this.disabled) return;
+
 			const refreshValue = () => {
 				let value = this.value;
 
@@ -142,5 +141,16 @@ export class xttNumberFieldElement extends xttInputElement {
 	}
 	set step(value) {
 		this.#input.step = value;
+	}
+
+	// 重写 disabled，在 disabled 时加减按钮也跟着 disabled
+	get disabled() {
+		return super.disabled;
+	}
+	set disabled(value) {
+		super.disabled = value;
+
+		this.#minus.disabled = value;
+		this.#plus.disabled = value;
 	}
 }

@@ -12,6 +12,7 @@
 
 :host([block]) {
 	display: block;
+	width: 100%;
 }
 
 #input {
@@ -37,18 +38,9 @@
 
 #minus,
 #plus {
-	--button-border-radius: 0;
-
 	position: absolute;
-	inset-block-start: 0;
 	height: 100%;
 }
-
-#minus::part(icon),
-#plus::part(icon) {
-	align-items: center;
-}
-
 #minus {
 	inset-inline-end: 38px;
 	border-inline-end: none;
