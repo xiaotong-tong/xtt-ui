@@ -83,6 +83,15 @@ export function xttFormElementFactory(extend) {
 		}
 		set disabled(value) {
 			this.focusableElement.toggleAttribute("disabled", value);
+
+			if (this.getAttribute("disabled") !== value) {
+				if (value === null) {
+					this.focusableElement.removeAttribute("disabled");
+					return;
+				}
+
+				this.toggleAttribute("disabled", value);
+			}
 		}
 
 		get autofocus() {

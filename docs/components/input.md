@@ -22,6 +22,7 @@ onMounted(async () => {
 		maxWidth: -1,
 		block: false,
 		readOnly: false,
+		disabled: false
 	};
 
 	const valueController = gui.add(obj, "value").onChange((value) => {
@@ -43,6 +44,9 @@ onMounted(async () => {
 	});
 	gui.add(obj, "readOnly").onChange((value) => {
 		operate.readOnly = value;
+	});
+	gui.add(obj, "disabled").onChange((value) => {
+		operate.disabled = value;
 	});
 	
 	operate.addEventListener("input", (e) => {
@@ -73,6 +77,7 @@ onUnmounted(() => {
 	<xtt-input placeholder="placeholder" />
 	<xtt-input value="input value" />
 	<xtt-input value="readonly value" readonly />
+	<xtt-input value="disabled value" disabled />
 </section>
 
 ```html
@@ -80,6 +85,7 @@ onUnmounted(() => {
 <xtt-input placeholder="placeholder" />
 <xtt-input value="input value" />
 <xtt-input value="readonly value" readonly />
+<xtt-input value="disabled value" disabled />
 ```
 
 ## block
