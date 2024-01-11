@@ -7,7 +7,7 @@ export class xttListElement extends xttRelectElement {
 	static observeOptions = { childList: true, subtree: true };
 
 	static get observedAttributes() {
-		return ["col-count"];
+		return ["cols"];
 	}
 
 	#resizeObserver;
@@ -17,14 +17,16 @@ export class xttListElement extends xttRelectElement {
 
 		this.#resizeObserver = new ResizeObserver((entries) => {
 			for (let entry of entries) {
-				this.#resize(entry.contentRect);
+				this.#resize(entry.borderBoxSize[0]);
 			}
 		});
 	}
 
 	connectedCallback() {
 		super.connectedCallback();
-		if (this.getAttribute("col-count") === null) {
+
+		// 如果没有设置 cols 属性，则默认使用响应式布局
+		if (this.cols === null) {
 			this.#startResizeObserver();
 		}
 		this.querySelectorAll("xtt-list-item").forEach(this.#listItemAdded);
@@ -36,13 +38,8 @@ export class xttListElement extends xttRelectElement {
 	}
 
 	attributeChangedCallback(name, oldValue, newValue) {
-		if (name === "col-count") {
-			if (newValue === null) {
-				this.#startResizeObserver();
-			} else {
-				this.style.setProperty("--list-col-count", Number(newValue));
-				this.#stopResizeObserver();
-			}
+		if (name === "cols") {
+			this.cols = newValue;
 		}
 	}
 
@@ -62,6 +59,9 @@ export class xttListElement extends xttRelectElement {
 		if (!this.#resizeObserverStarted) {
 			this.#resizeObserver.observe(this.#list);
 			this.#resizeObserverStarted = true;
+
+			// 启动响应式布局时自动触发一次 resize 函数，以便初始化列数
+			this.#resize(this.#list.getBoundingClientRect());
 		}
 	}
 	#stopResizeObserver() {
@@ -91,7 +91,8 @@ export class xttListElement extends xttRelectElement {
 	}
 
 	#resize(rect) {
-		let newColCount = this.#getDefaultColCount(rect.width);
+		const inlineSize = rect.inlineSize || rect.width;
+		let newColCount = this.#getDefaultColCount(inlineSize);
 
 		// 向外部暴露 xtt-resize事件
 		// 同时暴露了一个 detail 对象，该对象有三个属性：width、now、next
@@ -100,7 +101,7 @@ export class xttListElement extends xttRelectElement {
 		// next：如果不取消事件，下一次的列数
 		// 外部用户可以修改 next 的值，从而改变列数
 		let options = {
-			width: rect.width,
+			width: inlineSize,
 			now: this.#activeColCount,
 			next: newColCount
 		};
@@ -116,7 +117,7 @@ export class xttListElement extends xttRelectElement {
 			return false;
 		}
 
-		newColCount = Number(options.next);
+		newColCount = parseInt(options.next);
 
 		if (this.#activeColCount === newColCount) {
 			return;
@@ -127,4 +128,24 @@ export class xttListElement extends xttRelectElement {
 	}
 
 	onChildrenAddedCallback = Function.prototype;
+
+	get cols() {
+		return this.getAttribute("cols");
+	}
+	set cols(value) {
+		if (value === null || value === 0 || value === "") {
+			// 如果取消 cols 属性，则使用响应式布局
+			this.removeAttribute("cols");
+			this.#startResizeObserver();
+			return;
+		}
+
+		if (this.cols !== value) {
+			// 如果设置了 cols 属性，则取消响应式布局，使用 cols 设置的列数
+			this.setAttribute("cols", value);
+		}
+
+		this.style.setProperty("--list-col-count", value);
+		this.#stopResizeObserver();
+	}
 }

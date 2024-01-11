@@ -43,6 +43,10 @@ export default defineConfig({
 					{
 						text: "numberfield",
 						link: "/components/numberfield"
+					},
+					{
+						text: "list",
+						link: "/components/list"
 					}
 				]
 			}
