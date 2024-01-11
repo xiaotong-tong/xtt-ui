@@ -7,7 +7,7 @@ let gui;
 
 onMounted(async () => {
 	await Promise.all([
-		import("../../dist/xtt-list.js")
+		import("../../dist/xtt-list-next.js")
 	])
 
 	const operate = document.getElementById("operate");
@@ -22,35 +22,31 @@ onMounted(async () => {
 		100: 2,
 		200: 4,
 		300: 6,
-		cols: 3,
-		setCols: function() {
-			operate.cols = obj.cols === 0 ? null : obj.cols;
-		}
 	};
+
+	const refresh = () => {
+		if (obj.width >= 300) {
+			operate.cols = obj[300];
+		} else if (obj.width >= 200) {
+			operate.cols = obj[200];
+		} else if (obj.width >= 100) {
+			operate.cols = obj[100];
+		} else {
+			operate.cols = obj[0];
+		}
+	}
 
 	gui.add(obj, 'width', 0, 400).onChange((val) => {
 		operate.style.width = `${val}px`;
+		refresh();
 	});
+	
+	refresh();
 
 	gui.add(obj, '0', 0, 10, 1);
 	gui.add(obj, '100', 0, 10, 1);
 	gui.add(obj, '200', 0, 10, 1);
 	gui.add(obj, '300', 0, 10, 1);
-
-	operate.addEventListener("xtt-resize", (ev) => {
-		if (ev.detail.width >= 300) {
-			ev.detail.next = obj[300];
-		} else if (ev.detail.width >= 200) {
-			ev.detail.next = obj[200];
-		} else if (ev.detail.width >= 100) {
-			ev.detail.next = obj[100];
-		} else {
-			ev.detail.next = obj[0];
-		}
-	});
-
-	gui.add(obj, 'cols', 0, 10, 1);
-	gui.add(obj, 'setCols');
 });
 
 onUnmounted(() => {
@@ -58,13 +54,13 @@ onUnmounted(() => {
 });
 </script>
 
-# List 列表
+# List Next 列表
 
-列表组件，用于展示一系列有序的信息。
+列表组件，用于展示一系列有序的信息。与 List 组件不同的是，List Next 组件基于 CSS 容器查询实现，List 组件基于 resizeObserver 实现。
 
 <section class="operate-wrapper">
 	<div class="operate-content">
-		<xtt-list id="operate" style="width: 300px">
+		<xtt-list-next id="operate" style="width: 300px">
 			<xtt-list-item>Item 1</xtt-list-item>
 			<xtt-list-item>Item 2</xtt-list-item>
 			<xtt-list-item>Item 3</xtt-list-item>
@@ -77,7 +73,7 @@ onUnmounted(() => {
 			<xtt-list-item>Item 10</xtt-list-item>
 			<xtt-list-item>Item 11</xtt-list-item>
 			<xtt-list-item>Item 12</xtt-list-item>
-		</xtt-list>
+		</xtt-list-next>
 	</div>
 </section>
 
@@ -97,12 +93,12 @@ onUnmounted(() => {
 
 &gt; 0px --> 1 列
 
-如果想要自定义宽度与列数的对应关系，可以通过监听 `xtt-resize` 事件来实现。
+如果想要自定义宽度与列数的对应关系，可以通过监听宽度变化然后更改 `cols` 属性来实现。
 
-改变 `xtt-resize` 事件的 `event.detail.next` 属性，可以改变列数。
+> 注意：list-next 没有 `xtt-resize` 事件。
 
 <section class="wrap">
-	<xtt-list style="resize: horizontal">
+	<xtt-list-next style="resize: horizontal">
 		<xtt-list-item>Item 1</xtt-list-item>
 		<xtt-list-item>Item 2</xtt-list-item>
 		<xtt-list-item>Item 3</xtt-list-item>
@@ -115,11 +111,11 @@ onUnmounted(() => {
 		<xtt-list-item>Item 10</xtt-list-item>
 		<xtt-list-item>Item 11</xtt-list-item>
 		<xtt-list-item>Item 12</xtt-list-item>
-	</xtt-list>
+	</xtt-list-next>
 </section>
 
 ```html
-<xtt-list style="resize: horizontal">
+<xtt-list-next style="resize: horizontal">
 	<xtt-list-item>Item 1</xtt-list-item>
 	<xtt-list-item>Item 2</xtt-list-item>
 	<xtt-list-item>Item 3</xtt-list-item>
@@ -132,14 +128,14 @@ onUnmounted(() => {
 	<xtt-list-item>Item 10</xtt-list-item>
 	<xtt-list-item>Item 11</xtt-list-item>
 	<xtt-list-item>Item 12</xtt-list-item>
-</xtt-list>
+</xtt-list-next>
 ```
 
 ## cols
 
 设置固定的列数
 
-<xtt-list cols="3" style="resize: horizontal">
+<xtt-list-next cols="3" style="resize: horizontal">
 	<xtt-list-item>Item 1</xtt-list-item>
 	<xtt-list-item>Item 2</xtt-list-item>
 	<xtt-list-item>Item 3</xtt-list-item>
@@ -152,10 +148,10 @@ onUnmounted(() => {
 	<xtt-list-item>Item 10</xtt-list-item>
 	<xtt-list-item>Item 11</xtt-list-item>
 	<xtt-list-item>Item 12</xtt-list-item>
-</xtt-list>
+</xtt-list-next>
 
 ```html
-<xtt-list cols="3" style="resize: horizontal">
+<xtt-list-next cols="3" style="resize: horizontal">
 	<xtt-list-item>Item 1</xtt-list-item>
 	<xtt-list-item>Item 2</xtt-list-item>
 	<xtt-list-item>Item 3</xtt-list-item>
@@ -168,5 +164,5 @@ onUnmounted(() => {
 	<xtt-list-item>Item 10</xtt-list-item>
 	<xtt-list-item>Item 11</xtt-list-item>
 	<xtt-list-item>Item 12</xtt-list-item>
-</xtt-list>
+</xtt-list-next>
 ```

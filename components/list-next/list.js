@@ -11,7 +11,7 @@ export class xttListNextElement extends xttRelectElement {
 	static observeOptions = { childList: true, subtree: true };
 
 	static get observedAttributes() {
-		return ["col-count"];
+		return ["cols"];
 	}
 
 	constructor() {
@@ -25,8 +25,8 @@ export class xttListNextElement extends xttRelectElement {
 	}
 
 	attributeChangedCallback(name, oldValue, newValue) {
-		if (name === "col-count") {
-			this.colCount = newValue;
+		if (name === "cols") {
+			this.cols = newValue;
 		}
 	}
 
@@ -47,15 +47,19 @@ export class xttListNextElement extends xttRelectElement {
 
 	onChildrenAddedCallback = Function.prototype;
 
-	get colCount() {
-		return Number(css(this, "--list-col-count") || css(this.#list, "--default-col-count"));
+	get cols() {
+		return this.getAttribute("cols") || Number(css(this.#list, "--default-col-count"));
 	}
-
-	set colCount(value) {
-		if (value) {
-			css(this, "--list-col-count", Number(value));
-		} else {
-			css(this, "--list-col-count", null);
+	set cols(value) {
+		if (value === null || value === 0 || value === "") {
+			this.removeAttribute("cols");
+			return;
 		}
+
+		if (this.cols !== value) {
+			this.setAttribute("cols", value);
+		}
+
+		css(this, "--list-col-count", value);
 	}
 }
