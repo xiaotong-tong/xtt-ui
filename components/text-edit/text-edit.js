@@ -21,17 +21,21 @@ export class xttTextEditElement extends xttFormElementFactory() {
 		super.connectedCallback();
 
 		if (!this.hasAttribute("readonly")) {
-			this.toggleAttribute("contenteditable", "plaintext-only");
-			this.tabIndex = 1;
+			this.contenteditable = "plaintext-only";
+
+			// 如果没有设置 tabindex 属性，那么就设置为 1
+			if (!this.hasAttribute("tabindex")) {
+				this.tabIndex = 1;
+			}
 		}
 	}
 
 	attributeChangedCallback(name, oldValue, newValue) {
 		if (name === "readonly") {
 			if (newValue !== null) {
-				this.removeAttribute("contenteditable");
+				this.contentEditable = false;
 			} else {
-				this.toggleAttribute("contenteditable", "plaintext-only");
+				this.contenteditable = "plaintext-only";
 			}
 		} else if (name === "rows") {
 			this.#contentHeight(newValue);
@@ -90,5 +94,19 @@ export class xttTextEditElement extends xttFormElementFactory() {
 	}
 	set value(value) {
 		this.textContent = value;
+	}
+
+	get disabled() {
+		return super.disabled;
+	}
+	set disabled(value) {
+		super.disabled = value;
+		this.tabIndex = value ? -1 : 1;
+
+		if (value) {
+			this.contentEditable = false;
+		} else {
+			this.contenteditable = "plaintext-only";
+		}
 	}
 }

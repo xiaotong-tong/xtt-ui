@@ -49,6 +49,10 @@ export default defineConfig({
 						link: "/components/textarea"
 					},
 					{
+						text: "text-edit",
+						link: "/components/text-edit"
+					},
+					{
 						text: "list",
 						link: "/components/list"
 					},
