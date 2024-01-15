@@ -45,6 +45,10 @@ export default defineConfig({
 						link: "/components/numberfield"
 					},
 					{
+						text: "textarea",
+						link: "/components/textarea"
+					},
+					{
 						text: "list",
 						link: "/components/list"
 					},

@@ -31,7 +31,7 @@ export class xttTextareaElement extends xttInputElement {
 
 	attributeChangedCallback(name, oldValue, newValue) {
 		if (name === "rows") {
-			this.#textarea.rows = newValue || 3;
+			this.rows = newValue;
 		} else if (name === "autosize") {
 			// 如果还没有连接到DOM，那么就先记录下来，等连接到DOM后再执行
 			// 因为在没有连接到DOM的时候，无法获取正确获取的 textarea 的一些 css 样式
@@ -126,5 +126,47 @@ export class xttTextareaElement extends xttInputElement {
 		if (this.getAttribute("autosize") !== null) {
 			this.#autoResize(true);
 		}
+	}
+
+	get rows() {
+		return Number(this.#textarea.rows);
+	}
+	set rows(value) {
+		if (value === null) {
+			this.#textarea.removeAttribute("rows");
+			this.removeAttribute("rows");
+			return;
+		}
+
+		value = Number(value);
+
+		if (this.rows !== value) {
+			this.#textarea.rows = value;
+			this.setAttribute("rows", value);
+		}
+	}
+
+	get autosize() {
+		return this.hasAttribute("autosize");
+	}
+	set autosize(value) {
+		if (value === null || value === false) {
+			this.removeAttribute("autosize");
+			this.#autoResize(false);
+			return;
+		}
+
+		if (this.autosize !== value) {
+			this.setAttribute("autosize", "");
+		}
+
+		// 如果还没有连接到DOM，那么就先记录下来，等连接到DOM后再执行
+		// 因为在没有连接到DOM的时候，无法获取正确获取的 textarea 的一些 css 样式
+		// 在计算高度的时候，会出现错误
+		if (this.isConnected === false) {
+			this.#autosizeWhenConnected = newValue !== null;
+			return;
+		}
+		this.#autoResize(true);
 	}
 }
