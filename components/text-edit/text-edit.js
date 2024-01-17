@@ -20,8 +20,8 @@ export class xttTextEditElement extends xttFormElementFactory() {
 	connectedCallback() {
 		super.connectedCallback();
 
-		if (!this.hasAttribute("readonly")) {
-			this.contenteditable = "plaintext-only";
+		if (!(this.hasAttribute("readonly") || this.hasAttribute("disabled"))) {
+			this.contentEditable = "plaintext-only";
 
 			// 如果没有设置 tabindex 属性，那么就设置为 1
 			if (!this.hasAttribute("tabindex")) {
@@ -35,7 +35,7 @@ export class xttTextEditElement extends xttFormElementFactory() {
 			if (newValue !== null) {
 				this.contentEditable = false;
 			} else {
-				this.contenteditable = "plaintext-only";
+				this.contentEditable = "plaintext-only";
 			}
 		} else if (name === "rows") {
 			this.#contentHeight(newValue);
@@ -106,7 +106,7 @@ export class xttTextEditElement extends xttFormElementFactory() {
 		if (value) {
 			this.contentEditable = false;
 		} else {
-			this.contenteditable = "plaintext-only";
+			this.contentEditable = "plaintext-only";
 		}
 	}
 }

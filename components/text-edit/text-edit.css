@@ -28,3 +28,8 @@
 :host(:focus) {
 	outline: var(--text-edit-focus-outline);
 }
+
+/* 不可编辑时如果没有内容元素高度会塌陷 */
+:host(:is([readonly], [disabled]):empty)::after {
+	content: " ";
+}
