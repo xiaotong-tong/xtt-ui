@@ -63,6 +63,10 @@ export default defineConfig({
 					{
 						text: "markdown",
 						link: "/components/markdown"
+					},
+					{
+						text: "tooltip",
+						link: "/components/tooltip"
 					}
 				]
 			}
