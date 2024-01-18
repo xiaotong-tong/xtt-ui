@@ -59,6 +59,10 @@ export default defineConfig({
 					{
 						text: "list-next",
 						link: "/components/list-next"
+					},
+					{
+						text: "markdown",
+						link: "/components/markdown"
 					}
 				]
 			}
