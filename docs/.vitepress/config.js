@@ -79,6 +79,10 @@ export default defineConfig({
 					{
 						text: "grid",
 						link: "/components/grid"
+					},
+					{
+						text: "sound",
+						link: "/components/sound"
 					}
 				]
 			}
