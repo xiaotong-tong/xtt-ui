@@ -31,7 +31,7 @@ export class xttPageNavElement extends xttRelectElement {
 
 	#contentChange(el) {
 		if (el.tagName === "XTT-LIST") {
-			el.setAttribute("col-count", "1");
+			el.setAttribute("cols", "1");
 
 			const parent = el.parentElement.closest("xtt-list,xtt-page-nav");
 

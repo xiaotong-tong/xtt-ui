@@ -65,8 +65,16 @@ export default defineConfig({
 						link: "/components/markdown"
 					},
 					{
+						text: "editor-md",
+						link: "/components/editor-md"
+					},
+					{
 						text: "tooltip",
 						link: "/components/tooltip"
+					},
+					{
+						text: "pageNav",
+						link: "/components/pageNav"
 					}
 				]
 			}
