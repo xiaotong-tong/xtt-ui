@@ -33,7 +33,7 @@ onMounted(async () => {
 });
 
 onUnmounted(() => {
-	gui.destroy();
+	// gui.destroy();
 });
 </script>
 

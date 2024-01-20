@@ -75,6 +75,10 @@ export default defineConfig({
 					{
 						text: "pageNav",
 						link: "/components/pageNav"
+					},
+					{
+						text: "grid",
+						link: "/components/grid"
 					}
 				]
 			}
