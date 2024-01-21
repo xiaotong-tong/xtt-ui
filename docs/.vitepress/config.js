@@ -83,6 +83,14 @@ export default defineConfig({
 					{
 						text: "sound",
 						link: "/components/sound"
+					},
+					{
+						text: "msg",
+						link: "/components/msg"
+					},
+					{
+						text: "dialog",
+						link: "/components/dialog"
 					}
 				]
 			}

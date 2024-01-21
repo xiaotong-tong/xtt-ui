@@ -1,6 +1,7 @@
 :host {
 	display: flex;
 	font-size: 14px;
+	width: 100%;
 }
 
 #left {

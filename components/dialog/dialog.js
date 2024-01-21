@@ -8,7 +8,7 @@ export class xttDialogElement extends xttBaseElement {
 	static stylesContent = [...super.stylesContent, style];
 
 	static get observedAttributes() {
-		return ["title"];
+		return ["title", "modal-close", "align-center"];
 	}
 
 	constructor() {
@@ -21,7 +21,7 @@ export class xttDialogElement extends xttBaseElement {
 		this.#refreshFooter();
 
 		this.#dialog.addEventListener("click", (event) => {
-			if (!this.hasAttribute("modal-close")) {
+			if (!this.modalClose) {
 				return;
 			}
 			const x = event.clientX;
@@ -43,6 +43,10 @@ export class xttDialogElement extends xttBaseElement {
 	attributeChangedCallback(name, oldValue, newValue) {
 		if (name === "title") {
 			this.title = newValue;
+		} else if (name === "modal-close") {
+			this.modalClose = newValue !== null;
+		} else if (name === "align-center") {
+			this.alignCenter = newValue !== null;
 		}
 	}
 
@@ -54,9 +58,8 @@ export class xttDialogElement extends xttBaseElement {
 		};
 
 		if (noCustomHeader()) {
-			const closeButton = document.createElement("xtt-button");
+			const closeButton = document.createElement("xtt-icon-button");
 			closeButton.setAttribute("slot", "header");
-			closeButton.setAttribute("text", "");
 			closeButton.classList.add("close");
 
 			const closeButtonIcon = document.createElement("xtt-icon");
@@ -220,5 +223,33 @@ export class xttDialogElement extends xttBaseElement {
 		this.#isRemoveTitleByPrivate = true;
 		this.removeAttribute("title");
 		this.#isRemoveTitleByPrivate = false;
+	}
+
+	get modalClose() {
+		return this.hasAttribute("modal-close");
+	}
+	set modalClose(value) {
+		if (!value) {
+			this.removeAttribute("modal-close");
+			return;
+		}
+
+		if (!this.hasAttribute("modal-close")) {
+			this.setAttribute("modal-close", "");
+		}
+	}
+
+	get alignCenter() {
+		return this.hasAttribute("align-center");
+	}
+	set alignCenter(value) {
+		if (!value) {
+			this.removeAttribute("align-center");
+			return;
+		}
+
+		if (!this.hasAttribute("align-center")) {
+			this.setAttribute("align-center", "");
+		}
 	}
 }
