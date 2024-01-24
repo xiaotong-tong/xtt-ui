@@ -113,4 +113,6 @@
 	-webkit-line-clamp: var(--button-line-clamp, 1);
 	overflow: hidden;
 	text-align: start;
+	/* 优化多行文本的每行文本显示字符数 */
+	text-wrap: balance;
 }
