@@ -182,9 +182,24 @@ export class xttButtonElement extends xttFormElementFactory("reflect") {
 	}
 	set block(value) {
 		if (value) {
-			this.toggleAttribute("block", true);
+			if (this.block !== true) {
+				this.toggleAttribute("block", true);
+			}
 		} else {
 			this.removeAttribute("block");
 		}
+	}
+
+	get rtl() {
+		return super.rtl;
+	}
+	set rtl(value) {
+		if (value) {
+			this.#text.dir = "rtl";
+		} else {
+			this.#text.removeAttribute("dir");
+		}
+
+		super.rtl = value;
 	}
 }

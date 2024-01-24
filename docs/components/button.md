@@ -25,6 +25,7 @@ onMounted(async () => {
 		block: false,
 		size: "default",
 		disabled: false,
+		rtl: false,
 	};
 
 	gui.add(obj, "content").onChange((value) => {
@@ -64,6 +65,9 @@ onMounted(async () => {
 	gui.add(obj, "disabled").onChange((value) => {
 		operate.disabled = value
 	});
+	gui.add(obj, "rtl").onChange(value => {
+		operate.rtl = value
+	})
 });
 
 onUnmounted(() => {
@@ -173,4 +177,16 @@ type 会更改按钮的显示风格，目前支持 6 种风格，分别为 prima
 
 ```html
 <xtt-button style="max-width: 200px" line="2">long long long long long long long long text</xtt-button>
+```
+
+## RTL
+
+设置按钮的文字方向为从右到左
+
+<xtt-button style="max-width: 200px" rtl>long long long long long long long long text with max width is 200px</xtt-button>
+
+```html
+<xtt-button style="max-width: 200px" rtl
+	>long long long long long long long long text with max width is 200px</xtt-button
+>
 ```

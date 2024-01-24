@@ -10,7 +10,7 @@ export function xttFormElementFactory(extend) {
 		static stylesContent = [...super.stylesContent, formStyle];
 
 		static get observedAttributes() {
-			return ["disabled", "autofocus"];
+			return ["disabled", "autofocus", "rtl"];
 		}
 
 		focusableElement = this;
@@ -38,6 +38,8 @@ export function xttFormElementFactory(extend) {
 				this.disabled = newValue !== null;
 			} else if (name === "autofocus") {
 				this.autofocus = newValue !== null;
+			} else if (name === "rtl") {
+				this.rtl = newValue !== null;
 			}
 		}
 
@@ -99,6 +101,19 @@ export function xttFormElementFactory(extend) {
 		}
 		set autofocus(value) {
 			this.focusableElement.toggleAttribute("autofocus", value);
+		}
+
+		get rtl() {
+			return this.focusableElement.hasAttribute("rtl");
+		}
+		set rtl(value) {
+			if (value) {
+				if (this.rtl !== true) {
+					this.focusableElement.toggleAttribute("rtl", true);
+				}
+			} else {
+				this.focusableElement.removeAttribute("rtl");
+			}
 		}
 	};
 }
