@@ -46,6 +46,15 @@ export default defineConfig({
 						]
 					},
 					{
+						text: "Text Box",
+						items: [
+							{
+								text: "text-box-theme-a",
+								link: "/components/text-box-theme-a"
+							}
+						]
+					},
+					{
 						text: "select",
 						link: "/components/select"
 					},

@@ -17,3 +17,4 @@ import "./components/xtt-dialog.js";
 import "./components/xtt-sound.js";
 import "./components/xtt-text.js";
 import "./components/xtt-text-enter.js";
+import "./components/xtt-text-box-theme-a.js";
