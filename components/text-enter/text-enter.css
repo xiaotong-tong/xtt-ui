@@ -1,0 +1,34 @@
+:host {
+	--text-font-color: inherit;
+	--text-font-color-hover: inherit;
+}
+
+:host([type="primary"]) {
+	--text-font-color: var(--primary-color);
+	--text-font-color-hover: var(--primary-light-color);
+}
+
+:host([type="success"]) {
+	--text-font-color: var(--success-color);
+	--text-font-color-hover: var(--success-light-color);
+}
+:host([type="danger"]) {
+	--text-font-color: var(--danger-color);
+	--text-font-color-hover: var(--danger-light-color);
+}
+:host([type="warning"]) {
+	--text-font-color: var(--warning-color);
+	--text-font-color-hover: var(--warning-light-color);
+}
+
+/* text 默认是 inline 元素 */
+:host {
+	display: inline;
+	color: var(--text-font-color, inherit);
+}
+
+@media (hover: hover) {
+	:host(:hover) {
+		color: var(--text-font-color-hover, inherit);
+	}
+}

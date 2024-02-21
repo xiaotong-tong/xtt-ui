@@ -15,3 +15,5 @@ import "./components/xtt-page-nav.js";
 import "./components/xtt-editor-md.js";
 import "./components/xtt-dialog.js";
 import "./components/xtt-sound.js";
+import "./components/xtt-text.js";
+import "./components/xtt-text-enter.js";

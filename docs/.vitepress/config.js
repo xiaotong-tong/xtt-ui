@@ -33,6 +33,19 @@ export default defineConfig({
 						link: "/components/link"
 					},
 					{
+						text: "Text",
+						items: [
+							{
+								text: "text",
+								link: "/components/text"
+							},
+							{
+								text: "text-enter",
+								link: "/components/text-enter"
+							}
+						]
+					},
+					{
 						text: "select",
 						link: "/components/select"
 					},
