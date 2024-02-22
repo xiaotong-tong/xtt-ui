@@ -13,7 +13,7 @@
 	position: relative;
 	width: 200px;
 	height: 100px;
-	padding: 0.5em 1em 1em;
+	padding: 0.5em 1.2em 1em;
 	/* transform: skewX(var(--text-box-skewX)); */
 	/* shape-outside: polygon(-10% 0, 90% 0, 110% 100%, 10% 100%); */
 }
@@ -27,98 +27,31 @@
 #box {
 	position: absolute;
 	inset: 0;
+	width: 100%;
+	height: 100%;
 	z-index: -1;
-	/* transform: skewX(var(--text-box-skewX)); */
-	background-image: linear-gradient(
-			to bottom,
-			var(--text-box-color) 0%,
-			var(--text-box-color) var(--text-box-width),
-			transparent var(--text-box-width),
-			transparent 100%
-		),
-		linear-gradient(
-			to right,
-			var(--text-box-color) 0%,
-			var(--text-box-color) var(--text-box-width),
-			transparent var(--text-box-width),
-			transparent calc(100% - var(--text-box-width)),
-			var(--text-box-color) calc(100% - var(--text-box-width)),
-			var(--text-box-color) 100%
-		);
-}
-#box::before {
-	content: "";
-	position: absolute;
-	inset-inline: 0;
-	inset-block-end: 0;
-	height: var(--text-box-width);
-	background-image: linear-gradient(
-		to right,
-		var(--text-box-color) 0%,
-		var(--text-box-color) 10%,
-		transparent 10%,
-		transparent 20%,
-		var(--text-box-color) 20%,
-		var(--text-box-color) 100%
-	);
-}
-#box::after {
-	content: "";
-	position: absolute;
-	inset-inline-start: 10%;
-	inset-block-end: 0;
-	height: var(--text-box-width);
-	width: 10%;
-	background-color: var(--text-box-color);
-	transform: rotate(-45deg);
+	fill: none;
+	stroke: var(--text-box-color);
+	stroke-width: var(--text-box-width);
 }
 
-#box-blur {
-	position: absolute;
-	inset: 0;
-	filter: blur(var(--text-box-blur-width));
-	z-index: -2;
-	/* transform: skewX(var(--text-box-skewX)); */
-	background-image: linear-gradient(
-			to bottom,
-			var(--text-box-blur-color) 0%,
-			var(--text-box-blur-color) var(--text-box-width),
-			transparent var(--text-box-width),
-			transparent 100%
-		),
-		linear-gradient(
-			to right,
-			var(--text-box-blur-color) 0%,
-			var(--text-box-blur-color) var(--text-box-width),
-			transparent var(--text-box-width),
-			transparent calc(100% - var(--text-box-width)),
-			var(--text-box-blur-color) calc(100% - var(--text-box-width)),
-			var(--text-box-blur-color) 100%
-		);
+#oLine,
+#oLineBack {
+	transform: rotate(-40deg);
 }
-#box-blur::before {
-	content: "";
-	position: absolute;
-	inset-inline: 0;
-	inset-block-end: 0;
-	height: var(--text-box-width);
-	background-image: linear-gradient(
-		to right,
-		var(--text-box-blur-color) 0%,
-		var(--text-box-blur-color) 10%,
-		transparent 10%,
-		transparent 20%,
-		var(--text-box-blur-color) 20%,
-		var(--text-box-blur-color) 100%
-	);
+
+#lineBack,
+#oLineBack {
+	filter: blur(max(var(--text-box-blur-width), 4px));
 }
-#box-blur::after {
-	content: "";
-	position: absolute;
-	inset-inline-start: 10%;
-	inset-block-end: 0;
-	height: var(--text-box-width);
-	width: 10%;
-	background-color: var(--text-box-blur-color);
-	transform: rotate(-45deg);
+
+#leftShape {
+	float: left;
+	height: 100%;
+	opacity: 0;
+}
+#rightShape {
+	float: right;
+	height: 100%;
+	opacity: 0;
 }

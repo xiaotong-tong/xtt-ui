@@ -54,6 +54,8 @@ onUnmounted(() => {
 
 <section class="wrap">
 	<xtt-text-box-theme-a>a b c d e f g h i j k l m n o p q r s t u v w x y z a b c d e f g h i j k l m n o p q r s t u v w x y z</xtt-text-box-theme-a>
+	<xtt-text-box-theme-a style="width:300px;height:200px;">a b c d e f g h i j k l m n o p q r s t u v w x y z a b c d e f g h i j k l m n o p q r s t u v w x y z</xtt-text-box-theme-a>
+	<xtt-text-box-theme-a skew="50" style="width:300px;height:200px;">a b c d e f g h i j k l m n o p q r s t u v w x y z a b c d e f g h i j k l m n o p q r s t u v w x y z a b c d e f g h i j k l m n o p q r s t u v w x y z a b c d e f g h i j k l m n o p q r s t u v w x y z a b c d e f g h i j k l m n o p q r s t u v w x y z</xtt-text-box-theme-a>
 </section>
 
 ```html
