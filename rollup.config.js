@@ -67,6 +67,8 @@ export default [
 			"xtt-number-field": "components/xtt-number-field.js",
 			"xtt-sound": "components/xtt-sound.js",
 
+			"xtt-dumpling": "components/xtt-dumpling.js",
+
 			// 以下为没有打包到 index 中的组件, 想要使用的话需要单独手动引入
 			"xtt-web-bg": "components/xtt-web-bg.js",
 			"xtt-msg": "components/xtt-msg.js",

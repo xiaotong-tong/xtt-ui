@@ -55,6 +55,10 @@ export default defineConfig({
 						]
 					},
 					{
+						text: "dumpling",
+						link: "/components/dumpling"
+					},
+					{
 						text: "select",
 						link: "/components/select"
 					},
