@@ -1,14 +1,18 @@
-import { xttBaseElement } from "../com/base.js";
+import { xttRelectElement } from "../com/reflect.js";
 import style from "./text-box-theme-a.css" assert { type: "css" };
 import html from "./index.html";
 import { css } from "xtt-utils";
 
-export class xttTextBoxThemeAElement extends xttBaseElement {
+export class xttTextBoxThemeAElement extends xttRelectElement {
 	static templateContent = html;
 	static stylesContent = [...super.stylesContent, style];
 
 	static get observedAttributes() {
 		return ["skew"];
+	}
+
+	get childElementTagName() {
+		return "XTT-P";
 	}
 
 	attributeChangedCallback(name, oldValue, newValue) {
@@ -18,7 +22,94 @@ export class xttTextBoxThemeAElement extends xttBaseElement {
 	}
 
 	connectedCallback() {
+		super.connectedCallback();
+
+		this.#contentPages();
+
 		this.#setViewBox();
+	}
+
+	_reflectElementAdded() {
+		this.#contentPages();
+	}
+	_reflectElementRemoved() {
+		this.#contentPages();
+	}
+
+	#contentPages() {
+		if (this.querySelectorAll(this.childElementTagName)?.length) {
+			const childs = this.querySelectorAll(this.childElementTagName);
+			let activedChild = this.querySelector(this.childElementTagName + ".active");
+
+			if (!activedChild) {
+				activedChild = childs[0];
+				activedChild.classList.add("active");
+			}
+
+			this.#doLastChild();
+
+			this.#textContent.replaceChildren(...activedChild.cloneNode(true).childNodes);
+			this.classList.add("hasChildList");
+
+			this.#handleEventWhenHasChildList();
+		} else {
+			// 克隆 this 的所有子节点，并将其添加到 textContent 中
+			const fragment = document.createDocumentFragment();
+			this.childNodes.forEach((node) => {
+				fragment.appendChild(node.cloneNode(true));
+			});
+			this.#textContent.replaceChildren(fragment);
+		}
+	}
+
+	#doLastChild() {
+		if (this.classList.contains("hasChildList")) {
+			const childs = this.querySelectorAll(this.childElementTagName);
+
+			const activedIndex = Array.from(childs).findIndex((child) => child.classList.contains("active"));
+
+			if (activedIndex === childs.length - 1) {
+				this.classList.add("last");
+			}
+		}
+	}
+
+	#handleEventWhenHasChildList() {
+		this.addEventListener("click", (e) => {
+			if (this.classList.contains("hasChildList") && !this.classList.contains("last")) {
+				const childs = this.querySelectorAll(this.childElementTagName);
+
+				const activedIndex = Array.from(childs).findIndex((child) => child.classList.contains("active"));
+
+				if (activedIndex < childs.length - 1) {
+					childs[activedIndex].classList.remove("active");
+					childs[activedIndex + 1].classList.add("active");
+
+					this.#textContent.replaceChildren(...childs[activedIndex + 1].cloneNode(true).childNodes);
+
+					this.#doLastChild();
+				}
+			}
+		});
+
+		this.addEventListener("auxclick", (e) => {
+			if (this.classList.contains("hasChildList")) {
+				const childs = this.querySelectorAll(this.childElementTagName);
+
+				const activedIndex = Array.from(childs).findIndex((child) => child.classList.contains("active"));
+
+				if (activedIndex > 0) {
+					childs[activedIndex].classList.remove("active");
+					childs[activedIndex - 1].classList.add("active");
+
+					this.#textContent.replaceChildren(...childs[activedIndex - 1].cloneNode(true).childNodes);
+
+					this.#doLastChild();
+				}
+
+				this.classList.remove("last");
+			}
+		});
 	}
 
 	get #box() {
@@ -41,6 +132,9 @@ export class xttTextBoxThemeAElement extends xttBaseElement {
 	}
 	get #rightShape() {
 		return this.shadowRoot.getElementById("rightShape");
+	}
+	get #textContent() {
+		return this.shadowRoot.getElementById("textContent");
 	}
 
 	#setViewBox() {

@@ -13,15 +13,13 @@
 	position: relative;
 	width: 200px;
 	height: 100px;
-	padding: 0.5em 1.2em 1em;
-	/* transform: skewX(var(--text-box-skewX)); */
-	/* shape-outside: polygon(-10% 0, 90% 0, 110% 100%, 10% 100%); */
+	padding: 0.5em 1.2em 1.2em;
 }
 
 #text {
 	height: 100%;
-	overflow: auto;
-	/* transform: skewX(calc(-1 * var(--text-box-skewX))); */
+	overflow: hidden;
+	position: relative;
 }
 
 #box {
@@ -40,6 +38,19 @@
 	transform: rotate(-40deg);
 }
 
+:host(.hasChildList) :is(#oLine, #oLineBack) {
+	animation: rotate 2s linear infinite;
+}
+
+@keyframes rotate {
+	0% {
+		transform: rotate(0deg);
+	}
+	100% {
+		transform: rotate(360deg);
+	}
+}
+
 #lineBack,
 #oLineBack {
 	filter: blur(max(var(--text-box-blur-width), 4px));
@@ -54,4 +65,29 @@
 	float: right;
 	height: 100%;
 	opacity: 0;
+}
+
+#nextMark {
+	display: none;
+	position: absolute;
+	inset-block-end: 0;
+	inset-inline-end: 0;
+	width: 8px;
+	height: 8px;
+	background-color: var(--text-box-color);
+	clip-path: polygon(0 0, 100% 0, 50% 100%);
+	animation: rotateY 2s linear infinite;
+}
+
+:host(.hasChildList:not(.last)) #nextMark {
+	display: block;
+}
+
+@keyframes rotateY {
+	0% {
+		transform: rotateY(0deg);
+	}
+	100% {
+		transform: rotateY(360deg);
+	}
 }

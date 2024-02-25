@@ -1,14 +1,15 @@
 <!-- <div id="box"></div>
 <div id="box-blur"></div> -->
-<svg id="box" viewBox="0 0 24 24">
-	<polyline id="line" />
-	<polyline id="lineBack" />
-	<polyline id="oLine" />
-	<polyline id="oLineBack" />
+<svg id="box" viewBox="0 0 24 24" part="svg">
+	<polyline id="line" part="line" />
+	<polyline id="lineBack" part="lineBack" />
+	<polyline id="oLine" part="oLine" />
+	<polyline id="oLineBack" part="oLineBack" />
 </svg>
 
-<div id="text">
+<div id="text" part="text">
 	<div id="leftShape"></div>
 	<div id="rightShape"></div>
-	<slot></slot>
+	<div id="textContent"></div>
+	<div id="nextMark" part="nextMark"></div>
 </div>
