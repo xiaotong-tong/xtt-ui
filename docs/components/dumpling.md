@@ -18,6 +18,7 @@ onMounted(async () => {
 
 <section class="wrap">
 	<xtt-dumpling-a></xtt-dumpling-a>
+	<xtt-dumpling-b></xtt-dumpling-b>
 </section>
 
 ```html

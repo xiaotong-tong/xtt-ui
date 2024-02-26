@@ -1,0 +1,61 @@
+:host {
+}
+
+:host {
+	display: block;
+}
+
+#container {
+	position: relative;
+	width: 200px;
+	height: 140px;
+	border: 2px solid #b98192;
+	background-color: #f7d7e2;
+	border-radius: 67% 68% 37% 37% / 67% 79% 55% 57%;
+}
+
+#left_eye,
+#right_eye {
+	position: absolute;
+	inset-block-start: 28%;
+	inset-inline-start: 40%;
+	width: 5px;
+	height: 28px;
+	background-color: #000;
+}
+
+#right_eye {
+	height: 30px;
+	inset-block-start: 27%;
+	inset-inline-start: 53%;
+}
+
+#left_blusher,
+#right_blusher {
+	position: absolute;
+	inset-block-start: 54%;
+	inset-inline-start: 19%;
+	width: 30px;
+	height: 30px;
+}
+
+#right_blusher {
+	inset-block-start: 50%;
+	inset-inline-start: 60%;
+}
+
+:is(#left_blusher, #right_blusher)::before {
+	content: "";
+	position: absolute;
+	inset: 0;
+	border-radius: 50% / 50%;
+	background-color: #f7b1bf;
+	filter: blur(2px);
+}
+
+.blu1,
+.blu2,
+.blu3,
+#mouth {
+	display: none;
+}
