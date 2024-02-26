@@ -1,7 +1,0 @@
-import{l as h,a3 as l,A as p,o as k,c as E,a4 as n,m as i}from"./chunks/framework.Kegde9V2.js";import"./chunks/com.l0sNRNKZ.js";import{G as d}from"./chunks/lil-gui.esm.xJ4335us.js";const o=n("",9),r=i("section",{class:"wrap"},[i("xtt-text-box-theme-a",{id:"skow",skew:"50"},[i("xtt-p",null,"first"),i("xtt-p",null,"second"),i("xtt-p",null,"third")])],-1),g=n("",1),c=[o,r,g],u=JSON.parse('{"title":"Text Box 文字框","description":"","frontmatter":{},"headers":[],"relativePath":"components/text-box-theme-a.md","filePath":"components/text-box-theme-a.md"}'),x={name:"components/text-box-theme-a.md"},A=Object.assign(x,{setup(y){let s;return h(async()=>{await Promise.all([l(()=>import("./chunks/xtt-text-box-theme-a.B-8Bfty5.js"),__vite__mapDeps([0,1,2,3]))]);const a=document.getElementById("operate");s=new d({container:document.querySelector(".operate-wrapper")});const e={content:"default",color:"#00bfff",skew:0};s.add(e,"content").onChange(t=>{a.textContent=t}),s.addColor(e,"color").onChange(t=>{a.style.setProperty("--text-box-color",t)}),s.add(e,"skew",0,100).onChange(t=>{a.skew=t})}),p(()=>{s.destroy()}),(a,e)=>(k(),E("div",null,c))}});export{u as __pageData,A as default};
-function __vite__mapDeps(indexes) {
-  if (!__vite__mapDeps.viteFileDeps) {
-    __vite__mapDeps.viteFileDeps = ["assets/chunks/xtt-text-box-theme-a.B-8Bfty5.js","assets/chunks/reflect.u-rLhaQE.js","assets/chunks/base.C5bbslE4.js","assets/chunks/index.esm.AN5-tQ0m.js"]
-  }
-  return indexes.map((i) => __vite__mapDeps.viteFileDeps[i])
-}

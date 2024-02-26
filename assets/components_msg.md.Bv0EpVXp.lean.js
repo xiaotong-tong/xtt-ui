@@ -1,0 +1,7 @@
+import{l as i,a3 as e,A as n,o as r,c as l,a4 as p}from"./chunks/framework.BBPsW2sD.js";import"./chunks/com.l0sNRNKZ.js";import{G as c}from"./chunks/lil-gui.esm.xJ4335us.js";const d=p("",6),_=[d],k=JSON.parse('{"title":"Msg 消息","description":"","frontmatter":{},"headers":[],"relativePath":"components/msg.md","filePath":"components/msg.md"}'),h={name:"components/msg.md"},v=Object.assign(h,{setup(m){let t;return i(async()=>{await Promise.all([e(()=>import("./chunks/xtt-button.ezONOxYR.js"),__vite__mapDeps([0,1,2,3,4,5,6])),e(()=>import("./chunks/xtt-text-edit.CLZviiGn.js"),__vite__mapDeps([7,2,3,4,5,6])),e(()=>import("./chunks/xtt-msg.BDlD2_26.js"),__vite__mapDeps([8,4,3,6]))]);const s=document.getElementById("operate");t=new c({container:document.querySelector(".operate-wrapper")});const a={content:"![随机数]()"};t.add(a,"content").onChange(o=>{s.textContent=o})}),n(()=>{t.destroy()}),(s,a)=>(r(),l("div",null,_))}});export{k as __pageData,v as default};
+function __vite__mapDeps(indexes) {
+  if (!__vite__mapDeps.viteFileDeps) {
+    __vite__mapDeps.viteFileDeps = ["assets/chunks/xtt-button.ezONOxYR.js","assets/chunks/button.BU2fW_CF.js","assets/chunks/form.BYvHcT4-.js","assets/chunks/base.C5bbslE4.js","assets/chunks/reflect.u-rLhaQE.js","assets/chunks/xtt-ui-utils.BrAGWgIr.js","assets/chunks/index.esm.AN5-tQ0m.js","assets/chunks/xtt-text-edit.CLZviiGn.js","assets/chunks/xtt-msg.BDlD2_26.js"]
+  }
+  return indexes.map((i) => __vite__mapDeps.viteFileDeps[i])
+}
