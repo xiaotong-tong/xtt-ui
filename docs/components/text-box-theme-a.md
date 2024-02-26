@@ -7,6 +7,7 @@ let gui;
 
 onMounted(async () => {
 	await Promise.all([
+		import("../../dist/xtt-text-enter.js"),
 		import("../../dist/xtt-text-box-theme-a.js"),
 	])
 
@@ -64,18 +65,18 @@ onUnmounted(() => {
 <section class="wrap">
 	<xtt-text-box-theme-a>a b c <i>d e f</i></xtt-text-box-theme-a>
 	<xtt-text-box-theme-a>
-		<xtt-p>first</xtt-p>
-		<xtt-p>second</xtt-p>
-		<xtt-p>third</xtt-p>
+		<xtt-p><xtt-text-enter>first</xtt-text-enter></xtt-p>
+		<xtt-p><xtt-text-enter>second</xtt-text-enter></xtt-p>
+		<xtt-p><xtt-text-enter>third</xtt-text-enter></xtt-p>
 	</xtt-text-box-theme-a>
 </section>
 
 ```html
 <xtt-text-box-theme-a>a b c <i>d e f</i></xtt-text-box-theme-a>
 <xtt-text-box-theme-a>
-	<xtt-p>first</xtt-p>
-	<xtt-p>second</xtt-p>
-	<xtt-p>third</xtt-p>
+	<xtt-p><xtt-text-enter>first</xtt-text-enter></xtt-p>
+	<xtt-p><xtt-text-enter>second</xtt-text-enter></xtt-p>
+	<xtt-p><xtt-text-enter>third</xtt-text-enter></xtt-p>
 </xtt-text-box-theme-a>
 ```
 

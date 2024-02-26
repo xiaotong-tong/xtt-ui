@@ -23,7 +23,8 @@ onMounted(async () => {
 		type: "default",
 		interval: 100,
 		reload() {
-			operate.reload();
+			operate.textContent = obj.content;
+			operate.refresh();
 		}
 	};
 
@@ -68,10 +69,13 @@ function reload() {
 
 <section class="wrap">
 	<xtt-text-enter>文字输入动画元素，提供丰富的样式和功能。</xtt-text-enter>
+	<br />
+	<xtt-text-enter>文字输入动画元素，提供丰富的样式和功能。 ![ruby](汉字@hanzi)</xtt-text-enter>
 </section>
 
 ```html
 <xtt-text-enter>文字输入动画元素，提供丰富的样式和功能。</xtt-text-enter>
+<xtt-text-enter>文字输入动画元素，提供丰富的样式和功能。 ![ruby](汉字@hanzi)</xtt-text-enter>
 ```
 
 ## type 样式
