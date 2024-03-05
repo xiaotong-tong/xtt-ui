@@ -202,4 +202,17 @@ export class xttButtonElement extends xttFormElementFactory("reflect") {
 
 		super.rtl = value;
 	}
+
+	get loading() {
+		return this.hasAttribute("loading");
+	}
+	set loading(value) {
+		if (value) {
+			if (this.loading !== true) {
+				this.toggleAttribute("loading", true);
+			}
+		} else {
+			this.removeAttribute("loading");
+		}
+	}
 }

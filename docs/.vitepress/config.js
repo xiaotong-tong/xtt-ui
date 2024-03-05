@@ -15,22 +15,30 @@ export default defineConfig({
 			{
 				text: "通用组件",
 				items: [
-					{ text: "Button", link: "/components/button" },
-					{
-						text: "text-button",
-						link: "/components/text-button"
-					},
 					{
 						text: "icon",
 						link: "/components/icon"
 					},
 					{
-						text: "icon-button",
-						link: "/components/icon-button"
+						text: "loading",
+						link: "/components/loading"
 					},
 					{
-						text: "link",
-						link: "/components/link"
+						text: "Button",
+						items: [
+							{
+								text: "button",
+								link: "/components/button"
+							},
+							{
+								text: "text-button",
+								link: "/components/text-button"
+							},
+							{
+								text: "icon-button",
+								link: "/components/icon-button"
+							}
+						]
 					},
 					{
 						text: "Text",
@@ -46,6 +54,10 @@ export default defineConfig({
 						]
 					},
 					{
+						text: "link",
+						link: "/components/link"
+					},
+					{
 						text: "Text Box",
 						items: [
 							{
@@ -55,29 +67,35 @@ export default defineConfig({
 						]
 					},
 					{
+						text: "表单元素",
+						items: [
+							{
+								text: "select",
+								link: "/components/select"
+							},
+							{
+								text: "input",
+								link: "/components/input"
+							},
+							{
+								text: "numberfield",
+								link: "/components/numberfield"
+							},
+							{
+								text: "textarea",
+								link: "/components/textarea"
+							},
+							{
+								text: "text-edit",
+								link: "/components/text-edit"
+							}
+						]
+					},
+					{
 						text: "dumpling",
 						link: "/components/dumpling"
 					},
-					{
-						text: "select",
-						link: "/components/select"
-					},
-					{
-						text: "input",
-						link: "/components/input"
-					},
-					{
-						text: "numberfield",
-						link: "/components/numberfield"
-					},
-					{
-						text: "textarea",
-						link: "/components/textarea"
-					},
-					{
-						text: "text-edit",
-						link: "/components/text-edit"
-					},
+
 					{
 						text: "list",
 						link: "/components/list"

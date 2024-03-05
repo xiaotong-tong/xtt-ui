@@ -47,6 +47,7 @@ export default [
 	{
 		input: {
 			"xtt-icon": "components/xtt-icon.js",
+			"xtt-loading": "components/xtt-loading.js",
 			"xtt-text": "components/xtt-text.js",
 			"xtt-text-enter": "components/xtt-text-enter.js",
 			"xtt-text-box-theme-a": "components/xtt-text-box-theme-a.js",

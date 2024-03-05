@@ -39,6 +39,11 @@ export class xttIconElement extends xttBaseElement {
 			musicNote: mdiMusicNote
 		};
 
+		if (this.role === "img") {
+			// 当 role 为 img 时，设置 aria-label 属性，以便屏幕阅读器读取
+			this.setAttribute("aria-label", iconName);
+		}
+
 		this.innerHTML = iconMap[iconName] ? this.#getSvg(iconMap[iconName]) : "";
 	}
 

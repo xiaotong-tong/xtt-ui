@@ -87,6 +87,10 @@
 	transition: background-color 0.2s;
 }
 
+:host([rtl]) {
+	direction: rtl;
+}
+
 /* 检测设备是否支持 hover */
 /* 将 hover 样式统一放到该区域进行管理 */
 @media (hover: hover) {
@@ -115,4 +119,12 @@
 	text-align: start;
 	/* 优化多行文本的每行文本显示字符数 */
 	text-wrap: balance;
+}
+
+#loading {
+	display: none;
+}
+:host([loading]) #loading {
+	display: inline-flex;
+	margin-inline-end: 0.5em;
 }

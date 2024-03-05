@@ -8,6 +8,7 @@ let gui;
 onMounted(async () => {
 	await Promise.all([
 		import("../../dist/xtt-tooltip.js"),
+		import("../../dist/xtt-loading.js"),
 		import("../../dist/xtt-button.js"),
 	])
 
@@ -22,6 +23,7 @@ onMounted(async () => {
 		maxWidth: -1,
 		type: "default",
 		line: 1,
+		loading: false,
 		block: false,
 		size: "default",
 		disabled: false,
@@ -44,6 +46,9 @@ onMounted(async () => {
 			return;
 		}
 		operate.line = value;
+	});
+	gui.add(obj, "loading").onChange((value) => {
+		operate.loading = value;
 	});
 	gui.add(obj, "block").onChange((value) => {
 		operate.block = value;
@@ -189,4 +194,16 @@ type 会更改按钮的显示风格，目前支持 6 种风格，分别为 prima
 <xtt-button style="max-width: 200px" rtl
 	>long long long long long long long long text with max width is 200px</xtt-button
 >
+```
+
+## loading
+
+按钮的加载状态
+
+<section class="wrap">
+	<xtt-button loading>loading...</xtt-button>
+</section>
+
+```html
+<xtt-button loading>loading...</xtt-button>
 ```
