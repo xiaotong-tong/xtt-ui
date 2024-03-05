@@ -9,8 +9,8 @@
 }
 
 #loading {
-	width: var(--loading-size, var(--loading-default-size, 16px));
-	height: var(--loading-size, var(--loading-default-size, 16px));
+	width: 1em;
+	height: 1em;
 	mask: conic-gradient(transparent 45deg, #000);
 	animation: rotate 2s linear infinite;
 }

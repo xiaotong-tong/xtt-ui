@@ -8,7 +8,8 @@ export default defineConfig({
 		// https://vitepress.dev/reference/default-theme-config
 		nav: [
 			{ text: "首页", link: "/" },
-			{ text: "组件", link: "/components/button" }
+			{ text: "组件", link: "/components/button" },
+			{ text: "外链", items: [{ text: "lil-gui", link: "https://lil-gui.georgealways.com/" }] }
 		],
 
 		sidebar: [
