@@ -1,7 +1,6 @@
 :host {
 	--hl-font-color: inherit;
 	--hl-font-color-hover: inherit;
-	--hl-highlight-color: #ce9178;
 }
 
 :host([type="primary"]) {
@@ -32,8 +31,4 @@
 	:host(:hover) {
 		color: var(--hl-font-color-hover, inherit);
 	}
-}
-
-:host ::highlight(xtt-highlight) {
-	color: #ce9178;
 }

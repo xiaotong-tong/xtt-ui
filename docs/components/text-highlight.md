@@ -18,18 +18,18 @@ onMounted(async () => {
 
 	const obj = {
 		content: "default",
-		type: "default",
+		search: "fa",
+		searchColor: "yellow"
 	};
 
 	gui.add(obj, "content").onChange((value) => {
 		operate.textContent = value;
 	});
-	gui.add(obj, "type", ["default", "primary", "danger","success", "warning"]).onChange((value) => {
-		if (value === "default") {
-			operate.removeAttribute("type");
-			return;
-		}
-		operate.type = value
+	gui.add(obj, "search").onChange((value) => {
+		operate.search = value;
+	});
+	gui.addColor(obj, "searchColor").onChange((value) => {
+		operate.searchColor = value;
 	});
 	
 
@@ -40,9 +40,9 @@ onUnmounted(() => {
 });
 </script>
 
-# Text 文字
+# Text Highlight 文字高亮
 
-文字元素，提供丰富的样式和功能。
+文字高亮组件，用于高亮文字。
 
 <section class="operate-wrapper">
 	<div class="operate-content">
@@ -52,30 +52,16 @@ onUnmounted(() => {
 
 ## 基础用法
 
+使用 `search` 属性来指定需要高亮的文字。使用 `search-color` 属性来指定高亮的颜色。
+
+`search` 属性为正则表达式字符串。
+
 <section class="wrap">
 	<xtt-text-hl search="ex">text</xtt-text-hl>
+	<xtt-text-hl search="i|l|h" search-color="red">this is the highlight custom element</xtt-text-hl>
 </section>
 
 ```html
 <xtt-text-hl search="ex">text</xtt-text-hl>
-```
-
-## type 样式
-
-type 会更改按钮的显示风格，目前支持 5 种风格，分别为 primary、danger、success、warning、default
-
-<section class="wrap">
-	<xtt-text-hl type="primary">primary</xtt-text-hl>
-	<xtt-text-hl type="danger">danger</xtt-text-hl>
-	<xtt-text-hl type="success">success</xtt-text-hl>
-	<xtt-text-hl type="warning">warning</xtt-text-hl>
-	<xtt-text-hl>default</xtt-text-hl>
-</section>
-
-```html
-<xtt-text-hl type="primary">primary</xtt-text-hl>
-<xtt-text-hl type="danger">danger</xtt-text-hl>
-<xtt-text-hl type="success">success</xtt-text-hl>
-<xtt-text-hl type="warning">warning</xtt-text-hl>
-<xtt-text-hl>default</xtt-text-hl>
+<xtt-text-hl search="i|l|h" search-color="red">this is the highlight custom element</xtt-text-hl>
 ```

@@ -1,32 +1,42 @@
 import { xttRelectElement } from "../com/reflect.js";
 import style from "./index.css" assert { type: "css" };
+import html from "./index.html";
 import { uniqueNumber } from "../../utils/xtt-ui-utils.js";
 
 export class xttTextHighLightElement extends xttRelectElement {
-	static templateContent = `<slot></slot>`;
+	static templateContent = html;
 	static stylesContent = [...super.stylesContent, style];
 
 	static get observedAttributes() {
-		return ["search"];
+		return ["search", "search-color"];
 	}
 
-	hlName;
+	hlName = "xtt-highlight-" + uniqueNumber();
 
 	connectedCallback() {
 		super.connectedCallback();
 
-		this.hlName = "xtt-highlight-" + uniqueNumber();
-
-		const sheet = new CSSStyleSheet();
-		sheet.replaceSync(`:host ::highlight(${this.hlName}) { color: var(--hl-highlight-color, #ce9178); }`);
-		shadow.adoptedStyleSheets.push(sheet);
+		// 如果 style 元素内容为空，则设置默认样式
+		if (!this.#style.textContent) {
+			this.#style.textContent = `:host ::highlight(${this.hlName}) { color: hsl(45deg 100% 50%); }`;
+		}
 
 		this.#changeHighlight();
+	}
+
+	disconnectedCallback() {
+		// 如果存在高亮，则删除
+		if (CSS.highlights.has(this.hlName)) {
+			CSS.highlights.delete(this.hlName);
+		}
+		super.disconnectedCallback();
 	}
 
 	attributeChangedCallback(name, oldValue, newValue) {
 		if (name === "search") {
 			this.search = newValue;
+		} else if (name === "search-color") {
+			this.searchColor = newValue;
 		}
 
 		super.attributeChangedCallback?.(name, oldValue, newValue);
@@ -34,6 +44,10 @@ export class xttTextHighLightElement extends xttRelectElement {
 
 	_reflectElementAdded() {
 		this.#changeHighlight();
+	}
+
+	get #style() {
+		return this.shadowRoot.querySelector("style");
 	}
 
 	#changeHighlight() {
@@ -91,5 +105,21 @@ export class xttTextHighLightElement extends xttRelectElement {
 			this.setAttribute("search", value);
 			this.#changeHighlight();
 		}
+	}
+
+	get searchColor() {
+		return this.getAttribute("search-color");
+	}
+	set searchColor(value) {
+		if (value === null) {
+			this.removeAttribute("search-color");
+			return;
+		}
+
+		if (this.searchColor !== value) {
+			this.setAttribute("search-color", value);
+		}
+
+		this.#style.textContent = `:host ::highlight(${this.hlName}) { color: ${value}; }`;
 	}
 }
