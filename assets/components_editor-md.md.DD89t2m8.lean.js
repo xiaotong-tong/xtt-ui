@@ -1,0 +1,7 @@
+function __vite__mapDeps(indexes) {
+  if (!__vite__mapDeps.viteFileDeps) {
+    __vite__mapDeps.viteFileDeps = ["assets/chunks/xtt-markdown.wgWSUJMt.js","assets/chunks/reflect.u-rLhaQE.js","assets/chunks/base.C5bbslE4.js","assets/chunks/xtt-textarea.K7cLUvLG.js","assets/chunks/input.8_7_4FYl.js","assets/chunks/form.WS_BBDnf.js","assets/chunks/xtt-ui-utils.BGf_aNN0.js","assets/chunks/index.esm.AN5-tQ0m.js","assets/chunks/xtt-editor-md.Bd2kiAm2.js"]
+  }
+  return indexes.map((i) => __vite__mapDeps.viteFileDeps[i])
+}
+import{l as n,a3 as o,A as r,o as d,c as l,a4 as p}from"./chunks/framework.Bf_irgTK.js";import"./chunks/com.l0sNRNKZ.js";import{G as c}from"./chunks/lil-gui.esm.CG3y4PpH.js";const _=p("",6),h=[_],v=JSON.parse('{"title":"Editor Md 编辑器","description":"","frontmatter":{},"headers":[],"relativePath":"components/editor-md.md","filePath":"components/editor-md.md"}'),m={name:"components/editor-md.md"},x=Object.assign(m,{setup(u){let t;return n(async()=>{await Promise.all([o(()=>import("./chunks/xtt-markdown.wgWSUJMt.js"),__vite__mapDeps([0,1,2])),o(()=>import("./chunks/xtt-textarea.K7cLUvLG.js"),__vite__mapDeps([3,4,5,2,1,6,7])),o(()=>import("./chunks/xtt-editor-md.Bd2kiAm2.js"),__vite__mapDeps([8,2]))]);const e=document.getElementById("operate");t=new c({container:document.querySelector(".operate-wrapper")});const i={content:""},s=t.add(i,"content").onChange(a=>{e.textContent=a});e.addEventListener("input",a=>{s.setValue(a.target.textContent)})}),r(()=>{t.destroy()}),(e,i)=>(d(),l("div",null,h))}});export{v as __pageData,x as default};
