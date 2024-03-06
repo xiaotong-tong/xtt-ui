@@ -1,7 +1,0 @@
-function __vite__mapDeps(indexes) {
-  if (!__vite__mapDeps.viteFileDeps) {
-    __vite__mapDeps.viteFileDeps = ["assets/chunks/xtt-button.D3Fh64Lo.js","assets/chunks/button.StUU272x.js","assets/chunks/form.WS_BBDnf.js","assets/chunks/base.C5bbslE4.js","assets/chunks/reflect.u-rLhaQE.js","assets/chunks/xtt-ui-utils.BGf_aNN0.js","assets/chunks/index.esm.AN5-tQ0m.js","assets/chunks/xtt-text-edit.jkroLXn0.js","assets/chunks/xtt-msg.CuF5q84F.js"]
-  }
-  return indexes.map((i) => __vite__mapDeps.viteFileDeps[i])
-}
-import{l as i,a3 as e,A as n,o as r,c as l,a4 as p}from"./chunks/framework.Bf_irgTK.js";import"./chunks/com.l0sNRNKZ.js";import{G as c}from"./chunks/lil-gui.esm.CG3y4PpH.js";const d=p("",6),_=[d],k=JSON.parse('{"title":"Msg 消息","description":"","frontmatter":{},"headers":[],"relativePath":"components/msg.md","filePath":"components/msg.md"}'),h={name:"components/msg.md"},v=Object.assign(h,{setup(m){let t;return i(async()=>{await Promise.all([e(()=>import("./chunks/xtt-button.D3Fh64Lo.js"),__vite__mapDeps([0,1,2,3,4,5,6])),e(()=>import("./chunks/xtt-text-edit.jkroLXn0.js"),__vite__mapDeps([7,2,3,4,5,6])),e(()=>import("./chunks/xtt-msg.CuF5q84F.js"),__vite__mapDeps([8,4,3,6]))]);const s=document.getElementById("operate");t=new c({container:document.querySelector(".operate-wrapper")});const a={content:"![随机数]()"};t.add(a,"content").onChange(o=>{s.textContent=o})}),n(()=>{t.destroy()}),(s,a)=>(r(),l("div",null,_))}});export{k as __pageData,v as default};
