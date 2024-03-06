@@ -1,15 +1,23 @@
 /**
+ * 获取一个自增的唯一的数字
+ * @returns {number}
+ */
+export const uniqueNumber = () => {
+	return uniqueNumber.uId++;
+};
+uniqueNumber.uId = 0;
+
+/**
  * 给元素添加唯一 ID 值
  * @param {HTMLElement} element
  * @returns {HTMLElement}
  */
 export const uniqueId = (element) => {
 	if (!element.id) {
-		element.id = "xttId" + ++uniqueId.uId;
+		element.id = "xttId" + uniqueNumber();
 	}
 	return element;
 };
-uniqueId.uId = 0;
 
 /**
  * @param {HTMLElement} el

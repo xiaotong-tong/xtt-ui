@@ -1,0 +1,39 @@
+:host {
+	--hl-font-color: inherit;
+	--hl-font-color-hover: inherit;
+	--hl-highlight-color: #ce9178;
+}
+
+:host([type="primary"]) {
+	--hl-font-color: var(--primary-color);
+	--hl-font-color-hover: var(--primary-light-color);
+}
+
+:host([type="success"]) {
+	--hl-font-color: var(--success-color);
+	--hl-font-color-hover: var(--success-light-color);
+}
+:host([type="danger"]) {
+	--hl-font-color: var(--danger-color);
+	--hl-font-color-hover: var(--danger-light-color);
+}
+:host([type="warning"]) {
+	--hl-font-color: var(--warning-color);
+	--hl-font-color-hover: var(--warning-light-color);
+}
+
+/* 默认是 inline 元素 */
+:host {
+	display: inline;
+	color: var(--hl-font-color, inherit);
+}
+
+@media (hover: hover) {
+	:host(:hover) {
+		color: var(--hl-font-color-hover, inherit);
+	}
+}
+
+:host ::highlight(xtt-highlight) {
+	color: #ce9178;
+}

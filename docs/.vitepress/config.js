@@ -51,6 +51,10 @@ export default defineConfig({
 							{
 								text: "text-enter",
 								link: "/components/text-enter"
+							},
+							{
+								text: "text-highlight",
+								link: "/components/text-highlight"
 							}
 						]
 					},
