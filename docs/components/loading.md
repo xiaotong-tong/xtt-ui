@@ -20,6 +20,7 @@ onMounted(async () => {
 		fontSize: 16,
 		color: "#3c3c3c",
 		'stroke-width': 16,
+		'r': 52
 	};
 
 	gui.add(obj, "fontSize").onChange((val) => {
@@ -32,6 +33,10 @@ onMounted(async () => {
 
 	gui.add(obj, "stroke-width", 0).onChange((val) => {
 		operate.style.setProperty("--loading-stroke-width", val);
+	});
+
+	gui.add(obj, "r", 0).onChange((val) => {
+		operate.style.setProperty("--loading-r", val );
 	});
 
 });
@@ -51,7 +56,7 @@ onUnmounted(() => {
 	</div>
 </section>
 
-stroke-width 不能设置太大，当值过大会导致圆弧不圆滑，如果想要更大的圆弧，可以自行更改 ::part(path) 的 d 属性。注意 d 属性 safari 不支持。
+stroke-width 和 r 不能设置太大，当值超过 viewBox 边界后导致圆弧一部分消失而不圆滑。
 
 ## 基础用法
 

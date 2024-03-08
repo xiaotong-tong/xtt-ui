@@ -1,5 +1,6 @@
 :host {
 	--loading-stroke-width: 16;
+	--loading-r: 52;
 }
 
 :host {
@@ -15,11 +16,13 @@
 	animation: rotate 2s linear infinite;
 }
 
-#path {
+#circle {
 	fill: none;
 	stroke: currentColor;
 	stroke-width: var(--loading-stroke-width, 16);
-	d: path("M64 12 A52 52 0 0 1 64 116 A52 52 0 0 1 64 12Z");
+	cx: 64;
+	cy: 64;
+	r: var(--loading-r, 52);
 }
 
 @keyframes rotate {
