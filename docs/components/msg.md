@@ -7,8 +7,6 @@ let gui;
 
 onMounted(async () => {
 	await Promise.all([
-		import("../../dist/xtt-button.js"),
-		import("../../dist/xtt-text-edit.js"),
 		import("../../dist/xtt-msg.js"),
 	])
 
@@ -46,9 +44,50 @@ onUnmounted(() => {
 ## 基础用法
 
 <section class="wrap">
-	<xtt-msg></xtt-msg>
+	<xtt-msg>![随机数]()</xtt-msg>
 </section>
 
 ```html
-<xtt-msg></xtt-msg>
+<xtt-msg>![随机数]()</xtt-msg>
+```
+
+## 随机数
+
+<section class="wrap">
+	<xtt-msg>![随机数]()</xtt-msg>
+	<xtt-msg>![random](1-->>10)</xtt-msg>
+	<xtt-msg>![r](1-->>10)</xtt-msg>
+</section>
+
+```html
+<xtt-msg>![随机数]()</xtt-msg>
+<xtt-msg>![random](1-->>10)</xtt-msg>
+<xtt-msg>![r](1-->>10)</xtt-msg>
+```
+
+## 计算
+
+<section class="wrap">
+	<xtt-msg>![计算](3+2)</xtt-msg>
+	<xtt-msg>![calc](![计算](3+15)-![计算](2*3))</xtt-msg>
+</section>
+
+```html
+<xtt-msg>![计算](3+2)</xtt-msg>
+
+<xtt-msg>![calc](![计算](3+15)-![计算](2*3))</xtt-msg>
+```
+
+## 判断
+
+<section class="wrap">
+	<xtt-msg>![判断](3>2-->>1-->>0)</xtt-msg>
+	<xtt-msg>![judge]('b'>'a'-->>1-->>0)</xtt-msg>
+	<xtt-msg>![if](3!==3-->>1-->>0)</xtt-msg>
+</section>
+
+```html
+<xtt-msg>![判断](3>2-->>1-->>0)</xtt-msg>
+<xtt-msg>![judge]('b'>'a'-->>1-->>0)</xtt-msg>
+<xtt-msg>![if](3!==3-->>1-->>0)</xtt-msg>
 ```

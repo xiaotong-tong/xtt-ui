@@ -1,35 +1,11 @@
 :host {
-	display: flex;
-	font-size: 14px;
+	display: block;
 	width: 100%;
 }
 
-#left {
-	width: calc((100% - 100px) / 5 * 3);
-}
-
-#right {
-	width: calc((100% - 100px) / 5 * 2);
-	border: thin solid silver;
-	padding: 4px 8px;
-}
-
-#right .heimu {
+.heimu {
 	background-color: currentColor;
 }
-#right .heimu:hover {
+.heimu:hover {
 	background-color: transparent;
-}
-
-#center {
-	width: 100px;
-	display: flex;
-	align-content: center;
-	justify-content: center;
-	flex-wrap: wrap;
-	color: #4fc1ff;
-}
-
-:host ::highlight(xtt-highlight) {
-	color: #ce9178;
 }
