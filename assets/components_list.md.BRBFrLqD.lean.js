@@ -1,0 +1,7 @@
+function __vite__mapDeps(indexes) {
+  if (!__vite__mapDeps.viteFileDeps) {
+    __vite__mapDeps.viteFileDeps = ["assets/chunks/xtt-list.CBEz0Nu7.js","assets/chunks/reflect.u-rLhaQE.js","assets/chunks/base.C5bbslE4.js"]
+  }
+  return indexes.map((i) => __vite__mapDeps.viteFileDeps[i])
+}
+import{l,a3 as e,A as h,o as n,c as k,a4 as p}from"./chunks/framework.BHEL0V5B.js";import"./chunks/com.l0sNRNKZ.js";import{G as E}from"./chunks/lil-gui.esm.CG3y4PpH.js";const d=p("",19),g=[d],c=JSON.parse('{"title":"List 列表","description":"","frontmatter":{},"headers":[],"relativePath":"components/list.md","filePath":"components/list.md"}'),m={name:"components/list.md"},I=Object.assign(m,{setup(r){let i;return l(async()=>{await Promise.all([e(()=>import("./chunks/xtt-list.CBEz0Nu7.js"),__vite__mapDeps([0,1,2]))]);const a=document.getElementById("operate");i=new E({container:document.querySelector(".operate-wrapper")});const t={width:300,0:1,100:2,200:4,300:6,cols:3,setCols:function(){a.cols=t.cols===0?null:t.cols}};i.add(t,"width",0,400).onChange(s=>{a.style.width=`${s}px`}),i.add(t,"0",0,10,1),i.add(t,"100",0,10,1),i.add(t,"200",0,10,1),i.add(t,"300",0,10,1),a.addEventListener("xtt-resize",s=>{s.detail.width>=300?s.detail.next=t[300]:s.detail.width>=200?s.detail.next=t[200]:s.detail.width>=100?s.detail.next=t[100]:s.detail.next=t[0]}),i.add(t,"cols",0,10,1),i.add(t,"setCols")}),h(()=>{i.destroy()}),(a,t)=>(n(),k("div",null,g))}});export{c as __pageData,I as default};
