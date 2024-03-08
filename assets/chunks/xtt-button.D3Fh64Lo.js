@@ -1,1 +1,0 @@
-import{x as t}from"./button.StUU272x.js";import"./form.WS_BBDnf.js";import"./base.C5bbslE4.js";import"./reflect.u-rLhaQE.js";import"./xtt-ui-utils.BGf_aNN0.js";import"./index.esm.AN5-tQ0m.js";customElements.define("xtt-button",t);
