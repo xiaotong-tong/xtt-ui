@@ -35,7 +35,7 @@ onUnmounted(() => {
 });
 </script>
 
-# Msg 消息
+# Msg 文本处理
 
 xtt-msg 为自用字符串解析器。传入一些字符串，会按照书写格式返回解析后的字符串结果。
 
@@ -394,4 +394,18 @@ xtt-msg 为自用字符串解析器。传入一些字符串，会按照书写格
 
 ```html
 <xtt-msg>![当前时间]()</xtt-msg>
+```
+
+## 返回
+
+返回当前时间
+
+`![返回](文本)`
+
+<section class="wrap">
+	<xtt-msg>![文本-反转文本](Hello World!![返回](hi-->>0))</xtt-msg>
+</section>
+
+```html
+<xtt-msg>![文本-反转文本](Hello World!![返回](hi))</xtt-msg>
 ```

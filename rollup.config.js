@@ -71,9 +71,10 @@ export default [
 
 			"xtt-dumpling": "components/xtt-dumpling.js",
 
+			"xtt-msg": "components/xtt-msg.js",
+
 			// 以下为没有打包到 index 中的组件, 想要使用的话需要单独手动引入
 			"xtt-web-bg": "components/xtt-web-bg.js",
-			"xtt-msg": "components/xtt-msg.js",
 			"xtt-list-next": "components/xtt-list-next.js",
 
 			// 未完成的组件，暂时不打包
@@ -81,6 +82,9 @@ export default [
 			"xtt-grid-column": "components/xtt-grid-column.js"
 		},
 		output: {
+			// manualChunks: {
+			// 	xttMsg: ["xtt-msg"]
+			// },
 			dir: "dist",
 			entryFileNames: "[name].js",
 			preserveModules: true,
