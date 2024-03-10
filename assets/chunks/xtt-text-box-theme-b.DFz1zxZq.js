@@ -1,0 +1,6 @@
+var l=Object.defineProperty;var d=Object.getPrototypeOf;var b=Reflect.get;var p=(e,t,n)=>t in e?l(e,t,{enumerable:!0,configurable:!0,writable:!0,value:n}):e[t]=n;var o=(e,t,n)=>(p(e,typeof t!="symbol"?t+"":t,n),n);var a=(e,t,n)=>b(d(e),n,t);import{x as c}from"./base.C5bbslE4.js";const s=new CSSStyleSheet;s.replaceSync(":host {--text-box-border-color:#000;--text-box-outline-color:var(--text-box-border-color);--text-box-innerline-color:var(--text-box-border-color);}:host {display:inline-block;}#box {position:relative;padding:max(0.5em,6px);}#outline {position:absolute;inset:0;border:thin solid var(--text-box-outline-color);mask:linear-gradient(-45deg,#000 0%,#00000066 30%,transparent 40%,transparent 60%,#00000066 70%,#000);}#innerline {position:absolute;inset:3px;border:thin solid var(--text-box-innerline-color);mask:linear-gradient(-45deg,transparent 0%,transparent 2%,#000000 2%,#00000099 20%,transparent 30%,transparent 70%,#00000099 80%,#000000 98%,transparent 98%,transparent);}");var u=`<div id="box">
+	<div id="outline"></div>
+	<div id="innerline"></div>
+	<slot></slot>
+</div>
+`;const r=class r extends c{static get observedAttributes(){return[]}attributeChangedCallback(t,n,v){}};o(r,"templateContent",u),o(r,"stylesContent",[...a(r,r,"stylesContent"),s]);let i=r;customElements.define("xtt-text-box-theme-b",i);
