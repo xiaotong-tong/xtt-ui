@@ -29,10 +29,7 @@ export class xttMsgElement extends xttRelectElement {
 		if (!text) {
 			return;
 		}
-		const flag = text + Date.now();
-		console.time(flag);
 		this.#body.innerHTML = await replace(text);
-		console.timeEnd(flag);
 	}
 
 	get #body() {

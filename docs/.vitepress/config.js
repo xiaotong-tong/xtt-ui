@@ -25,6 +25,10 @@ export default defineConfig({
 						link: "/components/loading"
 					},
 					{
+						text: "msg",
+						link: "/components/msg"
+					},
+					{
 						text: "Button",
 						items: [
 							{
@@ -132,10 +136,6 @@ export default defineConfig({
 					{
 						text: "sound",
 						link: "/components/sound"
-					},
-					{
-						text: "msg",
-						link: "/components/msg"
 					},
 					{
 						text: "dialog",
