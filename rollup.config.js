@@ -51,6 +51,7 @@ export default [
 			"xtt-text": "components/xtt-text.js",
 			"xtt-text-enter": "components/xtt-text-enter.js",
 			"xtt-text-box-theme-a": "components/xtt-text-box-theme-a.js",
+			"xtt-text-box-theme-b": "components/xtt-text-box-theme-b.js",
 			"xtt-text-highlight": "components/xtt-text-highlight.js",
 			"xtt-button": "components/xtt-button.js",
 			"xtt-text-button": "components/xtt-text-button.js",

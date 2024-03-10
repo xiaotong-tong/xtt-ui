@@ -72,6 +72,10 @@ export default defineConfig({
 							{
 								text: "text-box-theme-a",
 								link: "/components/text-box-theme-a"
+							},
+							{
+								text: "text-box-theme-b",
+								link: "/components/text-box-theme-b"
 							}
 						]
 					},

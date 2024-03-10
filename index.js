@@ -19,6 +19,7 @@ import "./components/xtt-sound.js";
 import "./components/xtt-text.js";
 import "./components/xtt-text-enter.js";
 import "./components/xtt-text-box-theme-a.js";
+import "./components/xtt-text-box-theme-b.js";
 import "./components/xtt-dumpling.js";
 import "./components/xtt-text-highlight.js";
 import "./components/xtt-msg.js";
