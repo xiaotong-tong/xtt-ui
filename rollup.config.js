@@ -73,6 +73,7 @@ export default [
 			"xtt-dumpling": "components/xtt-dumpling.js",
 
 			"xtt-msg": "components/xtt-msg.js",
+			"xtt-list-masonry": "components/xtt-list-masonry.js",
 
 			// 以下为没有打包到 index 中的组件, 想要使用的话需要单独手动引入
 			"xtt-web-bg": "components/xtt-web-bg.js",

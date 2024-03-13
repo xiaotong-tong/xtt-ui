@@ -118,6 +118,10 @@ export default defineConfig({
 						link: "/components/list-next"
 					},
 					{
+						text: "list-masonry",
+						link: "/components/list-masonry"
+					},
+					{
 						text: "markdown",
 						link: "/components/markdown"
 					},

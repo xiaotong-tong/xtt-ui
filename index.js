@@ -23,3 +23,4 @@ import "./components/xtt-text-box-theme-b.js";
 import "./components/xtt-dumpling.js";
 import "./components/xtt-text-highlight.js";
 import "./components/xtt-msg.js";
+import "./components/xtt-list-masonry.js";

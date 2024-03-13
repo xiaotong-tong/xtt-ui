@@ -1,0 +1,32 @@
+:host {
+	--list-padding: 8px;
+
+	--list-border-color: silver;
+	--list-border: thin solid var(--list-border-color);
+}
+
+:host {
+	display: block;
+	overflow: hidden;
+}
+
+#list {
+	width: 100%;
+	box-sizing: border-box;
+	position: relative;
+	display: block;
+	border: var(--list-border);
+	padding: var(--list-padding, 8px);
+}
+
+ul {
+	margin: 0;
+	padding: 0;
+}
+
+::slotted(xtt-list-item) {
+	display: block;
+	position: absolute;
+	top: 0;
+	left: 0;
+}
