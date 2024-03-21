@@ -50,16 +50,16 @@ onMounted(async () => {
 
 <section class="wrap">
 	<xtt-list-masonry style="resize: horizontal">
-		<xtt-list-item v-for="(item, index) in lists">
+		<xtt-list-masonry-item v-for="(item, index) in lists">
 			<div :style="{ background: item.background, height: item.height, width: item.width }">{{index}}</div>
-		</xtt-list-item>
+		</xtt-list-masonry-item>
 	</xtt-list-masonry>
 </section>
 
 ```html
 <xtt-list-masonry style="resize: horizontal">
-	<xtt-list-item v-for="(item, index) in lists">
+	<xtt-list-masonry-item v-for="(item, index) in lists">
 		<div :style="{ background: item.background, height: item.height, width: item.width }">{{index}}</div>
-	</xtt-list-item>
+	</xtt-list-masonry-item>
 </xtt-list-masonry>
 ```

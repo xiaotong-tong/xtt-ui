@@ -1,7 +1,36 @@
 import { xttRelectElement } from "../com/reflect.js";
 import style from "./index.css" assert { type: "css" };
+import itemStyle from "./list-masonry-item.css" assert { type: "css" };
 import html from "./index.html";
 import { css } from "xtt-utils";
+
+export class xttListMasonryItemElement extends xttRelectElement {
+	static templateContent = "<slot></slot>";
+	static stylesContent = [...super.stylesContent, itemStyle];
+	static observeOptions = { childList: true, subtree: true };
+
+	static get observedAttributes() {
+		return [];
+	}
+
+	constructor() {
+		super();
+	}
+
+	connectedCallback() {
+		super.connectedCallback();
+	}
+
+	disconnectedCallback() {
+		super.disconnectedCallback();
+	}
+
+	_reflectElementAdded(node) {
+		this.onChildrenAddedCallback(node);
+	}
+
+	onChildrenAddedCallback = Function.prototype;
+}
 
 export class xttListMasonryElement extends xttRelectElement {
 	static templateContent = html;
@@ -37,7 +66,7 @@ export class xttListMasonryElement extends xttRelectElement {
 		// 启动响应式布局时自动触发一次 resize 函数，以便初始化列数
 		this.#resize(this.#list.getBoundingClientRect());
 
-		this.querySelectorAll("xtt-list-item").forEach(this.#listItemAdded);
+		this.querySelectorAll("xtt-list-masonry-item").forEach(this.#listItemAdded);
 	}
 
 	disconnectedCallback() {
@@ -52,7 +81,7 @@ export class xttListMasonryElement extends xttRelectElement {
 	}
 
 	_reflectElementAdded(node) {
-		if (node?.tagName === "XTT-LIST-ITEM") {
+		if (node?.tagName === "XTT-LIST-MASONRY-ITEM") {
 			this.#listItemAdded(node);
 		}
 		this.onChildrenAddedCallback(node);
@@ -60,7 +89,12 @@ export class xttListMasonryElement extends xttRelectElement {
 
 	#listItemAdded = (item) => {
 		item.role = "listitem";
+
 		this.#initItem(item);
+
+		item.onChildrenAddedCallback = () => {
+			this.#initItem(item);
+		};
 	};
 
 	get #list() {
@@ -83,7 +117,7 @@ export class xttListMasonryElement extends xttRelectElement {
 	}
 
 	#init() {
-		const items = this.querySelectorAll("xtt-list-item");
+		const items = this.querySelectorAll("xtt-list-masonry-item");
 		const colCount = this.#activeColCount || this.cols;
 		this.colHeights = Array(colCount).fill(0);
 
