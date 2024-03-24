@@ -23,3 +23,12 @@
 .wrap > :not([block]) {
 	margin-inline-end: 16px;
 }
+
+@font-face {
+	font-family: "喜鹊万人造字体";
+	src: url(../fonts/喜鹊万人造字体.woff2) format("woff2");
+}
+
+xtt-button-rough {
+	font-family: "喜鹊万人造字体";
+}

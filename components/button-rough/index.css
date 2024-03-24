@@ -1,0 +1,19 @@
+:host {
+	position: relative;
+	border: none;
+	--button-border-width: 1px;
+}
+
+#svg {
+	position: absolute;
+	inset: 0;
+	z-index: -1;
+}
+
+/* 检测设备是否支持 hover */
+/* 将 hover 样式统一放到该区域进行管理 */
+@media (hover: hover) {
+	:host(:not([type="base"]):hover) {
+		--button-border-color: var(--button-border-color-hover);
+	}
+}

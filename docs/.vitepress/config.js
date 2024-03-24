@@ -42,6 +42,10 @@ export default defineConfig({
 							{
 								text: "icon-button",
 								link: "/components/icon-button"
+							},
+							{
+								text: "button-rough",
+								link: "/components/button-rough"
 							}
 						]
 					},
